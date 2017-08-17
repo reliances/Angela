@@ -172,14 +172,14 @@ public class ProductController extends BaseController {
 	
 	//修改商品
 	@RequestMapping("/updateProduct")
-	public String updateProduct(Model model, Product product,HttpServletRequest request) throws IllegalStateException, IOException {
+	public String updateProduct(Model model, Product product,HttpServletRequest request){
 		productService.updateProductById(product);
 		try {
 			Log("修改操作", "修改一条名为"+product.getProductName()+"的商品", request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getSession().setAttribute("sub", request.getParameter("sub"));
+//		request.getSession().setAttribute("sub", request.getParameter("sub"));
 		return "redirect:/product/getAllproduct";
 	}
 }

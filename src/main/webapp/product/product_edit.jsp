@@ -107,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="widget-content nopadding">
                     <form action="updateProduct" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
+                    	<input type="hidden" name="id" value="${product.id}">
                         <!-- <div class="control-group">
                             <label class="control-label">中文名称</label>
                             <div class="controls">

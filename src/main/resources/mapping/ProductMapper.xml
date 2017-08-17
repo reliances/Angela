@@ -128,74 +128,74 @@
 	      <if test="brief != null" >
 	        brief = #{brief, jdbcType=VARCHAR},
 	      </if>
-	      <if test="category_id != null">
+	      <if test="categoryId != null">
 	      	category_id = #{categoryId, jdbcType=VARCHAR},
 	      </if>
-	      <if test="click_count != null">
+	      <if test="clickCount != null">
 	        click_count = #{clickCount, jdbcType=INTEGER},
 	      </if>
-	      <if test="create_date != null">
-	        create_date = #{createDate, jdbcType=VARCHAR}
+	      <if test="createDate != null">
+	        create_date = #{createDate, jdbcType=VARCHAR},
 	      </if>
-	      <if test="create_user != null">
-	        create_user = #{createUser, jdbcType=VARCHAR}
+	      <if test="createUser != null">
+	        create_user = #{createUser, jdbcType=VARCHAR},
 	      </if>
-	      <if test="is_hot != null">
-	        is_hot = #{isHot, jdbcType=INTEGER}
+	      <if test="isHot != null">
+	        is_hot = #{isHot, jdbcType=INTEGER},
 	      </if>
-	      <if test="is_on_sale != null">
-	        is_on_sale = #{isOnSale, jdbcType=INTEGER}
+	      <if test="isOnSale != null">
+	        is_on_sale = #{isOnSale, jdbcType=INTEGER},
 	      </if>
-	      <if test="last_update != null">
-	        last_update = #{lastUpdate, jdbcType=VARCHAR}
+	      <if test="lastUpdate != null">
+	        last_update = #{lastUpdate, jdbcType=VARCHAR},
 	      </if>
-	      <if test="market_price != null">
-	        market_price = #{marketPrice, jdbcType=DECIMAL}
+	      <if test="marketPrice != null">
+	        market_price = #{marketPrice, jdbcType=DECIMAL},
 	      </if>
 	      <if test="material != null">
-	        material = #{material, jdbcType=VARCHAR}
+	        material = #{material, jdbcType=VARCHAR},
 	      </if>
-	      <if test="pro_tag != null">
-	        pro_tag = #{proTag, jdbcType=VARCHAR}
+	      <if test="proTag != null">
+	        pro_tag = #{proTag, jdbcType=VARCHAR},
 	      </if>
-	      <if test="product_area != null">
-	        product_area = #{productArea, jdbcType=VARCHAR}
+	      <if test="productArea != null">
+	        product_area = #{productArea, jdbcType=VARCHAR},
 	      </if>
-		  <if test="product_color != null">
-	        product_color = #{productColor, jdbcType=VARCHAR}
+		  <if test="productColor != null">
+	        product_color = #{productColor, jdbcType=VARCHAR},
 	      </if>
-	      <if test="product_details != null">
-	        product_details = #{productDetails, jdbcType=VARCHAR}
+	      <if test="productDetails != null">
+	        product_details = #{productDetails, jdbcType=VARCHAR},
 	      </if>
-		  <if test="product_name != null">
-	        product_name = #{productName, jdbcType=VARCHAR}
+		  <if test="productName != null">
+	        product_name = #{productName, jdbcType=VARCHAR},
 	      </if>
-		  <if test="product_price != null">
-	        product_price = #{productPrice, jdbcType=DECIMAL}
+		  <if test="productPrice != null">
+	        product_price = #{productPrice, jdbcType=DECIMAL},
 	      </if>
-	      <if test="product_sn != null">
-	        product_sn = #{productSn, jdbcType=VARCHAR}
+	      <if test="productSn != null">
+	        product_sn = #{productSn, jdbcType=VARCHAR},
 	      </if>
-		  <if test="product_status != null">
-	        product_status = #{productStatus, jdbcType=INTEGER}
+		  <if test="productStatus != null">
+	        product_status = #{productStatus, jdbcType=INTEGER},
 	      </if>
-	      <if test="product_unit != null">
-	        product_unit = #{productUnit, jdbcType=VARCHAR}
+	      <if test="productUnit != null">
+	        product_unit = #{productUnit, jdbcType=VARCHAR},
 	      </if>
-		  <if test="sell_count != null">
-	        sell_count = #{sellCount, jdbcType=INTEGER}
+		  <if test="sellCount != null">
+	        sell_count = #{sellCount, jdbcType=INTEGER},
 	      </if>
-		  <if test="sort_order != null">
-	        sort_order = #{sortOrder, jdbcType=INTEGER}
+		  <if test="sortOrder != null">
+	        sort_order = #{sortOrder, jdbcType=INTEGER},
 	      </if>
-	      <if test="size_l != null">
-	        size_l = #{sizeL, jdbcType=INTEGER}
+	      <if test="sizeL != null">
+	        size_l = #{sizeL, jdbcType=INTEGER},
 	      </if>
-	      <if test="size_w != null">
-	        size_w = #{sizeW, jdbcType=INTEGER}
+	      <if test="sizeW != null">
+	        size_w = #{sizeW, jdbcType=INTEGER},
 	      </if>
-	      <if test="size_h != null">
-	        size_h = #{sizeH, jdbcType=INTEGER}
+	      <if test="sizeH != null">
+	        size_h = #{sizeH, jdbcType=INTEGER},
 	      </if>
 		  <if test="stock != null">
 	        stock = #{stock, jdbcType=INTEGER}
