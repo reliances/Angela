@@ -41,14 +41,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function toAddProductPage(){
 	    	location.href = "toAddProductPage?sub=2";
 	    }
+	  	//edit
+	    function updateProduct(id){
+	    	location.href = "toEditProductPage?id="+id;
+	    }
 	    //修改数据
-	    function updateCategory(id, catName, parentId, depth, priority){
+	    /* function updateCategory(id, catName, parentId, depth, priority){
 	    	$("#id").val(id);
 	    	$("#catName").val(catName);
 	    	$("#parentId").val(parentId);
 	    	$("#depth").val(depth);
 	    	$("#priority").html(priority);
-	    }
+	    } */
 	    
 	    var cancel = function() {
 	    	$("#catName1").val("");
@@ -150,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateCategory('${ls.id}');">编辑</a></li>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateProduct('${ls.id}');">编辑</a></li>
 	                                </ul>
 	                              </div>
 	                          </td>

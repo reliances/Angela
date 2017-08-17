@@ -26,4 +26,6 @@ public interface ProductMapper {
 	public int updateProductById(Product product);
 	//通过名称查找产品
 	public List<Category> selectProductByName(String cateName);
+	//根据id查询
+	public Product getProductById(String id);
 }

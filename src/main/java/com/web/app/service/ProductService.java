@@ -38,4 +38,8 @@ public class ProductService {
 	public List<Category> selectProductByName(String cateName) {
 		return productMapper.selectProductByName(cateName);
 	}
+
+	public Product getProductById(String id) {
+		return productMapper.getProductById(id);
+	}
 }

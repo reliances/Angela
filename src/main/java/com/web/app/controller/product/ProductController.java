@@ -154,6 +154,34 @@ public class ProductController extends BaseController {
 		return "product/product_add";
 	}
 	
+	//到商品编辑页面
+	@RequestMapping("/toEditProductPage")
+	public String toEditProductPage(Model model,HttpServletRequest request) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<Dictionary> dict = dictionaryService.getAllDictionary(map);
+		List<Category> cate = categoryService.getAllCategory(map);
+		request.setAttribute("dictionary", dict);
+		request.setAttribute("category", cate);
+		
+		String id = request.getParameter("id");
+		Product product = productService.getProductById(id);
+		request.setAttribute("product", product);
+		
+		return "product/product_edit";
+	}
+	
+	//修改商品
+	@RequestMapping("/updateProduct")
+	public String updateProduct(Model model, Product product,HttpServletRequest request) throws IllegalStateException, IOException {
+		productService.updateProductById(product);
+		try {
+			Log("修改操作", "修改一条名为"+product.getProductName()+"的商品", request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("sub", request.getParameter("sub"));
+		return "redirect:/product/getAllproduct";
+	}
 }
 
 
