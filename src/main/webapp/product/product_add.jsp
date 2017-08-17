@@ -295,8 +295,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">图片上传：</label>
                             <div class="controls">
+	                            <!-- <input type="file" name="file" multiple> -->
                             	<div style="margin-left:1px; width:990px;">
-									<input type="file" name="file" id="doc" multiple="multiple" onchange="javascript:setImagePreviews();" accept="image/*" />
+									<input type="file" name="file" id="doc" multiple onchange="javascript:setImagePreviews();"/>
 									<div id="dd"></div>
 								</div>
                             </div>

@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ taglib prefix="page" uri="../WEB-INF/tld/pager.tld"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,19 +46,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function updateProduct(id){
 	    	location.href = "toEditProductPage?id="+id;
 	    }
-	    //修改数据
-	    /* function updateCategory(id, catName, parentId, depth, priority){
-	    	$("#id").val(id);
-	    	$("#catName").val(catName);
-	    	$("#parentId").val(parentId);
-	    	$("#depth").val(depth);
-	    	$("#priority").html(priority);
-	    } */
-	    
 	    var cancel = function() {
 	    	$("#catName1").val("");
 	    }
-		//$(function(){  }); 
 	</script>
 	
 	<style>
@@ -138,10 +129,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td>${ls.productName}</td>
 	                          <td id="${ls.id}" class="pictures">
 	                          	 <ul>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
+	                          	  <c:forEach items="${picList }" var="pic">
+	                          	  	  <c:if test="${pic.productId eq ls.id }">
+	                          	  	  	<li><img data-original="<%=path%>/upload/${pic.imageUrl}" onclick="showPic('${ls.id}')" src="<%=path%>/upload/${pic.imageUrl}"/></li>
+	                          	  	  </c:if>
+	                          	  </c:forEach>
 							 	</ul>
 							  </td>
 	                          <td>${ls.productSn}</td>

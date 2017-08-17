@@ -3,7 +3,6 @@ package com.web.app.controller.product;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -17,8 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.web.app.controller.BaseController;
 import com.web.app.entity.Category;
@@ -59,6 +56,7 @@ public class ProductController extends BaseController {
 	public String getAllproduct(Model model, @RequestParam(required=false) Integer pageNum, 
 			@RequestParam(required=false) Integer pageSize, HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
+		List<Pictures> pic = pictureService.getAllPictures(map);
 		Pager pager = new Pager();
 		if (pageNum == null) {
 			pageNum = pager.getCurPage();
@@ -76,13 +74,14 @@ public class ProductController extends BaseController {
 		if(request.getParameter("sub") == null){
 			request.setAttribute("sub", 2);
 		}
+		request.setAttribute("picList", pic);
 		request.getSession().setAttribute("sub", request.getParameter("sub"));
 		return "product/product_manage";
 	}
 	
 	//添加商品
 	@RequestMapping("/addProduct")
-	public String addProduct(Model model, Product product,HttpServletRequest request) throws IllegalStateException, IOException {
+	public String addProduct(Product product, @RequestParam(value="file",required=false) MultipartFile[] file,HttpServletRequest request) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
  		User user = (User) session.getAttribute("user");
  		//product
@@ -91,48 +90,36 @@ public class ProductController extends BaseController {
 		product.setCreateDate(DateTools.getCurrentTime());
 		productService.insertProduct(product);
 		//Pictures upload
-		//创建一个通用的多部分解析器  
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());  
-        //判断 request 是否有文件上传,即多部分请求  
-        if(multipartResolver.isMultipart(request)){  
-            //转换成多部分request    
-            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;  
-            //取得request中的所有文件名  
-            Iterator<String> iter = multiRequest.getFileNames();  
-            while(iter.hasNext()){  
-                //记录上传过程起始时的时间，用来计算上传时间  
-                //int pre = (int) System.currentTimeMillis();  
-                //取得上传文件  
-                MultipartFile file = multiRequest.getFile(iter.next());  
-                if(file != null){  
-                    //取得当前上传文件的文件名称  
-                    String myFileName = file.getOriginalFilename();  
-                    //如果名称不为“”,说明该文件存在，否则说明该文件不存在  
-                    if(myFileName.trim() !=""){  
-                        System.out.println(myFileName);  
-                        //重命名上传后的文件名  
-                        String fileName = DateTools.getTimes() +"_"+ file.getOriginalFilename();
-                        //定义上传路径  
-                        String path = request.getSession().getServletContext().getRealPath("upload");
-                        File localFile = new File(path,fileName);  
-                        if(!localFile.exists()){  
-                        	localFile.mkdirs();  
-    			        }
-                        file.transferTo(localFile); 
-                        //pic
-                        Pictures pic = new Pictures();
-                        pic.setImageId(UUID.randomUUID().toString());
-                        pic.setCreateDate(DateTools.getCurrentTime());
-                        pic.setCreateUser(user.getUserId());
-                        pic.setImageType(1);//产品图片
-                        pic.setImageUrl(fileName);
-                        pic.setProductId(product.getId());
-                        pic.setImageUrlSmall(localFile.toString());
-                        pictureService.insertPictures(pic);
-                    }  
-                }  
-            }  
-        }  
+		for(MultipartFile mf : file) {  
+	       if(!mf.isEmpty()){  
+	    	   //取得当前上传文件的文件名称  
+	    	   //String contentType = mf.getContentType();  文件类型
+               //String myFileName = contentType.substring(contentType.indexOf("/")+1);  
+	    	   String myFileName = mf.getOriginalFilename();
+               //如果名称不为“”,说明该文件存在，否则说明该文件不存在  
+               if(myFileName.trim() !=""){  
+                   //重命名上传后的文件名  
+                   String fileName = DateTools.getTimes() +"_"+ myFileName;
+                   //定义上传路径  
+                   String path = request.getSession().getServletContext().getRealPath("upload");
+                   File localFile = new File(path,fileName);  
+                   if(!localFile.exists()){  
+                   	  localFile.mkdirs();  
+			       }
+                   mf.transferTo(localFile); 
+                   //pic
+                   Pictures pic = new Pictures();
+                   pic.setImageId(UUID.randomUUID().toString());
+                   pic.setCreateDate(DateTools.getCurrentTime());
+                   pic.setCreateUser(user.getUserId());
+                   pic.setImageType(1);//产品图片
+                   pic.setImageUrl(fileName);
+                   pic.setProductId(product.getId());
+                   pic.setImageUrlSmall(localFile.toString());
+                   pictureService.insertPictures(pic);
+               }  		
+	       }
+	    }
 		try {
 			Log("新增操作", "新增一条名为"+product.getProductName()+"的商品", request);
 		} catch (Exception e) {
@@ -181,6 +168,51 @@ public class ProductController extends BaseController {
 		}
 		return "redirect:/product/getAllproduct";
 	}
+	
+	
+	
+	//创建一个通用的多部分解析器  
+    /*CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());  
+    //判断 request 是否有文件上传,即多部分请求  
+    if(multipartResolver.isMultipart(request)){  
+        //转换成多部分request    
+        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;  
+        //取得request中的所有文件名  
+        Iterator<String> iter = multiRequest.getFileNames();  
+        while(iter.hasNext()){  
+            //取得上传文件  
+            MultipartFile file = multiRequest.getFile(iter.next());  
+            if(file != null){  
+                //取得当前上传文件的文件名称  
+                String myFileName = file.getOriginalFilename();  
+                //如果名称不为“”,说明该文件存在，否则说明该文件不存在  
+                if(myFileName.trim() !=""){  
+                    //重命名上传后的文件名  
+                    String fileName = DateTools.getTimes() +"_"+ file.getOriginalFilename();
+                    //定义上传路径  
+                    String path = request.getSession().getServletContext().getRealPath("upload");
+                    File localFile = new File(path,fileName);  
+                    if(!localFile.exists()){  
+                    	localFile.mkdirs();  
+			        }
+                    file.transferTo(localFile); 
+                    //pic
+                    Pictures pic = new Pictures();
+                    pic.setImageId(UUID.randomUUID().toString());
+                    pic.setCreateDate(DateTools.getCurrentTime());
+                    pic.setCreateUser(user.getUserId());
+                    pic.setImageType(1);//产品图片
+                    pic.setImageUrl(fileName);
+                    pic.setProductId(product.getId());
+                    pic.setImageUrlSmall(localFile.toString());
+                    pictureService.insertPictures(pic);
+                }  
+            }  
+        }  
+    }  */
+	
+	
+	
 }
 
 
