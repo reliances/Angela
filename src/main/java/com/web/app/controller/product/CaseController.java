@@ -160,6 +160,17 @@ public class CaseController extends BaseController {
 		return "redirect:/case/getAllCase";
 	}
 	
+	//修改案例
+	@RequestMapping("/updateCase")
+	public String updateCase(Model model, CaseInfo caseInfo,HttpServletRequest request){
+		caseInfoService.updateCaseInfoById(caseInfo);
+		try {
+			Log("修改操作", "修改一条名为"+caseInfo.getTitle()+"的案例", request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/case/getAllCase";
+	}
 }
 
 

@@ -22,32 +22,32 @@
 
 	<!-- 添加类别 -->
 	<insert id="insertCaseInfo" parameterType="com.web.app.entity.CaseInfo">
-		insert into t_case_info(
-			id,
-			title,
-			brief,
-			description,
-			remarks,
-			create_date,
-			create_user,
-			is_delete,
-			is_useful
+		insert into
+		t_case_info(
+		id,
+		title,
+		brief,
+		description,
+		remarks,
+		create_date,
+		create_user,
+		is_delete,
+		is_useful
 		)values(
-			#{id},
-			#{title},
-			#{brief},
-			#{description},
-			#{remarks},
-			#{createDate},
-			#{createUser},
-			#{isDelete},
-			#{isUseful}
+		#{id},
+		#{title},
+		#{brief},
+		#{description},
+		#{remarks},
+		#{createDate},
+		#{createUser},
+		#{isDelete},
+		#{isUseful}
 		)
 	</insert>
 
 	<!-- 查询所产品 -->
-	<select id="getAllCaseInfo" parameterType="java.util.Map"
-		resultMap="BaseResultMap">
+	<select id="getAllCaseInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
 		select
 		<include refid="base_column_list" />
 		from t_case_info where is_delete = 0 ORDER BY create_date DESC
@@ -60,25 +60,47 @@
 	<select id="countByCriteria" resultType="java.lang.Integer">
 		select count(*) from t_case_info where is_delete = 0
 	</select>
-	
+
 	<!-- 根据id查询 -->
-    <select id="getCaseInfoById" parameterType="java.lang.String" resultMap="BaseResultMap">
+	<select id="getCaseInfoById" parameterType="java.lang.String" resultMap="BaseResultMap">
 		select * from t_case_info where id = #{id}
 	</select>
 
 	<!-- 根据ID删除 -->
-	<update id="deleteCaseInfoById" parameterType="java.lang.String"> 
-		update t_case_info set is_delete = 1 where id in <foreach item="id" 
-		collection="array" open="(" separator="," close=")"> #{id} </foreach> 
+	<update id="deleteCaseInfoById" parameterType="java.lang.String">
+		update t_case_info set is_delete = 1 where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")"> #{id} </foreach>
 	</update>
 
 	<!-- 根据ID修改 -->
-	<!-- <update id="updateCategoryById" parameterType="com.web.app.entity.Category"> 
-		update t_category <set> <if test="catName != null" > cat_name = #{catName, 
-		jdbcType=VARCHAR}, </if> <if test="depth != null"> depth = #{depth, jdbcType=INTEGER}, 
-		</if> <if test="parentId != null"> parent_id = #{parentId, jdbcType=VARCHAR}, 
-		</if> <if test="priority != null"> priority = #{priority, jdbcType=INTEGER} 
-		</if> </set> where id = #{id, jdbcType=VARCHAR} and is_delete = 0 </update> -->
+	<update id="updateCaseInfoById" parameterType="com.web.app.entity.CaseInfo">
+		update t_case_info
+		<set>
+			<if test="brief != null">
+				brief = #{brief, jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate, jdbcType=INTEGER},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser, jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description, jdbcType=INTEGER},
+			</if>
+			<if test="isUseful != null">
+				is_useful = #{isUseful, jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks, jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				title = #{title, jdbcType=INTEGER}
+			</if>
+		</set>
+		where id = #{id, jdbcType=VARCHAR} and is_delete = 0
+	</update>
 </mapper>
 
 

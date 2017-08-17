@@ -81,8 +81,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--左侧菜单 end-->
 <div id="content">
 <div id="breadcrumb">
-    <a href="#" title="案例管理" class="tip-bottom"><i class="icon-home"></i>案例管理</a>
-    <a href="#" class="current">案例编辑</a>
+    <a href="#" title="订单管理" class="tip-bottom"><i class="icon-home"></i>订单管理</a>
+    <a href="#" class="current">订单编辑</a>
 </div>
 
 
@@ -94,40 +94,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="icon">
                         <i class="icon-align-justify"></i>                                  
                     </span>
-                    <h5>案例信息</h5>
+                    <h5>订单信息</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form action="updateCase" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <input type="hidden" name="id" value="${caseInfo.id}">
+                    <form action="updateOrder" method="post" class="form-horizontal" style="padding-top: 10px">
+                        <input type="hidden" name="id" value="${orderInfo.id}">
                         <div class="control-group">
-                            <label class="control-label">案例标题</label>
+                            <label class="control-label">订单ID</label>
                             <div class="controls">
-                                <input type="text" name="title" placeholder="标题" value="${caseInfo.title}">
+                                <input type="text" name="orderId" placeholder="订单ID" value="${orderInfo.orderId}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">简短描述</label>
+                            <label class="control-label">产品ID</label>
                             <div class="controls">
-                                <input type="text" name="brief" placeholder="简短描述" value="${caseInfo.brief}">
+	                            <input type="text" name="productId" placeholder="产品ID" value="${orderInfo.productId}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">详细描述</label>
+                            <label class="control-label">产品数量</label>
                             <div class="controls">
-                                <textarea name="description" placeholder="详细描述">${caseInfo.description}</textarea>
+                                <input type="text" name="productCount" placeholder="产品数量" value="${orderInfo.productCount}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label">连接状态</label>
                             <div class="controls">
-                                <input type="text" name="remarks" placeholder="案例相关备注" value="${caseInfo.remarks}">
+                                <input type="text" name="connectStatus" placeholder="连接状态" value="${orderInfo.connectStatus}">
                             </div>
                         </div>
-                        <div class="control-group">
-                            <label class="control-label">图片上传</label>
+                         <div class="control-group">
+                            <label class="control-label">订单状态</label>
                             <div class="controls">
-                            	<input type="file" name="file">
-                            	<input type="file" name="file2">
+                                <input type="text" name="status" placeholder="订单状态" value="${orderInfo.status}">
                             </div>
                         </div>
                         <div class="control-group">
