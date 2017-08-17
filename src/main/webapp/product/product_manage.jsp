@@ -62,9 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<style>
 		* { margin: 0; padding: 0;}
-		#dowebok { width: 300px; margin: 0 auto; font-size: 0;}
-		#dowebok li { display: inline-block; margin-left: 1%; padding-top: 1%;}
-		#dowebok li img { width: 50px; hight:50px;}
+		.pictures { width: 300px; margin: 0 auto; font-size: 0;}
+		.pictures li { display: inline-block; margin-left: 1%; padding-top: 1%;}
+		.pictures li img { width: 50px; hight:50px; cursor:pointer}
 	</style>
 </head>
 <body>
@@ -136,13 +136,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                      <tr>
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${ls.id}"/></span></td>
 	                          <td>${ls.productName}</td>
-	                          <td id="dowebok">
+	                          <td id="${ls.id}" class="pictures">
 	                          	 <ul>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" src="<%=path%>/upload/tibet-1.jpg"/></li>
-	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" src="<%=path%>/upload/tibet-1.jpg"/></li>
+	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
+	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
+	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
+	                          	  <li><img data-original="<%=path%>/upload/tibet-1.jpg" onclick="showPic('${ls.id}')" src="<%=path%>/upload/tibet-1.jpg"/></li>
 							 	</ul>
 							  </td>
 	                          <td>${ls.productSn}</td>
@@ -185,9 +184,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="<%=path%>/js/view/js/viewer.min.js"></script>
 <script>
-	var viewer = new Viewer(document.getElementById('dowebok'), {
+	/* var viewer = new Viewer(document.getElementById('dowebok'), {
 		url: 'data-original'
-	});
+	}); */
+	function showPic(id){
+		var viewer = new Viewer(document.getElementById(id), {
+			url: 'data-original'
+		});
+	}
 </script>
 </body>
 </html>
