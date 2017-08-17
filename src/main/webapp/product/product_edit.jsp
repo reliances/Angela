@@ -137,7 +137,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="controls">
                                 <select class="w82" name="categoryId">
 	                                <c:forEach items="${category}" var="cate">
-		                              	<option value="${cate.id}">${cate.catName}</option>
+		                              	<%-- <option value="${cate.id}">${cate.catName}</option> --%>
+		                              	<option value="${cate.id}" <c:if test="${cate.id eq product.categoryId}">selected</c:if>>${cate.catName}</option>
 	                              	</c:forEach>
                                 </select>
                             </div>
@@ -145,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!-- <div class="control-group">
                             <label class="control-label">点击数</label>
                             <div class="controls">
-                                <input type="text" placeholder="This is a placeholder...">
+                                <input type="text" placeholder="点击数" name="clickCount" value="${product.clickCount}">
                             </div>
                         </div> -->
                        <div class="control-group">
@@ -163,9 +164,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">是否上架：</label>
                             <div class="controls" class="w82">
-                                <select class="w82" name="isONSale">
-                                    <option value="0">是</option>
-                                    <option value="1">否</option>
+                                <select class="w82" name="isOnSale">
+                                    <option value="0" <c:if test="${product.isOnSale eq 0}">selected</c:if>>是</option>
+                                    <option value="1" <c:if test="${product.isOnSale eq 1}">selected</c:if>>否</option>
                                 </select>
                             </div>
                         </div>
@@ -173,8 +174,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label">是否热销：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isHot">
-                                    <option value="0">是</option>
-                                    <option value="1">否</option>
+                                    <option value="0" <c:if test="${product.isHot eq 0}">selected</c:if>>是</option>
+                                    <option value="1" <c:if test="${product.isHot eq 1}">selected</c:if>>否</option>
                                 </select>
                             </div>
                         </div>
@@ -188,8 +189,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<label class="control-label">计量单位：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productUnit">
-                                    <option value="1">件</option>
-                                    <option value="3">台</option>
+                                    <option value="1" <c:if test="${product.productUnit eq 1}">selected</c:if>>件</option>
+                                    <option value="3" <c:if test="${product.productUnit eq 3}">selected</c:if>>台</option>
                                 </select>
                             </div>
                         </div>
@@ -303,6 +304,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
+							<label class="control-label">商品图片：</label>
+							<div class="controls">
+								<img id="upload" src="<%=path%>/upload/tibet-1.jpg" width="300" height="200" onclick="fileToUpload.click()"/>
+								<input type="file" name="imageurl" id="fileToUpload" style="display: none;" >
+								<input type="hidden" id="imgVal" name="imageurl" value="{$model.imageurl}" />
+							</div>
+						</div>
+                        <div class="control-group">
                             <label class="control-label">简短描述：</label>
                             <div class="controls">
                                 <input type="text" name="brief" placeholder="简短描述" value="${product.brief}">
@@ -332,6 +341,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	//选择文件之后执行上传  
+	/* $('#fileToUpload').on('change', function() {  
+		$("#form-sign-edit").ajaxSubmit({
+			type: 'post',
+			url: '{:U("Mall/uploadImage")}',
+			success: function(data){
+				$("#upload").attr("src", "__ROOT__/public/Uploads/" + data);
+				$("#imgVal").val(data);
+			},
+			error: function(XmlHttpRequest, textStatus, errorThrown){
+				layer.msg('上传失败，请检查网络后重试',{icon:1,time:1000});
+			}
+		});
+	}); */
+	
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");

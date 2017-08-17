@@ -18,19 +18,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
-	    function deleteDictionary(){
-			var dicId = [];
+	    function deleteCase(){
+			var Ids = [];
 			$("input[name='checkbox2']").each(function() {
 				if ($(this).attr("checked")) {
-					dicId.push($(this).val());
+					Ids.push($(this).val());
 				}
 			});
-			if (dicId == "") {
+			if (Ids == "") {
 				ymPrompt.alert("请选择需要删除的商品!");
 			} else {
 				ymPrompt.confirmInfo("确定要删除选择的商品信息吗？",null,null,"删除提示",function(tp) {
 					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
+						location.href = "deleteCase?Ids="+Ids;
 					}
 				});
 			}
@@ -38,6 +38,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //add
 	    function toAddCasePage(){
 	    	location.href = "toAddCasePage?sub=4";
+	    }
+	  	//edit
+	    function updateCaseInfo(id){
+	    	location.href = "toEditCasePage?id="+id;
 	    }
 	    //修改数据
 	    function updateCategory(id, catName, parentId, depth, priority){
@@ -96,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="row-fluid">
 	<div class="btn-box">
     <button class="btn btn-info" onclick="toAddCasePage();"><i class="icon-add"></i>新增案例</button>
-    <button class="btn btn-danger margin-l5" onclick="deleteDictionary();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
+    <button class="btn btn-danger margin-l5" onclick="deleteCase();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
 <div class="row-fluid">
@@ -130,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateCategory('${ls.id}');">编辑</a></li>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateCaseInfo('${ls.id}');">编辑</a></li>
 	                                </ul>
 	                              </div>
 	                          </td>

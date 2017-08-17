@@ -23,6 +23,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.web.app.controller.BaseController;
 import com.web.app.entity.CaseInfo;
 import com.web.app.entity.Pictures;
+import com.web.app.entity.Product;
 import com.web.app.entity.User;
 import com.web.app.service.CaseInfoService;
 import com.web.app.service.PicturesService;
@@ -126,11 +127,11 @@ public class CaseController extends BaseController {
 			e.printStackTrace();
 		}
 		request.getSession().setAttribute("sub", request.getParameter("sub"));
-		return "redirect:/product/getAllCase";
+		return "redirect:/case/getAllCase";
 	}
 	
 	
-	//到商品添加页面
+	//到案例添加页面
 	@RequestMapping("/toAddCasePage")
 	public String toAddCasePage(Model model,HttpServletRequest request) {
 		//Map<String,Object> map = new HashMap<String,Object>();
@@ -139,6 +140,24 @@ public class CaseController extends BaseController {
 		//request.setAttribute("dictionary", dict);
 		//request.setAttribute("category", cate);
 		return "product/case_add";
+	}
+	
+	//到案例编辑页面
+	@RequestMapping("/toEditCasePage")
+	public String toEditCasePage(Model model,HttpServletRequest request) {
+		String id = request.getParameter("id");
+		CaseInfo caseInfo = caseInfoService.getCaseInfoById(id);
+		request.setAttribute("caseInfo", caseInfo);
+		return "product/case_edit";
+	}
+	
+	//删除操作
+	@RequestMapping("/deleteCase")
+	public String deleteCase(Model model,HttpServletRequest request) {
+		String ids = request.getParameter("Ids");
+		String[] id = ids.split(",");
+		caseInfoService.deleteCaseInfoById(id);
+		return "redirect:/case/getAllCase";
 	}
 	
 }

@@ -28,4 +28,7 @@ public interface CaseInfoMapper {
 	// 编辑案例
 	public int updateCaseInfoById(CaseInfo caseInfo);
 
+	// 根据id查询
+	public CaseInfo getCaseInfoById(String id);
+
 }

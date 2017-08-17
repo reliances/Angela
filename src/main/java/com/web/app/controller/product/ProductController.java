@@ -179,7 +179,6 @@ public class ProductController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		request.getSession().setAttribute("sub", request.getParameter("sub"));
 		return "redirect:/product/getAllproduct";
 	}
 }

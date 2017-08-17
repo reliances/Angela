@@ -34,4 +34,8 @@ public class CaseInfoService {
 		return caseInfoMapper.updateCaseInfoById(caseInfo);
 	}
 
+	public CaseInfo getCaseInfoById(String id) {
+		return caseInfoMapper.getCaseInfoById(id);
+	}
+
 }

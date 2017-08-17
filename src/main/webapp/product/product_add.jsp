@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">是否上架：</label>
                             <div class="controls" class="w82">
-                                <select class="w82" name="isONSale">
+                                <select class="w82" name="isOnSale">
                                     <option value="0">是</option>
                                     <option value="1">否</option>
                                 </select>
