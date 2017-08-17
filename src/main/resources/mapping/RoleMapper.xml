@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.RoleMapper" >
+    
+	<resultMap id="BaseResultMap" type="com.web.app.entity.Role" >
+		<id column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+		<result column="role_desc" property="roleDesc" jdbcType="VARCHAR" />
+		<result column="role_status" property="roleStatus" jdbcType="INTEGER" />
+		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+	</resultMap>
+    
+    
+	<sql id="base_column_list" >
+		uuid, role_id, role_name, role_desc, role_status
+	</sql>
+	
+	
+	<select id="getAllRoles" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="base_column_list" />
+            from sys_role where is_delete = 0
+        <if test="startIndex != null and endIndex != null">
+        	limit ${startIndex},${endIndex}
+        </if>
+    </select>
+    
+    <select id="countRoleById" resultType="java.lang.Integer">
+    	select count(*) from sys_role where role_id = #{id} and is_delete = 0
+    </select>
+    
+   
+    <insert id="insertRole" parameterType="com.web.app.entity.Role" >
+        insert into sys_role (
+        	uuid, 
+        	role_id, 
+        	role_name, 
+        	is_delete, 
+        	role_desc)
+        values (
+        	#{uuid,jdbcType=VARCHAR}, 
+        	#{roleId,jdbcType=VARCHAR}, 
+        	#{roleName,jdbcType=VARCHAR},
+        	#{isDelete,jdbcType=INTEGER},
+        	#{roleDesc,jdbcType=VARCHAR})
+    </insert>
+    
+    
+    <update id="deleteRoleById" parameterType="java.lang.String" >
+    	update sys_role set is_delete = 1 where uuid in
+         <foreach item="idItem" collection="array" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+    </update>
+    
+    <select id="selectRoleById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select role_id, role_desc from sys_role
+        where uuid = #{uuid} and is_delete = 0
+    </select>
+   
+    <select id="countByCriteria" resultType="java.lang.Integer">
+		select count(*) from sys_role where is_delete = 0
+	</select>
+	
+	<update id="updateRoleById" parameterType="com.web.app.entity.Role">
+		UPDATE sys_role
+		<set > 
+			<if test="roleId != null" >
+				role_id = #{roleId},
+		    </if>
+		    <if test="roleName != null" >
+			    role_name = #{roleName},
+			</if>
+			<if test="roleDesc != null" >   
+			    role_desc = #{roleDesc},
+			</if>
+			<if test="roleStatus != null" >   
+			    role_status = #{roleStatus}
+			</if>
+		</set>
+        WHERE  is_delete = 0 and uuid = #{uuid}
+	</update>
+</mapper>

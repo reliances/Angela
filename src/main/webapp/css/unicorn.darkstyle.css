@@ -1,0 +1,18 @@
+body{ background:#2e363f;}
+.treenav{ /*background:#364860;*/background:#2e363f; border:1px solid #2e363f; }
+.treesearch{ /*background:#63b1e0;*/background:#2e363f;}
+.searchtxt{ color:#fff;}
+.treemenu{ border-bottom:none;}
+.treesearch{ border-bottom:none;}
+.treecolumn{ border-top:none;}
+.currcolumn{ /*background:#364860;*/ background:#2e363f;}
+.treemenu > span{ background:#58b1ef; color:#fff;}
+ul.dynatree-container{ /*background:#364860;*/ background:#2e363f;}
+ul.dynatree-container a{ color:#939da8; font-weight:normal;}
+ul.dynatree-container a:hover{background: #1c283c; border-color: #1c283c;}
+.btn-info{ background:#58b1ef; border:1px solid #58b1ef;}
+.blockcont{ background:url(../img/mbodybg.jpg) repeat;}
+.table{ background:#eee;}
+.btn-box{background: linear-gradient(#707070, #808080) repeat scroll 0 0 rgba(0, 0, 0, 0); border:1px solid #808080;}
+.table th{ background:#808080 !important; color:#fff;}
+.selcolor{ background:#eee;}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.PicturesMapper" >
+    <!-- 图片表 -->
+	<resultMap id="BaseResultMap" type="com.web.app.entity.Pictures" >
+		<id column="image_id" property="imageId" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="image_url_small" property="imageUrlSmall" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="image_type" property="imageType" jdbcType="INTEGER" />
+	    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+	</resultMap>
+ 
+	<!-- SQL语句段 -->
+	<sql id="base_column_list" >
+		image_id, create_date, create_user, image_type, 
+		image_url, image_url_small, is_delete, product_id
+	</sql>
+	
+	<!-- 添加图片 -->
+	<insert id="insertPictures" parameterType="com.web.app.entity.Pictures">
+		insert into t_pictures(
+		   image_id,
+		   product_id,
+		   image_url,
+		   image_url_small,
+		   create_date,
+		   create_user,
+		   image_type,
+		   is_delete)
+		values(
+		   #{imageId},
+		   #{productId},
+		   #{imageUrl},
+		   #{imageUrlSmall},
+		   #{createDate},
+		   #{createUser},
+		   #{imageType},
+		   #{isDelete})
+	</insert>
+	
+	<!-- 查询所图片 -->
+	<select id="getAllPictures" parameterType="java.util.Map" resultMap="BaseResultMap" >
+        select
+        <include refid="base_column_list" />
+            from t_pictures where is_delete = 0 ORDER BY create_date DESC
+        <if test="startIndex != null and endIndex != null">
+        	limit ${startIndex},${endIndex}
+        </if>
+    </select>
+    
+    <!-- 查询图片个数 -->
+    <select id="countByCriteria" resultType="java.lang.Integer">
+		select count(*) from t_pictures where is_delete = 0
+	</select>
+	
+	<select id="selectPicturesByProductId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select 
+        <include refid="base_column_list" />
+         from t_pictures where product_id = #{productId} and is_delete = 0
+    </select>
+	
+	<!-- 根据ID删除 -->
+	<!-- <update id="deleteDictionaryById" parameterType="java.lang.String">
+		update t_dictionary set is_delete = 1 where dic_id in
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+	</update> -->
+	
+	<!-- 根据ID修改 -->
+	<!-- <update id="updateCategoryById" parameterType="com.web.app.entity.Category">
+	    update t_category
+		<set>
+	      <if test="catName != null" >
+	        cat_name = #{catName, jdbcType=VARCHAR},
+	      </if>
+	      <if test="depth != null">
+	      	depth = #{depth, jdbcType=INTEGER},
+	      </if>
+	      <if test="parentId != null">
+	        parent_id = #{parentId, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priority != null">
+	        priority = #{priority, jdbcType=INTEGER}
+	      </if>
+	    </set>
+	    where id = #{id, jdbcType=VARCHAR} and is_delete = 0
+	</update> -->
+</mapper>
+
+
+

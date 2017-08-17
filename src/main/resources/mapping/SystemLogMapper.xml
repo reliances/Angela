@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.web.app.mapper.SystemLogMapper">
+	<!--系统日志表--> 
+	<resultMap id="BaseResultMap" type="com.web.app.entity.SystemLog">
+		<id property="uuid" column="uuid" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="ip_address" property="ipAddress" />
+		<result column="operation_type" property="operationType" />
+		<result column="log_comment" property="logComment" />
+		<result column="create_date" property="createDate" />
+	</resultMap>
+	
+	<!-- 添加日志-->
+	<insert id="insertLog" parameterType="com.web.app.entity.SystemLog">
+		insert into sys_log(
+			uuid, 
+			user_id, 
+			ip_address, 
+			operation_type,
+			log_comment,
+			create_date)
+		values(
+			#{uuid,jdbcType=VARCHAR},
+		    #{userId,jdbcType=VARCHAR}, 
+		    #{ipAddress,jdbcType=VARCHAR}, 
+			#{operationType,jdbcType=VARCHAR},
+			#{logComment,jdbcType=INTEGER},
+			#{createDate,jdbcType=VARCHAR})
+	</insert>
+	
+	<!--查询所有系统日志  -->
+	<select id="getAllSysLog" parameterType="java.util.Map" resultMap="BaseResultMap" >
+        select
+            lg.uuid, 
+            u.user_name, 
+            lg.user_Id, 
+            lg.ip_address, 
+            lg.operation_type, 
+            lg.log_comment , 
+            lg.create_date
+        from 
+        	sys_log lg,sys_user u 
+        <where>
+       		lg.user_Id = u.uuid
+			<if test="userName != null and userName !=''">
+	         	and u.user_name like '%${userName}%'
+	       	</if> 
+			<if test="ipAddress != null and ipAddress !=''">
+	         	and lg.ip_address like '%${ipAddress}%'
+	       	</if> 
+			<if test="operationType != null and operationType !=''">
+	         	and lg.operation_type like '%${operationType}%'
+	       	</if> 
+			<if test="logComment != null and logComment !=''">
+	         	and lg.log_comment like '%${logComment}%'
+	       	</if> 
+	       	<if test="createDate != null and createDate != ''">
+				<![CDATA[ and create_date >= '${createDate}' ]]> 
+			</if>
+			<if test="createDate2 != null and createDate2 != ''">
+				<![CDATA[ and create_date <= '${createDate2}' ]]> 
+			</if>
+			ORDER BY lg.create_date DESC
+			<if test="startIndex != null and endIndex != null">
+	        	limit ${startIndex},${endIndex}
+	        </if>
+       	</where>
+    </select>
+    
+    <!--查询所有系统日志数量  -->
+	<select id="getSysLogCount" resultType="java.lang.Integer">
+		select 
+			count(*)
+ 		from 
+ 		    sys_log lg,sys_user u
+		<where>
+			lg.user_Id = u.uuid
+			<if test="userName != null and userName !=''">
+	         	and u.user_name like '%${userName}%'
+	       	</if> 
+			<if test="ipAddress != null and ipAddress !=''">
+	         	and lg.ip_address like '%${ipAddress}%'
+	       	</if> 
+			<if test="operationType != null and operationType !=''">
+	         	and lg.operation_type like '%${operationType}%'
+	       	</if> 
+			<if test="logComment != null and logComment !=''">
+	         	and lg.log_comment like '%${logComment}%'
+	       	</if> 
+	       	<if test="createDate != null and createDate != ''">
+				<![CDATA[ and create_date >= '${createDate}' ]]> 
+			</if>
+			<if test="createDate2 != null and createDate2 != ''">
+				<![CDATA[ and create_date <= '${createDate2}' ]]> 
+			</if>
+			ORDER BY lg.create_date DESC
+       	</where>
+	</select>
+</mapper>
+
+
+
+
+
+
+

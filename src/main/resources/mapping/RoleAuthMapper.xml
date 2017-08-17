@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.RoleAuthMapper" >
+    
+	<resultMap id="BaseResultMap" type="com.web.app.entity.RoleAuth" >
+		<id column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="role_no" property="roleNo" jdbcType="VARCHAR" />
+		<result column="auth_no" property="authNo" jdbcType="VARCHAR" />
+	</resultMap>
+    
+    
+	<sql id="base_column_list" >
+		uuid, role_no, auth_no
+	</sql>
+	
+	
+	<select id="getAllRoleAuth" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="base_column_list" />
+            from sys_role_auth
+        <if test="startIndex != null and endIndex != null">
+        	limit ${startIndex},${endIndex}
+        </if>
+    </select>
+    
+    <select id="getRoleAuthByRoleNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="base_column_list" />
+            from sys_role_auth where role_no = #{roleNo}
+    </select>
+    
+   
+    <insert id="insertRoleAuth" parameterType="com.web.app.entity.RoleAuth" >
+        insert into sys_role_auth (uuid, role_no, auth_no)
+        values (#{uuid,jdbcType=VARCHAR}, #{roleNo,jdbcType=VARCHAR}, #{authNo,jdbcType=VARCHAR})
+    </insert>
+    
+    <delete id="deleteRoleAuthByRoleNo" parameterType="java.lang.String" >
+        delete from 
+        	sys_role_auth
+        where 
+        	role_no = #{roleNo}
+    </delete>
+    
+    <select id="countByCriteria" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from sys_role_auth 
+		<if test="roleNo != null">
+			where role_no = #{roleNo}
+		</if>
+	</select>
+	
+	<update id="updateRoleAuthByRoleNo" parameterType="com.web.app.entity.RoleAuth">
+		UPDATE sys_role_auth
+		SET 
+			auth_no = #{authNo}
+        WHERE 
+           role_no = #{roleNo}
+	</update>
+</mapper>

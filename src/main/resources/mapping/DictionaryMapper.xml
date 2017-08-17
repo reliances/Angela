@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.DictionaryMapper" >
+    <!-- 字典表 -->
+	<resultMap id="BaseResultMap" type="com.web.app.entity.Dictionary" >
+		<id column="dic_id" property="dicId" jdbcType="VARCHAR" />
+		<result column="dic_name" property="dicName" jdbcType="VARCHAR" />
+		<result column="dic_key" property="dicKey" jdbcType="VARCHAR" />
+		<result column="dic_val" property="dicVal" jdbcType="INTEGER" />
+		<result column="dic_des" property="dicDes" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+	</resultMap>
+ 
+	<!-- SQL语句段 -->
+	<sql id="base_column_list" >
+		dic_id, dic_name, dic_key, dic_val, dic_des, create_date
+	</sql>
+	
+	<!-- 添加字典 -->
+	<insert id="insertDictionary" parameterType="com.web.app.entity.Dictionary">
+		insert into t_dictionary(
+			dic_id, 
+			dic_name, 
+			dic_key, 
+			dic_val, 
+			dic_des,
+			is_delete,
+			create_date)
+		values(
+			#{dicId,jdbcType=VARCHAR},
+		    #{dicName,jdbcType=VARCHAR}, 
+		    #{dicKey,jdbcType=VARCHAR},
+		    #{dicVal,jdbcType=VARCHAR}, 
+			#{dicDes,jdbcType=VARCHAR},
+			#{isDelete,jdbcType=INTEGER},
+			#{createDate,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 查询所有字典 -->
+	<select id="getAllDictionary" parameterType="java.util.Map" resultMap="BaseResultMap" >
+        select
+        <include refid="base_column_list" />
+            from t_dictionary where is_delete = 0 ORDER BY create_date DESC
+        <if test="startIndex != null and endIndex != null">
+        	limit ${startIndex},${endIndex}
+        </if>
+    </select>
+    
+    <!-- 通过类型查找数据字典 -->
+    <select id="selectDicByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select * from t_dictionary where dic_name = #{dicName} and is_delete = 0 ORDER BY create_date DESC
+    </select>
+    
+    <!-- 查询字典个数 -->
+    <select id="countByCriteria" resultType="java.lang.Integer">
+		select count(*) from t_dictionary where is_delete = 0
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<update id="deleteDictionaryById" parameterType="java.lang.String">
+		update t_dictionary set is_delete = 1 where dic_id in
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+	</update>
+	
+	<!-- 根据ID修改 -->
+	<update id="updateDictionaryById" parameterType="com.web.app.entity.Dictionary">
+	    update t_dictionary
+		<set>
+	      <if test="dicName != null" >
+	        dic_name = #{dicName, jdbcType=VARCHAR},
+	      </if>
+	      <if test="dicKey != null">
+	      	dic_key = #{dicKey, jdbcType=VARCHAR},
+	      </if>
+	      <if test="dicVal != null">
+	        dic_val = #{dicVal, jdbcType=VARCHAR},
+	      </if>
+	      <if test="dicDes != null">
+	        dic_des = #{dicDes, jdbcType=VARCHAR}
+	      </if>
+	    </set>
+	    where dic_id = #{dicId, jdbcType=VARCHAR} and is_delete = 0
+	</update>
+</mapper>
+
+
+

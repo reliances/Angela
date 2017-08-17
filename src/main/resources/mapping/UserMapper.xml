@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.UserMapper" >
+  
+	<resultMap id="BaseResultMap" type="com.web.app.entity.User" >
+		<id column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+		<result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		<result column="user_role" property="userRole" jdbcType="VARCHAR" />
+		<result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		<result column="roleId" property="roleId" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+	</resultMap>
+    
+    
+	<sql id="base_column_list" >
+		uuid, user_id, user_name, user_account, user_password, user_role, user_email
+	</sql>
+	
+	<select id="selectAgent" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select uuid, user_id, user_name from sys_user where uuid in
+		<foreach item="idItem" collection="ids" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+		and uuid not in (select user_id from t_agent where approver = #{approver} and agent_type = #{type})
+	</select>
+	
+	<select id="getUserInfoById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+			user_name
+		from 
+			sys_user user
+        where 
+        	uuid = #{userId} and is_delete = 0
+	</select>
+	
+	
+	<select id="getAllUsers" parameterType="java.util.Map" resultMap="BaseResultMap" >
+       	select
+       	    user.uuid,
+       	    user_id,
+       	    user_name,
+       	    user_account,
+       	    user_password,
+       	    user_role as roleId,
+       	    role.role_name as user_role, 
+       	    user_email
+        from 
+           	sys_user user
+		left join 
+			sys_role role on user.user_role = role.uuid
+		where 
+			user.is_delete = 0
+       	<if test="startIndex != null and endIndex != null">
+     		limit ${startIndex},${endIndex}
+        </if>
+    </select>
+    
+    <select id="getApplyUser" parameterType="java.util.Map" resultMap="BaseResultMap" >
+       	select
+       	    user.uuid,
+       	    user_id,
+       	    user_name,
+       	    user_account,
+       	    user_password,
+       	    user_role as roleId,
+       	    role.role_name as user_role, 
+       	    user_email
+        from 
+           	sys_user user
+			left join sys_role role on user.user_role = role.uuid
+	    <where>
+            <if test="list != null and list.size != 0">
+                AND user_role in
+                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            and user.is_delete = 0
+        </where>
+    </select>
+   
+    <insert id="insertUser" parameterType="com.web.app.entity.User" >
+        insert into sys_user (
+        	uuid, 
+        	user_id, 
+        	user_name, 
+        	user_account, 
+        	user_password, 
+        	user_role, 
+        	user_email , 
+	        is_delete)
+        values (
+        	#{uuid,jdbcType=VARCHAR}, 
+        	#{userId,jdbcType=VARCHAR}, 
+        	#{userName,jdbcType=VARCHAR},
+	        #{userAccount,jdbcType=VARCHAR},
+	        #{userPassword,jdbcType=VARCHAR},
+	        #{userRole,jdbcType=VARCHAR},
+	        #{userEmail,jdbcType=VARCHAR},
+	        #{isDelete,jdbcType=INTEGER})
+    </insert>
+    
+    
+    <update id="deleteUserById" >
+        update sys_user set is_delete = 1 where uuid in
+        <foreach item="idItem" collection="list" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+    </update>
+    
+    <select id="countByNumber" resultType="java.lang.Integer">
+    	select count(*) from sys_user where user_id = #{id} and is_delete = 0
+    </select>
+    
+    <select id="countByCriteria" resultType="java.lang.Integer">
+		select count(*) from sys_user where is_delete = 0
+	</select>  
+	
+	
+    <select id="getUserByCount" resultType="java.lang.Integer">
+		select count(*) from sys_user where user_account=#{user_account} and is_delete = 0
+	</select>
+	
+	<update id="updateUserById" parameterType="com.web.app.entity.User">
+		UPDATE sys_user
+		SET 
+			user_id = #{userId}
+		   ,user_name = #{userName}
+		   ,user_account = #{userAccount}
+		   ,user_password = #{userPassword}
+		   ,user_role = #{userRole}
+		   ,user_email = #{userEmail}
+        WHERE 
+           uuid = #{uuid} and is_delete = 0
+	</update>
+	
+	
+	<update id="updatePasswordById">
+	   update sys_user set user_password = #{newPassword}
+	   WHERE 
+           uuid = #{userId} and user_password = #{oldPassword} and is_delete = 0
+	</update>
+	
+	<select id="countByNameAndPassword" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from sys_user
+        where 1=1 and is_delete = 0
+        <if test="userAccount != null" >
+            and user_account = #{userAccount}
+        </if>
+        <if test="password != null" >
+            and user_password = #{password}
+        </if>
+    </select>
+    
+    <select id="selectUserByNameAndPassword" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select 
+        <include refid="base_column_list" />
+        from 
+        	sys_user 
+        where 
+        	user_account = #{userAccount}  and  user_password = #{password}  and is_delete = 0
+    </select>
+    
+    <select id="selectUserByRole" resultMap="BaseResultMap">
+        select 
+        	uuid, user_name
+        from 
+        	sys_user
+        where 
+        	is_delete = 0 and user_role in
+        <foreach item="item" index="index" collection="list" 
+	        open="(" separator="," close=")">
+	        #{item}
+        </foreach>
+    </select>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:context="http://www.springframework.org/schema/context"  
+ xmlns:p="http://www.springframework.org/schema/p"  
+ xmlns:mvc="http://www.springframework.org/schema/mvc"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xsi:schemaLocation="http://www.springframework.org/schema/beans  
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+      http://www.springframework.org/schema/context  
+      http://www.springframework.org/schema/context/spring-context.xsd  
+      http://www.springframework.org/schema/mvc  
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+      
+	<!-- 注解扫描包 -->
+	<context:component-scan base-package="com.web.app.controller.*" />
+	
+	<!-- 开启注解 -->
+	<mvc:annotation-driven/>
+	
+	<!-- 读取静态文件 -->
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/upload/" mapping="/upload/**"/>
+	
+	<!-- Mobile读取静态文件
+	<mvc:resources location="/mobile/img/" mapping="/mobile/img/**"/>
+	<mvc:resources location="/mobile/js/" mapping="/mobile/js/**"/>
+	<mvc:resources location="/mobile/css/" mapping="/mobile/css/**"/> -->
+	
+	<!-- 配置返回JSP页面结尾 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+      
+    <!-- 文件上传配置 -->  
+   	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="defaultEncoding" value="utf-8" />
+	      <property name="maxUploadSize" value="10485760000" />
+	      <property name="maxInMemorySize" value="40960" />
+	</bean>
+	
+ </beans>  

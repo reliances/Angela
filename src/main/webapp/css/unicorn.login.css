@@ -1,0 +1,269 @@
+/**
+ * Unicorn Admin Template
+ * Diablo9983 -> diablo9983@gmail.com
+**/
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
+}
+body {
+	background: #f9f9f9;
+    padding: 0;
+    margin: 0;
+	margin-top:-10px;
+}
+/* Header */
+#header {
+    height:50px;
+    position: relative;
+    width: 100%;
+    z-index: -9;
+	background:#222;
+}
+
+#header h1 {
+    background: url("../img/logot.png") no-repeat;
+    left: 30px;
+    overflow: hidden;
+    padding-left: 110px;
+    position: relative;
+    top: 12px;
+    width: 250px;
+	line-height:32px;
+}
+
+#header h1 a {
+  display: block;
+	color:#fff;
+}
+.header{background:#222; height:50px; margin-top:10px; padding:0;}
+.loginlogo{ float:left; width: 180px; padding-left: 50px; margin-left:30px; height:50px; line-height:50px; color:#fff; font-size:16px; font-weight:bold; background: url(../img/logo.png) no-repeat 0 10px; cursor:inherit;}
+.loginlogo:hover{ text-decoration:none; color:#fff;}
+#logo, #loginbox {
+    width: 310px;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top:50px;
+    position: relative;
+}
+#logo {
+    padding: 20px 0 20px 5px;
+}
+#logo img {
+    width: 215px;
+    margin: 0 auto;
+    display: block;
+}
+#loginbox {
+    height: 380px;
+	background: #ffffff;
+    border-radius: 2px;
+    overflow: hidden !important;
+    text-align: center;
+    position: relative;
+	border:1px solid #dfdfe4;
+}
+
+#loginbox form{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+#loginbox p {
+    padding: 0 20px;
+	margin-top:20px;
+}
+#loginbox h4{
+	font-size:14px;
+	color:#6d6d6d;
+}
+.input-append, .input-prepend {
+	margin:0;
+}
+.input-append .add-on, .input-prepend .add-on{
+	height:30px;
+	line-height:30px;
+	border-right:none;
+	background:none;
+}
+#loginform .loginTxt{
+	display:block;
+	margin:0 auto;
+	width:238px;
+	height:30px;
+	line-height:30px;
+	border-radius: 4px;
+	padding-left:30px;
+}
+.similarinput{
+	position:relative;
+}
+.similarinput .icon-user,.similarinput .icon-lock{
+	position:absolute;
+	 width:17px;
+	 height:17px;
+	 background:#f00;
+	 left:28px;
+	 top:12px;
+	 z-index:10000;
+	 background: url(../img/glyphicons-halflings-white.png) no-repeat -168px 1px;
+	 filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+.similarinput .icon-lock{
+	 background-position:-287px -24px;
+}
+#loginform .nobottom{
+	border-bottom:none;
+	border-radius: 4px 4px 0 0;
+}
+#loginform .notopradius{
+	border-radius: 0 0 4px 4px;
+}
+#loginbox .form-actions {
+	padding: 20px 17px 15px;
+}
+#loginbox .form-actions .pull-left {
+	margin-top: 2px;
+}
+
+#loginbox form#loginform {
+	z-index: 200;
+}
+
+#loginbox form#recoverform {
+	z-index: 100;
+	opacity: 0;
+    display:none;
+}
+
+#loginbox form#recoverform .form-actions {
+    margin-top: 27px;
+}
+
+#loginbox form#recoverform .control-group {
+	margin: 23px 0;
+}
+.control-group{ margin:0;
+	position:relative;
+}
+.prompt{
+	position:absolute;
+	line-height:20px;
+	bottom:80px;
+	left:18px;
+	width:252px;
+	border:1px solid #ff6600;
+	background:#FFEFD8;
+	padding:3px 10px;
+	text-align:left;
+	z-index:1000;
+	color:#666;
+	font-size:12px;
+}
+.prompt i{ float:left; width:20px; height:20px; background:url(../img/icons/common/icon_error.png) no-repeat 0 3px;}
+.form-vertical, .form-actions {
+    margin-bottom: 0;
+}
+.pull-login{
+	width:100%;
+	
+}
+.pull-login .btn-login{
+	width:100%;
+	height:40px;
+	background:#2592e0;
+	color:#fff;
+	font-size:16px;
+	font-weight:bold;
+	border:1px solid #2592e0;
+	-moz-border-radius: 4px;      /* Gecko browsers */
+    -webkit-border-radius: 4px;   /* Webkit browsers */
+    border-radius:4px;            /* W3C syntax */
+}
+.pull-login .btn-login:hover{
+	width:100%;
+	height:40px;
+	background:#42a7f0;
+	color:#fff;
+	font-size:16px;
+	font-weight:bold;
+	border:1px solid #42a7f0;
+}
+.explainList{
+	width:70%;
+	height:300px;
+	border-top:1px solid #dfdfe4;
+	margin:0 auto;
+	margin-top:20px;
+	list-style-type:none;
+}
+.explainList li{
+	float:left;
+	width:33.3%;
+	height:300px;
+}
+.explainList li h4{
+	font-size: 14px;
+	line-height:30px;
+    margin: 5px 0;
+	width:80%;
+	margin:0 auto;
+}
+.explainList li p{
+	line-height:20px;
+	font-size:12px;
+	width:80%;
+	margin:0 auto;
+}
+.explainImg{
+	width:80%;
+	margin:0 auto;
+	text-align:left;
+	height:42px;
+	margin-top:30px;
+}
+.explainImg img{
+	width:40px;
+	height:40px;
+}
+.logobox{
+	margin-bottom:50px;
+	text-align:center;
+}
+#loginbox .form-action {
+	padding: 10px 17px;
+}
+#loginbox form#recoverform .form-action {
+    margin-top: 10px;
+}
+.loginbtn{
+	display:block;
+	width:100%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background:#2592e0;
+	color:#fff;
+	font-size:16px;
+	font-weight:bold;
+	border:1px solid #2592e0;
+	-moz-border-radius: 4px;      /* Gecko browsers */
+  -webkit-border-radius: 4px;   /* Webkit browsers */
+  border-radius:4px;            /* W3C syntax */
+	}
+.loginbtn:hover{
+	text-decoration:none;
+	width:100%;
+	height:40px;
+	background:#42a7f0;
+	color:#fff;
+	font-size:16px;
+	font-weight:bold;
+	border:1px solid #42a7f0;
+}
