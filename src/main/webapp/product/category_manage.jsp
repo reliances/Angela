@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
-	    function deleteDictionary(){
+	    function deleteCategoryById(){
 			var dicId = [];
 			$("input[name='checkbox2']").each(function() {
 				if ($(this).attr("checked")) {
@@ -26,11 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			if (dicId == "") {
-				ymPrompt.alert("请选择需要删除的字典!");
+				ymPrompt.alert("请选择需要删除的分类!");
 			} else {
-				ymPrompt.confirmInfo("确定要删除选择的字典信息吗？",null,null,"删除提示",function(tp) {
+				ymPrompt.confirmInfo("确定要删除选择的分类信息吗？",null,null,"删除提示",function(tp) {
 					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
+						location.href = "deleteCategoryById?sub=2&dicId="+dicId;
 					}
 				});
 			}
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="row-fluid">
 	<div class="btn-box">
     <button class="btn btn-info" href="#myAlertCreate" data-toggle="modal"><i class="icon-add"></i>新增商品类别</button>
-    <button class="btn btn-danger margin-l5" onclick="deleteDictionary();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
+    <button class="btn btn-danger margin-l5" onclick="deleteCategoryById();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
 <div class="row-fluid">
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <tbody>
                       <c:forEach items="${list}" var="cates">
 	                      <tr>
-	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${dic.dicId}"/></span></td>
+	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${cates.id}"/></span></td>
 	                          <td>${cates.catName}</td>
 	                          <td>
 	                          	<c:forEach items="${list }" var="cate">

@@ -64,12 +64,21 @@
     </select>
 	
 	<!-- 根据ID删除 -->
-	<!-- <update id="deleteDictionaryById" parameterType="java.lang.String">
-		update t_dictionary set is_delete = 1 where dic_id in
+	<update id="deleteProductById" parameterType="java.lang.String">
+		update t_pictures set is_delete = 1 where image_id in
         <foreach item="idItem" collection="array" open="(" separator="," close=")">
            #{idItem}
         </foreach>
-	</update> -->
+	</update>
+	
+	<!-- 根据产品ID删除 -->
+	<update id="deletePicturesByProductId" parameterType="java.lang.String">
+		update t_pictures set is_delete = 1 where product_id in
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+	</update>
+	
 	
 	<!-- 根据ID修改 -->
 	<!-- <update id="updateCategoryById" parameterType="com.web.app.entity.Category">

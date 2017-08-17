@@ -21,6 +21,8 @@ public interface PicturesMapper {
 	public int countByCriteria();
 	//删除图片
 	public int deletePicturesById(String[] dicIds);
+	//根据产品ID删除图片
+	public int deletePicturesByProductId(String[] dicIds);
 	//编辑图片
 	public int updatePicturesById(Pictures pictures);
 	//通过产品ID查找图片

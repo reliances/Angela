@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,6 +69,22 @@ public class CategoryController extends BaseController {
 		categoryService.insertCategory(category);	
 		try {
 			Log("新增操作", "新增一条名为"+category.getCatName()+"的商品类别", request);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("sub", request.getParameter("sub"));
+		return "redirect:/category/getAllCategory";
+	}
+	
+	
+	//根据id删除
+	@RequestMapping("/deleteCategoryById")
+	public String deleteCategoryById(HttpServletRequest request,HttpServletResponse response) {
+		String dicId = request.getParameter("dicId");
+		String[] dicIds = dicId.split(",");
+		categoryService.deleteCategoryById(dicIds);
+		try {
+			Log("删除操作", "删除分类,ID为"+dicId, request);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}

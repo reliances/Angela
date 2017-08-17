@@ -20,6 +20,9 @@
 	</resultMap>
 	<!--查询所有菜单  -->
 	<select id="getAllMenu"  resultType="java.util.List" resultMap="subMenuMap">
+		select sys_menu.* from sys_menu
+	</select>
+	<!-- <select id="getAllMenu"  resultType="java.util.List" resultMap="subMenuMap">
 		select 
 			sys_menu.*, id, menu_id, s_url from sys_menu
 		left join 
@@ -37,7 +40,7 @@
 			</if>
 		</where>
 		ORDER BY `order` ASC
-	</select>
+	</select> -->
 	
 	 
 

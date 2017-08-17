@@ -205,12 +205,12 @@
 	</update>
 	
 	<!-- 根据ID删除 -->
-	<!-- <update id="deleteDictionaryById" parameterType="java.lang.String">
-		update t_dictionary set is_delete = 1 where dic_id in
+	<update id="deleteProductById" parameterType="java.lang.String">
+		update t_product set is_delete = 1 where id in
         <foreach item="idItem" collection="array" open="(" separator="," close=")">
            #{idItem}
         </foreach>
-	</update> -->
+	</update>
 	
 	<!-- 根据ID修改 -->
 	<!-- <update id="updateCategoryById" parameterType="com.web.app.entity.Category">

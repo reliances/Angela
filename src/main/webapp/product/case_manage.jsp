@@ -16,9 +16,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
 	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
+	<link type="text/css" rel="stylesheet" href="<%=path%>/js/view/css/viewer.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
-	    function deleteCase(){
+	    function deleteCaseById(){
 			var Ids = [];
 			$("input[name='checkbox2']").each(function() {
 				if ($(this).attr("checked")) {
@@ -26,11 +27,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			if (Ids == "") {
-				ymPrompt.alert("请选择需要删除的商品!");
+				ymPrompt.alert("请选择需要删除的案例!");
 			} else {
-				ymPrompt.confirmInfo("确定要删除选择的商品信息吗？",null,null,"删除提示",function(tp) {
+				ymPrompt.confirmInfo("确定要删除选择的案例信息吗？",null,null,"删除提示",function(tp) {
 					if (tp == "ok") {
-						location.href = "deleteCase?Ids="+Ids;
+						location.href = "deleteCaseById?sub=4&Ids="+Ids;
 					}
 				});
 			}
@@ -56,6 +57,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$("#catName1").val("");
 	    }
 	</script>
+	
+	
+	<style>
+	* { margin: 0; padding: 0;}
+	.pictures { width: 300px; margin: 0 auto; font-size: 0;}
+	.pictures li { display: inline-block; margin-left: 1%; padding-top: 1%;}
+	.pictures li img { width: 50px; hight:50px; cursor:pointer}
+	</style>
 </head>
 <body>
 
@@ -100,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="row-fluid">
 	<div class="btn-box">
     <button class="btn btn-info" onclick="toAddCasePage();"><i class="icon-add"></i>新增案例</button>
-    <button class="btn btn-danger margin-l5" onclick="deleteCase();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
+    <button class="btn btn-danger margin-l5" onclick="deleteCaseById();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
 <div class="row-fluid">
@@ -125,7 +134,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                      <tr>
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${ls.id}"/></span></td>
 	                          <td>${ls.title}</td>
-	                          <td>........待完善</td>
+	                          <td id="${ls.id}" class="pictures">
+	                          	 <ul>
+	                          	  <c:forEach items="${picList }" var="pic">
+	                          	  	  <c:if test="${pic.productId eq ls.id && pic.imageType == 2}">
+	                          	  	  	<li><img data-original="<%=path%>/upload/${pic.imageUrl}" onclick="showPic('${ls.id}')" src="<%=path%>/upload/${pic.imageUrl}"/></li>
+	                          	  	  </c:if>
+	                          	  </c:forEach>
+							 	</ul>
+							  </td>
 	                          <td>${ls.brief}</td>
 	                          <td>${ls.description}</td>
 	                          <td>${ls.remarks}</td>
@@ -162,5 +179,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </div>
+
+<script src="<%=path%>/js/view/js/viewer.min.js"></script>
+<script>
+	/* var viewer = new Viewer(document.getElementById('dowebok'), {
+		url: 'data-original'
+	}); */
+	function showPic(id){
+		var viewer = new Viewer(document.getElementById(id), {
+			url: 'data-original'
+		});
+	}
+</script>
 </body>
 </html>

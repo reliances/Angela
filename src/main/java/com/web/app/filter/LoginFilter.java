@@ -23,25 +23,17 @@ public class LoginFilter implements Filter {
     private String sessionKey = null;
 
     @SuppressWarnings("unchecked")
-	public void doFilter(ServletRequest servletRequest,
-            ServletResponse servletResponse, FilterChain filterChain)
+	public void doFilter(ServletRequest servletRequest,ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        String uri = request.getServletPath()
-                + (request.getPathInfo() == null ? "" : request.getPathInfo());
+        String uri = request.getServletPath()+(request.getPathInfo() == null ? "" : request.getPathInfo());
         if (sessionKey == null) {
             filterChain.doFilter(request, response);
             return;
         }
-
-        if ((!ignoreCheckURLStr.contains(uri))
-                && session.getAttribute(sessionKey) == null) {
-        	if (uri.indexOf("process") != -1 || uri.indexOf("mobile") != -1 || uri.indexOf("resource") != -1) {
-        		response.sendRedirect(request.getContextPath() + "/mobile/pages/login.jsp");
-        		return;
-        	}
+        if ((!ignoreCheckURLStr.contains(uri)) && session.getAttribute(sessionKey) == null) {
             response.sendRedirect(request.getContextPath() + redirectURL);
             return;
         } else {

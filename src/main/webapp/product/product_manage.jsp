@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" rel="stylesheet" href="<%=path%>/js/view/css/viewer.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
-	    function deleteDictionary(){
+	    function deleteProductById(){
 			var dicId = [];
 			$("input[name='checkbox2']").each(function() {
 				if ($(this).attr("checked")) {
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			} else {
 				ymPrompt.confirmInfo("确定要删除选择的商品信息吗？",null,null,"删除提示",function(tp) {
 					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
+						location.href = "deleteProductById?sub=2&dicId="+dicId;
 					}
 				});
 			}
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="row-fluid">
 	<div class="btn-box">
     <button class="btn btn-info" onclick="toAddProductPage();"><i class="icon-add"></i>新增商品</button>
-    <button class="btn btn-danger margin-l5" onclick="deleteDictionary();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
+    <button class="btn btn-danger margin-l5" onclick="deleteProductById();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
 <div class="row-fluid">
@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td id="${ls.id}" class="pictures">
 	                          	 <ul>
 	                          	  <c:forEach items="${picList }" var="pic">
-	                          	  	  <c:if test="${pic.productId eq ls.id }">
+	                          	  	  <c:if test="${pic.productId eq ls.id && pic.imageType == 1}">
 	                          	  	  	<li><img data-original="<%=path%>/upload/${pic.imageUrl}" onclick="showPic('${ls.id}')" src="<%=path%>/upload/${pic.imageUrl}"/></li>
 	                          	  	  </c:if>
 	                          	  </c:forEach>

@@ -37,5 +37,9 @@ public class PicturesService {
 	public List<Pictures> selectPicturesByProductId(String proId) {
 		return picturesMapper.selectPicturesByProductId(proId);
 	}
+
+	public int deletePicturesByProductId(String[] dicIds) {
+		return picturesMapper.deletePicturesByProductId(dicIds);
+	}
 	
 }
