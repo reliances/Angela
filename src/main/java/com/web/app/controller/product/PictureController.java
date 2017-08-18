@@ -90,8 +90,8 @@ public class PictureController extends BaseController {
 	@RequestMapping("/toEditPicPage")
 	public String toEditPicPage(Model model, HttpServletRequest request) {
 //		String id = request.getParameter("id");
-//		OrderInfo orderInfo = pictureService.getPicturesById(id);
-//		request.setAttribute("orderInfo", orderInfo);
+//		Pictures picInfo = pictureService.getPicturesById(id);
+//		request.setAttribute("picInfo", picInfo);
 		return "picture/picture_edit";
 	}
 

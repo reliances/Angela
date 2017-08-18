@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" rel="stylesheet" href="<%=path%>/js/view/css/viewer.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
-	    function deleteOrder(){
+	    function deletePic(){
 			var Ids = [];
 			$("input[name='checkbox2']").each(function() {
 				if ($(this).attr("checked")) {
@@ -27,22 +27,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			if (Ids == "") {
-				ymPrompt.alert("请选择需要删除的商品!");
+				ymPrompt.alert("请选择需要删除的图片!");
 			} else {
-				ymPrompt.confirmInfo("确定要删除选择的商品信息吗？",null,null,"删除提示",function(tp) {
+				ymPrompt.confirmInfo("确定要删除选择的图片信息吗？",null,null,"删除提示",function(tp) {
 					if (tp == "ok") {
-						location.href = "deleteOrder?Ids="+Ids;
+						location.href = "deletePictures?Ids="+Ids;
 					}
 				});
 			}
 	    }
 	    //add
-	    function toAddPage(){
-	    	location.href = "toAddOrderPage?sub=3";
+	    function toAddPicPage(){
+	    	location.href = "toAddPicPage?sub=3";
 	    }
 	  	//edit
 	    function updateInfo(id){
-	    	location.href = "toEditOrderPage?id="+id;
+	    	location.href = "toEditPicPage?id="+id;
 	    }
 	    //修改数据
 	    function updateCategory(id, catName, parentId, depth, priority){
@@ -105,8 +105,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container-fluid">
 <div class="row-fluid">
 	<div class="btn-box">
-    <button class="btn btn-info" onclick="toAddPage();"><i class="icon-add"></i>新增图片</button>
-    <button class="btn btn-danger margin-l5" onclick="deleteOrder();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
+    <button class="btn btn-info" onclick="toAddPicPage();"><i class="icon-add"></i>新增图片</button>
+    <button class="btn btn-danger margin-l5" onclick="deletePic();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
 <div class="row-fluid">

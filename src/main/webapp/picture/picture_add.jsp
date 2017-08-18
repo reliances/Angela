@@ -81,8 +81,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--左侧菜单 end-->
 <div id="content">
 <div id="breadcrumb">
-    <a href="#" title="订单管理" class="tip-bottom"><i class="icon-home"></i>订单管理</a>
-    <a href="#" class="current">订单添加</a>
+    <a href="#" title="图片管理" class="tip-bottom"><i class="icon-home"></i>图片管理</a>
+    <a href="#" class="current">图片添加</a>
 </div>
 
 
@@ -94,16 +94,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="icon">
                         <i class="icon-align-justify"></i>                                  
                     </span>
-                    <h5>订单信息</h5>
+                    <h5>图片信息</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form action="addOrder" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <div class="control-group">
-                            <label class="control-label">订单ID</label>
-                            <div class="controls">
-                                <input type="text" name="orderId" placeholder="订单ID">
-                            </div>
-                        </div>
+                    <form action="addPictures" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
                         <div class="control-group">
                             <label class="control-label">产品ID</label>
                             <div class="controls">
@@ -111,21 +105,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">产品数量</label>
+                            <label class="control-label">图片类型</label>
                             <div class="controls">
-                                <input type="text" name="productCount" placeholder="产品数量">
+                                <input type="text" name="imageType" placeholder="图片类型">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">连接状态</label>
+                            <label class="control-label">产品图片</label>
                             <div class="controls">
-                                <input type="text" name="connectStatus" placeholder="连接状态">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">订单状态</label>
-                            <div class="controls">
-                                <input type="text" name="status" placeholder="订单状态">
+                                <input type="text" name="imageUrl" placeholder="产品图片">
                             </div>
                         </div>
                         <div class="control-group">

@@ -102,25 +102,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">案例标题</label>
                             <div class="controls">
-                                <input type="text" name="title" placeholder="标题" value="${caseInfo.title}">
+                                <input type="text" name="title" value="${caseInfo.title}" class="js-title" onblur="changeNo('js-title', 'getTitle');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">简短描述</label>
                             <div class="controls">
-                                <input type="text" name="brief" placeholder="简短描述" value="${caseInfo.brief}">
+                                <input type="text" name="brief" value="${caseInfo.brief}" class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">详细描述</label>
                             <div class="controls">
-                                <textarea name="description" placeholder="详细描述">${caseInfo.description}</textarea>
+                                <textarea name="description" class="js-description" onblur="changeNo('js-description', 'getDescription');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">${caseInfo.description}</textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">备注</label>
                             <div class="controls">
-                                <input type="text" name="remarks" placeholder="案例相关备注" value="${caseInfo.remarks}">
+                                <input type="text" name="remarks" value="${caseInfo.remarks}" class="js-remarks" onblur="changeNo('js-remarks', 'getRemarks');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">
                             </div>
                         </div>
                         <div class="control-group">
@@ -133,7 +133,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <button type="submit" class="btn btn-primary">保存</button>
+                                <!-- <button type="submit" class="btn btn-primary">保存</button> -->
+                                <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -144,6 +145,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </div>
- 
+<script type="text/javascript">
+	var submitForm = function() {
+		if (changeNo('js-title', 'getTitle') && changeNo('js-brief', 'getBrief') && changeNo('js-description', 'getDescription') && changeNo('js-remarks', 'getRemarks')) {
+	 		return true;
+	 	} else {
+	 		return false;
+	 	}
+	}
+</script>
 </body>
 </html>
