@@ -189,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                        		<label class="control-label">计量单位：</label>
                        		<div class="controls">
-	                            <select class="w82" name="productArea">
+	                            <select class="w82" name="productUnit">
 	                                <c:forEach items="${dictionary}" var="dic">
 	                                	<c:if test="${dic.dicKey == 'product_unit' }">
 		                              		<option value="${dic.dicId}">${dic.dicVal}</option>

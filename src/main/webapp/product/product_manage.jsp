@@ -17,7 +17,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
 	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
-	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
 	<link type="text/css" rel="stylesheet" href="<%=path%>/js/view/css/viewer.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">

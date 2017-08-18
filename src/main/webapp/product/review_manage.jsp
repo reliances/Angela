@@ -16,9 +16,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
 	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
+	<link type="text/css" rel="stylesheet" href="<%=path%>/js/view/css/viewer.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
-	    function deleteOrder(){
+	    function deleteById(){
 			var Ids = [];
 			$("input[name='checkbox2']").each(function() {
 				if ($(this).attr("checked")) {
@@ -26,22 +27,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			if (Ids == "") {
-				ymPrompt.alert("请选择需要删除的商品!");
+				ymPrompt.alert("请选择需要删除的评价!");
 			} else {
-				ymPrompt.confirmInfo("确定要删除选择的商品信息吗？",null,null,"删除提示",function(tp) {
+				ymPrompt.confirmInfo("确定要删除选择的评价信息吗？",null,null,"删除提示",function(tp) {
 					if (tp == "ok") {
-						location.href = "deleteOrder?Ids="+Ids;
+						location.href = "deleteById?sub=2&Ids="+Ids;
 					}
 				});
 			}
 	    }
 	    //add
-	    function toAddPage(){
-	    	location.href = "toAddOrderPage?sub=2";
+	    function toAddCasePage(){
+	    	location.href = "toAddCasePage?sub=4";
 	    }
 	  	//edit
-	    function updateInfo(id){
-	    	location.href = "toEditOrderPage?id="+id;
+	    function updateCaseInfo(id){
+	    	location.href = "toEditCasePage?id="+id;
 	    }
 	    //修改数据
 	    function updateCategory(id, catName, parentId, depth, priority){
@@ -56,6 +57,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$("#catName1").val("");
 	    }
 	</script>
+	
+	
+	<style>
+	* { margin: 0; padding: 0;}
+	.pictures { width: 300px; margin: 0 auto; font-size: 0;}
+	.pictures li { display: inline-block; margin-left: 1%; padding-top: 1%;}
+	.pictures li img { width: 50px; hight:50px; cursor:pointer}
+	</style>
 </head>
 <body>
 
@@ -74,8 +83,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--左侧菜单 end-->
 <div id="content">
 <div id="breadcrumb">
-    <a href="#" title="商品管理" class="tip-bottom"><i class="icon-home"></i>订单管理</a>
-    <a href="#" class="current">订单管理</a>
+    <a href="#" title="商品管理" class="tip-bottom"><i class="icon-home"></i>评价管理</a>
+    <a href="#" class="current">评价管理</a>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -90,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </a>
                 </div>
                 <div id="collapseOne" class="collapse in">
-                    <div class="widget-content">进行订单相关操作。</div>
+                    <div class="widget-content">进行评价相关操作。</div>
                 </div>
             </div>
         </div>
@@ -99,8 +108,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container-fluid">
 <div class="row-fluid">
 	<div class="btn-box">
-    <!-- <button class="btn btn-info" onclick="toAddPage();"><i class="icon-add"></i>新增订单</button> -->
-    <button class="btn btn-danger margin-l5" onclick="deleteOrder();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
+    <!-- <button class="btn btn-info" onclick="toAddCasePage();"><i class="icon-add"></i>新增评价</button> -->
+    <button class="btn btn-danger margin-l5" onclick="deleteById();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
 <div class="row-fluid">
@@ -111,39 +120,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <thead>
                       <tr>
                           <th><span class="icon"><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></span></th>
-                          <th>订单ID</th>
                           <th>产品ID</th>
-                          <th>产品数量</th>
-                          <th>连接状态</th>
-                          <th>订单状态</th>
+                          <th>评价内容</th>
+                          <th>整体满意度</th>
+                          <th>产品质量</th>
+                          <th>响应能力</th>
+                          <th>交付</th>
+                          <th>解决问题</th>
+                          <th>印记/个性化</th>
+                          <th>备注</th>
                           <th>创建时间</th>
-                          <th class="center">操作</th>
+                          <!-- <th class="center">操作</th> -->
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach items="${list}" var="ls">
 	                      <tr>
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${ls.id}"/></span></td>
-	                          <td>${ls.orderId}</td>
 	                          <td>${ls.productId}</td>
-	                          <td>${ls.productCount}</td>
-	                          <td>${ls.connectStatus}</td>
-	                          <td>${ls.status}</td>
+	                          <td>${ls.comment}</td>
+	                          <td>${ls.satisfaction}</td>
+	                          <td>${ls.productQuality}</td>
+	                          <td>${ls.responsiveness}</td>
+	                          <td>${ls.delivery}</td>
+	                          <td>${ls.problemResolution}</td>
+	                          <td>${ls.imprinting}</td>
+	                          <td>${ls.remarks}</td>
 	                          <td>${ls.createDate}</td>
-	                          <td>
+	                          <%-- <td>
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.id}');">编辑</a></li>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateCaseInfo('${ls.id}');">编辑</a></li>
 	                                </ul>
 	                              </div>
-	                          </td>
+	                          </td> --%>
 	                      </tr>
                       </c:forEach>
                     </tbody>
                 </table>
                 <div>
-                	<form method="post" id="requestForm" action="<%=path%>/order/getAllCase">
+                	<form method="post" id="requestForm" action="<%=path%>/review/getAllReview">
                 		<input type="hidden" value="2" name="sub"/>
                 	</form>
 		            <page:createPager pageSize="${pageSize}" totalPage="${totalPage}" totalCount="${totalCount}" curPage="${pageNum}" formId="requestForm"/>
@@ -157,10 +174,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container-fluid">
     <div class="row-fluid">
         <div id="footer" class="span12">
-            Copyright 2013-2015 TCloud All Rights Reserved
+            Copyright 2017 TCloud All Rights Reserved
         </div>
     </div>
 </div>
 </div>
+
+<script src="<%=path%>/js/view/js/viewer.min.js"></script>
+<script>
+	/* var viewer = new Viewer(document.getElementById('dowebok'), {
+		url: 'data-original'
+	}); */
+	function showPic(id){
+		var viewer = new Viewer(document.getElementById(id), {
+			url: 'data-original'
+		});
+	}
+</script>
 </body>
 </html>

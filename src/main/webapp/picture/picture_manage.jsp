@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
 	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
+	<link type="text/css" rel="stylesheet" href="<%=path%>/js/view/css/viewer.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
 	    function deleteOrder(){
@@ -56,6 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$("#catName1").val("");
 	    }
 	</script>
+	<style>
+		* { margin: 0; padding: 0;}
+		.pictures { width: 300px; margin: 0 auto; font-size: 0;}
+		.pictures img { width: 50px; hight:50px; cursor:pointer}
+	</style>
 </head>
 <body>
 
@@ -74,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--左侧菜单 end-->
 <div id="content">
 <div id="breadcrumb">
-    <a href="#" title="商品管理" class="tip-bottom"><i class="icon-home"></i>订单管理</a>
-    <a href="#" class="current">订单管理</a>
+    <a href="#" title="图片管理" class="tip-bottom"><i class="icon-home"></i>图片管理</a>
+    <a href="#" class="current">图片管理</a>
 </div>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -90,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </a>
                 </div>
                 <div id="collapseOne" class="collapse in">
-                    <div class="widget-content">进行订单的添加修改操作。</div>
+                    <div class="widget-content">进行图片的添加修改操作。</div>
                 </div>
             </div>
         </div>
@@ -99,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container-fluid">
 <div class="row-fluid">
 	<div class="btn-box">
-    <button class="btn btn-info" onclick="toAddPage();"><i class="icon-add"></i>新增订单</button>
+    <button class="btn btn-info" onclick="toAddPage();"><i class="icon-add"></i>新增图片</button>
     <button class="btn btn-danger margin-l5" onclick="deleteOrder();" data-toggle="modal"><i class="icon-delete"></i>删除</button>
   </div>
 </div>
@@ -111,12 +117,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <thead>
                       <tr>
                           <th><span class="icon"><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></span></th>
-                          <th>订单ID</th>
                           <th>产品ID</th>
-                          <th>产品数量</th>
-                          <th>连接状态</th>
-                         <!--  <th>订单状态</th>
-                          <th>创建时间</th> -->
+                          <th>图片类型</th>
+                          <th>产品图片</th>
+                          <th>创建时间</th>
                           <th class="center">操作</th>
                       </tr>
                     </thead>
@@ -124,17 +128,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <c:forEach items="${list}" var="ls">
 	                      <tr>
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${ls.imageId}"/></span></td>
-	                          <td>${ls.imageUrl}</td>
-	                          <td>${ls.imageUrlSmall}</td>
-	                          <td>${ls.imageType}</td>
 	                          <td>${ls.productId}</td>
-	                          <%-- <td>${ls.status}</td>
-	                          <td>${ls.createDate}</td> --%>
+	                          <td>
+		                          <c:choose>
+		                          	<c:when test="${ls.imageType == 1}">产品</c:when>
+								   	<c:when test="${ls.imageType == 2}">案例</c:when>
+								   	<c:when test="${ls.imageType == 3}">广告</c:when>
+								   	<c:otherwise>其它 </c:otherwise>  
+								  </c:choose>
+							  </td>
+	                          <td id="" class="pictures">
+	                          	<img data-original="<%=path%>/upload/${ls.imageUrl}" onclick="showPic('${ls.imageId}')" src="<%=path%>/upload/${ls.imageUrl}"/>
+							  </td>
+	                          <td>${ls.createDate}</td>
 	                          <td>
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.id}');">编辑</a></li>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.imageId}');">编辑</a></li>
 	                                </ul>
 	                              </div>
 	                          </td>
@@ -162,5 +173,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </div>
+<script src="<%=path%>/js/view/js/viewer.min.js"></script>
+<script>
+	/* var viewer = new Viewer(document.getElementById('dowebok'), {
+		url: 'data-original'
+	}); */
+	function showPic(id){
+		var viewer = new Viewer(document.getElementById(id), {
+			url: 'data-original'
+		});
+	}
+</script>
 </body>
 </html>

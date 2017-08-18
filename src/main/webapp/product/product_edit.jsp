@@ -189,8 +189,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<label class="control-label">计量单位：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productUnit">
-                                    <option value="1" <c:if test="${product.productUnit eq 1}">selected</c:if>>件</option>
-                                    <option value="3" <c:if test="${product.productUnit eq 3}">selected</c:if>>台</option>
+                                    <c:forEach items="${dictionary}" var="dic">
+	                                	<c:if test="${dic.dicKey == 'product_unit' }">
+		                              		<option value="${dic.dicId}" <c:if test="${dic.dicId eq product.productUnit}">selected</c:if>>${dic.dicVal}</option>
+		                              	</c:if>
+	                              	</c:forEach>
                                 </select>
                             </div>
                         </div>
@@ -204,11 +207,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label">颜色：</label>
                             <div class="controls">
                                 <select class="w82" name="productColor">
-                                	<option value="110">红色</option>
-                                	<option value="110">黑色</option>
-	                                <%-- <c:forEach items="${category}" var="cate">
-		                              	<option value="${cate.id}">${cate.catName}</option>
-	                              	</c:forEach> --%>
+	                                <c:forEach items="${dictionary}" var="dic">
+	                                	<c:if test="${dic.dicKey == 'product_color' }">
+		                              		<option value="${dic.dicId}" <c:if test="${dic.dicId eq product.productColor}">selected</c:if>>${dic.dicVal}</option>
+		                              	</c:if>
+	                              	</c:forEach>
                                 </select>
                             </div>
                         </div>
@@ -216,9 +219,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	<label class="control-label">产地：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productArea">
-                                    <option value="3">中国</option>
-                                    <option value="5">美国</option>
-                                    <option value="7">英国</option>
+                                    <c:forEach items="${dictionary}" var="dic">
+	                                	<c:if test="${dic.dicKey == 'product_area' }">
+		                              		<option value="${dic.dicId}" <c:if test="${dic.dicId eq product.productArea}">selected</c:if>>${dic.dicVal}</option>
+		                              	</c:if>
+	                              	</c:forEach>
                                 </select>
                             </div>
                         </div>
@@ -226,9 +231,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	<label class="control-label">材质：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="material">
-                                    <option value="3">金属</option>
-                                    <option value="2">木材</option>
-                                    <option value="4">塑料</option>
+                                    <c:forEach items="${dictionary}" var="dic">
+	                                	<c:if test="${dic.dicKey == 'product_material' }">
+		                              		<option value="${dic.dicId}" <c:if test="${dic.dicId eq product.material}">selected</c:if>>${dic.dicVal}</option>
+		                              	</c:if>
+	                              	</c:forEach>
                                 </select>
                             </div>
                         </div>

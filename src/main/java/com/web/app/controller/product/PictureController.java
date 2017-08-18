@@ -23,7 +23,7 @@ import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
 
 /**
- * @Title:ImageController
+ * @Title:PictureController
  * @Description:
  * @Auth:LiangRui
  * @CreateTime:2017年8月17日 下午17:35:40
@@ -53,8 +53,8 @@ public class PictureController extends BaseController {
 		map.put("startIndex", (pageNum - 1) * pageSize);
 		map.put("endIndex", pageSize);
 		@SuppressWarnings("rawtypes")
-		List caseList = pictureService.getAllPictures(map);
-		this.initResult(model, caseList, map);
+		List listinfo = pictureService.getAllPictures(map);
+		this.initResult(model, listinfo, map);
 		if (request.getParameter("sub") == null) {
 			request.setAttribute("sub", 3);
 		}
@@ -72,7 +72,7 @@ public class PictureController extends BaseController {
 		pictures.setCreateDate(DateTools.getCurrentTime());
 		pictureService.insertPictures(pictures);
 		try {
-			Log("新增操作", "新增一条名为" + pictures.getImageId() + "的订单", request);
+			Log("新增操作", "新增一条名为" + pictures.getImageId() + "的图片", request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
