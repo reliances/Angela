@@ -43,8 +43,6 @@ public class LoginFilter implements Filter {
         		filterChain.doFilter(servletRequest, servletResponse);
         	} else if (uri.indexOf("/user/home") != -1) {
         		filterChain.doFilter(servletRequest, servletResponse);
-        	}else if (uri.indexOf("process") != -1 || uri.indexOf("resource") != -1) {
-        		filterChain.doFilter(servletRequest, servletResponse);
         	} else {
             	String queryString = request.getQueryString();
             	queryString = queryString == null ? "" : queryString;
@@ -53,9 +51,6 @@ public class LoginFilter implements Filter {
             		queryString = queryString.substring(0, index);
             	} else {
             		queryString = queryString.substring(0, queryString.length());
-            	}
-            	if (queryString.indexOf("applyType") != -1 || queryString.indexOf("type") != -1) {
-            		uri = uri + "?" +  queryString;
             	}
                 List<Menu> menus = (List<Menu>) session.getAttribute("menus");
                 String url = null;
@@ -76,10 +71,6 @@ public class LoginFilter implements Filter {
                     	urls.add(url);
                 	}
                 }
-                /*urls.add("/position/addPosition");
-                urls.add("/position/deletePositionById");
-                urls.add("/position/updatePositionById");
-                urls.add("/position/getPositionById");*/
                 if (urls.contains(uri)) {
                 	filterChain.doFilter(servletRequest, servletResponse);
                 } else {

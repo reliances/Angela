@@ -51,12 +51,12 @@
     <url-pattern>/role/*</url-pattern>
     <url-pattern>/roleAuth/*</url-pattern>
     <url-pattern>/dictionary/*</url-pattern>
-    <url-pattern>/syslog/*</url-pattern>
+    <!-- <url-pattern>/syslog/*</url-pattern>
     <url-pattern>/case/*</url-pattern>
     <url-pattern>/category/*</url-pattern>
     <url-pattern>/order/*</url-pattern>
     <url-pattern>/picture/*</url-pattern>
-    <url-pattern>/product/*</url-pattern>
+    <url-pattern>/product/*</url-pattern> -->
   </filter-mapping>
   <context-param>
     <param-name>log4jConfigLocation</param-name>
