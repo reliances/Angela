@@ -34,11 +34,12 @@ public class CategoryController extends BaseController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/getAllCategory")
 	public String getAllCategory(Model model, @RequestParam(required=false) Integer pageNum, 
 			@RequestParam(required=false) Integer pageSize, HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
+		List cateListAdd = categoryService.getAllCategory(map);
 		Pager pager = new Pager();
 		if (pageNum == null) {
 			pageNum = pager.getCurPage();
@@ -50,12 +51,12 @@ public class CategoryController extends BaseController {
 	    this.initPage(map, pageNum, pageSize, totalCount);
 	    map.put("startIndex", (pageNum-1) * pageSize);
 		map.put("endIndex", pageSize);
-		@SuppressWarnings("rawtypes")
 		List cateList = categoryService.getAllCategory(map);
 		this.initResult(model, cateList, map);
 		if(request.getParameter("sub") == null){
 			request.setAttribute("sub", 2);
 		}
+		request.setAttribute("cateListAdd", cateListAdd);
 		request.getSession().setAttribute("sub", request.getParameter("sub"));
 		return "product/category_manage";
 	}
@@ -68,7 +69,7 @@ public class CategoryController extends BaseController {
 		category.setIsDelete(0);
 		categoryService.insertCategory(category);	
 		try {
-			Log("新增操作", "新增一条名为"+category.getCatName()+"的商品类别", request);
+			Log("新增操作", "新增一条名为"+category.getCateName()+"的商品类别", request);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -85,6 +86,20 @@ public class CategoryController extends BaseController {
 		categoryService.deleteCategoryById(dicIds);
 		try {
 			Log("删除操作", "删除分类,ID为"+dicId, request);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("sub", request.getParameter("sub"));
+		return "redirect:/category/getAllCategory";
+	}
+	
+	
+	//根据id修改
+	@RequestMapping("/updateCategoryById")
+	public String updateCategoryById(Category category, HttpServletRequest request,HttpServletResponse response) {
+		categoryService.updateCategoryById(category);
+		try {
+			Log("修改操作", "修改分类,ID为"+category.getCateName(), request);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}

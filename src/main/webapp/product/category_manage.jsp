@@ -36,16 +36,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 	    }
 	    //修改数据
-	    function updateCategory(id, catName, parentId, depth, priority){
+	    function updateCategory(id, cateName, parentId, depth, priority){
 	    	$("#id").val(id);
-	    	$("#catName").val(catName);
+	    	$("#cateName").val(cateName);
 	    	$("#parentId").val(parentId);
 	    	$("#depth").val(depth);
 	    	$("#priority").html(priority);
 	    }
 	    
 	    var cancel = function() {
-	    	$("#catName1").val("");
+	    	$("#cateName1").val("");
 	    }
 	</script>
 </head>
@@ -115,11 +115,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <c:forEach items="${list}" var="cates">
 	                      <tr>
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${cates.id}"/></span></td>
-	                          <td>${cates.catName}</td>
+	                          <td>${cates.cateName}</td>
 	                          <td>
-	                          	<c:forEach items="${list }" var="cate">
+	                          	<c:forEach items="${cateListAdd }" var="cate">
 					       			<c:if test="${cates.parentId eq cate.id }">
-										${cate.catName }
+										${cate.cateName }
 									</c:if>
 								</c:forEach>
 	                          </td>
@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateCategory('${cates.id}', '${cates.catName}','${cates.parentId}','${cates.depth}','${cates.priority}');">编辑</a></li>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateCategory('${cates.id}', '${cates.cateName}','${cates.parentId}','${cates.depth}','${cates.priority}');">编辑</a></li>
 	                                </ul>
 	                              </div>
 	                          </td>
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="control-group">
                         <label class="control-label control-slabel">类别名称:</label>
                         <div class="controls control-s">
-                            <input type="text" name="catName" id="catName1" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="cateName" id="cateName1"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -179,9 +179,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="controls control-s">
                             <select class="w83" name="parentId">
                             <option value=" "></option>
-                              <c:forEach items="${list}" var="cate">
+                              <c:forEach items="${cateListAdd}" var="cate">
                               	 <c:if test="${cate.parentId eq ' '}">
-                              	 	<option value="${cate.id}">${cate.catName}</option>
+                              	 	<option value="${cate.id}">${cate.cateName}</option>
                               	 </c:if>
                               </c:forEach>
                             </select>
@@ -256,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label class="control-label control-slabel">类别名称:</label>
                         <div class="controls control-s">
                         	<input type="hidden" name="id" id="id">
-                            <input type="text" name="catName" id="catName" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="cateName" id="cateName"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -266,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <option value=" "></option>
                               <c:forEach items="${list}" var="cate">
                               	 <c:if test="${cate.parentId eq ' '}">
-                              	 	<option value="${cate.id}" <c:if test="${cate.id eq parentId}">checked</c:if>>${cate.catName}</option>
+                              	 	<option value="${cate.id}" <c:if test="${cate.id eq parentId}">checked</c:if>>${cate.cateName}</option>
                               	 </c:if>
                               </c:forEach>
                             </select>

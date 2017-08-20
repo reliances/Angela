@@ -1,6 +1,7 @@
 package com.web.app.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 
@@ -22,7 +23,9 @@ public class CaseInfo implements Serializable {
 	private String createDate;
 	private String createUser;
 	private Integer isDelete=0;
-
+	
+	private List<Pictures> pictures;
+	
 	public String getId() {
 		return id;
 	}
@@ -93,6 +96,14 @@ public class CaseInfo implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public List<Pictures> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Pictures> pictures) {
+		this.pictures = pictures;
 	}
 
 }

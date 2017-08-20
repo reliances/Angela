@@ -34,10 +34,16 @@ public class CategoryService {
 		return categoryMapper.updateCategoryById(category);
 	}
 
-	public List<Category> selectCategoryByName(String cateName) {
-		return categoryMapper.selectCategoryByName(cateName);
+	public List<Category> selectCategoryByParentId(String categoryId) {
+		return categoryMapper.selectCategoryByParentId(categoryId);
 	}
 
-	 
+	public List<Category> selectCategoryParent() {
+		return categoryMapper.selectCategoryParent();
+	}
+
+	public Category selectCategoryByName(String cateName) {
+		return categoryMapper.selectCategoryByName(cateName);
+	}
 	
 }
