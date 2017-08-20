@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.all.min.js"> </script>
 	<script type="text/javascript" src="<%=path%>/js/pace.min.js"> </script>
+	<script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
 	<script type="text/javascript" src="<%=path%>/css/ueditor/lang/zh-cn/zh-cn.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
@@ -123,13 +124,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">商品名称：</label>
                             <div class="controls">
-                                <input type="text" name="productName" placeholder="商品名称" value="${product.productName}">
+                                <input type="text" name="productName" class="js-productName" onblur="changeNo('js-productName', 'getProductName');" placeholder="商品名称" value="${product.productName}">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">商品SN码：</label>
                             <div class="controls">
-                                <input type="text" name="productSn" placeholder="商品的条形码" value="${product.productSn}">
+                                <input type="text" name="productSn" class="js-productSn" onblur="changeNo('js-productSn', 'getProductSn');" placeholder="商品的条形码" value="${product.productSn}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -152,13 +153,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <div class="control-group">
                             <label class="control-label">市场价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" placeholder="市场价格" value="${product.marketPrice}"><span class="cs-dw">元</span>
+                                <input type="text" name="marketPrice" class="js-marketPrice" onblur="changeNo('js-marketPrice', 'getMarketPrice');" placeholder="市场价格" value="${product.marketPrice}"><span class="cs-dw">元</span>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">本店售价：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" placeholder="实际售价" value="${product.productPrice}"><span class="cs-dw">元</span>
+                                <input type="text" name="productPrice" class="js-productPrice" onblur="changeNo('js-productPrice', 'getProductPrice');" placeholder="实际售价" value="${product.productPrice}"><span class="cs-dw">元</span>
                             </div>
                         </div>
                         <div class="control-group">
@@ -200,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">库存：</label>
                             <div class="controls">
-                                <input type="text" name="stock" placeholder="库存" value="${product.stock}">
+                                <input type="text" name="stock" class="js-stock" onblur="changeNo('js-stock', 'getStock');" placeholder="库存" value="${product.stock}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -242,7 +243,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">标签：</label>
                             <div class="controls">
-                                <input type="text" name="proTag" placeholder="标签" value="${product.proTag}">
+                                <select class="w82" name="proTag">
+	                                <c:forEach items="${dictionary}" var="dic">
+	                                	<c:if test="${dic.dicKey == 'product_tag' }">
+		                              		<option value="${dic.dicId}" <c:if test="${dic.dicId eq product.proTag}">selected</c:if>>${dic.dicVal}</option>
+		                              	</c:if>
+	                              	</c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
@@ -313,9 +320,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
 							<label class="control-label">商品图片：</label>
 							<div class="controls">
-								<c:forEach items="${picList}" var="pic">
+								<c:forEach items="${picList}" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq product.id && pic.imageType == 1}">
-                         	  	  		<img id="upload" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" />
+                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
+										<div style="display:none">
+											<input type="file" name="imageUrl" id="file${status.index}" onchange="uploadImage('${status.index}')">
+										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
 							</div>
@@ -323,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">简短描述：</label>
                             <div class="controls">
-                                <input type="text" name="brief" placeholder="简短描述" value="${product.brief}">
+                                <input type="text" name="brief" class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="简短描述" value="${product.brief}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -338,7 +348,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <button type="submit" class="btn btn-primary">保存</button>
+								<input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -350,6 +360,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	function uploadImage(n){
+		$.ajaxFileUpload({  
+        	url:'/product/update/image',  
+        	secureuri:false,                       //是否启用安全提交,默认为false   
+        	fileElementId:'file'+n, 
+        	dataType:'json',                       //服务器返回的格式,可以是json或xml等  
+        	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]  
+            	var url = data.url;
+               	var img = document.getElementById("img"+n);
+               	$("#img"+n).attr("src", url.substring(1));
+        	},  
+        	error:function(data, status, e){ //服务器响应失败时的处理函数  
+            	alert("图片上传失败");  
+        	}  
+    	}); 
+	}
+
+	var submitForm = function() {
+		if (changeNo('js-productName', 'getProductName')&& changeNo('js-productSn', 'getProductSn') && changeNo('js-marketPrice', 'getMarketPrice')
+				&& changeNo('js-productPrice', 'getProductPrice') && changeNo('js-stock', 'getStock') && changeNo('js-brief', 'getBrief') ) {
+	 		return true;
+	 	} else {
+	 		return false;
+	 	}
+	}
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");

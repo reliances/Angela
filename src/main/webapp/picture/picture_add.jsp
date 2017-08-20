@@ -101,25 +101,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">产品ID</label>
                             <div class="controls">
-                                <input type="text" name="productId" placeholder="产品ID">
+                                <input type="text" name="productId" class="js-productId" onblur="changeNo('js-productId', 'getProductId');" placeholder="产品ID" >
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">图片类型</label>
                             <div class="controls">
-                                <input type="text" name="imageType" placeholder="图片类型">
+                                <select class="w82" name="imageType">
+                                    <option value="1">产品</option>
+                                    <option value="2">案例</option>
+                                    <option value="3">广告</option>
+                                    <option value="4">其它</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">产品图片</label>
                             <div class="controls">
-                                <input type="text" name="imageUrl" placeholder="产品图片">
+                                <input type="file" name="imageUrl" placeholder="产品图片">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <button type="submit" class="btn btn-primary">保存</button>
+                                <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -130,6 +135,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </div>
- 
+<script type="text/javascript">
+	var submitForm = function() {
+		if (changeNo('js-productId', 'getProductId')) {
+	 		return true;
+	 	} else {
+	 		return false;
+	 	}
+	}
+</script>
 </body>
 </html>

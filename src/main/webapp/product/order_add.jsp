@@ -101,37 +101,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">订单ID</label>
                             <div class="controls">
-                                <input type="text" name="orderId" placeholder="订单ID">
+                                <input type="text" name="orderId" class="js-orderId" onblur="changeNo('js-orderId', 'getOrderId');" placeholder="订单ID">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">产品ID</label>
                             <div class="controls">
-                                <input type="text" name="productId" placeholder="产品ID">
+                                <input type="text" name="productId" class="js-productId" onblur="changeNo('js-productId', 'getProductId');" placeholder="产品ID">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">产品数量</label>
                             <div class="controls">
-                                <input type="text" name="productCount" placeholder="产品数量">
+                                <input type="text" name="productCount" class="js-productCount" onblur="changeNo('js-productCount', 'getProductCount');" placeholder="产品数量">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">连接状态</label>
                             <div class="controls">
-                                <input type="text" name="connectStatus" placeholder="连接状态">
+                                <input type="text" name="connectStatus" class="js-connectStatus" onblur="changeNo('js-connectStatus', 'getConnectStatus');" placeholder="连接状态">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">订单状态</label>
                             <div class="controls">
-                                <input type="text" name="status" placeholder="订单状态">
+                                <input type="text" name="status" class="js-status" onblur="changeNo('js-status', 'getStatus');" placeholder="订单状态">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <button type="submit" class="btn btn-primary">保存</button>
+                                <!-- <button type="submit" class="btn btn-primary">保存</button> -->
+                                <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -142,6 +143,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </div>
- 
+<script type="text/javascript">
+	var submitForm = function() {
+		if (changeNo('js-orderId', 'getOrderId')&& changeNo('js-productId', 'getProductId') && changeNo('js-productCount', 'getProductCount') && changeNo('js-connectStatus', 'getConnectStatus') && changeNo('js-status', 'getStatus')) {
+	 		return true;
+	 	} else {
+	 		return false;
+	 	}
+	}
+</script> 
 </body>
 </html>

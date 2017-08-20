@@ -15,9 +15,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import com.web.app.controller.BaseController;
 import com.web.app.entity.Category;
@@ -31,6 +34,8 @@ import com.web.app.service.PicturesService;
 import com.web.app.service.ProductService;
 import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
+
+import net.sf.json.JSONObject;
 
 /**
  * @Title:CategoryController     
@@ -192,7 +197,36 @@ public class ProductController extends BaseController {
 		return "redirect:/product/getAllproduct";
 	}
 	
-	
+	 /**
+	  * 修改产品图片
+	  * @param request
+	  * @param response
+	  * @throws Exception
+	  */
+	  @RequestMapping(value = "/update/image", method = RequestMethod.POST)
+	  public void updateImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    response.setContentType("text/html");
+	    String productId = request.getParameter("productId");
+	    String imageId = request.getParameter("imgId");
+
+	    DefaultMultipartHttpServletRequest defaultRequest = (DefaultMultipartHttpServletRequest) request;
+	    MultiValueMap<String, MultipartFile> fileMap = defaultRequest.getMultiFileMap();
+	    List<MultipartFile> fileList = fileMap.get("file");
+	    MultipartFile file = fileList.get(0);
+
+	    Pictures form = new Pictures();
+
+	    form.setProductId(productId);
+	    form.setImageId(imageId);
+	    form.setImageType(1);
+	    
+//	    String imgUrl = pictureService.modifyProductImage(file, request, response, form);
+//
+//	    JSONObject jsonObject = new JSONObject();
+//	    jsonObject.put("url", imgUrl);
+//
+//	    jsonObject.toString();
+	  }
 	
 	
 }
