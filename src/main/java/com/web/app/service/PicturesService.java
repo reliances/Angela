@@ -41,5 +41,9 @@ public class PicturesService {
 	public int deletePicturesByProductId(String[] dicIds) {
 		return picturesMapper.deletePicturesByProductId(dicIds);
 	}
+
+	public Pictures findPicById(String imageId) {
+		return picturesMapper.findPicById(imageId);
+	}
 	
 }

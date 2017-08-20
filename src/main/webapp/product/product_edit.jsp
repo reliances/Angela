@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="widget-content nopadding">
                     <form action="updateProduct" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
-                    	<input type="hidden" name="id" value="${product.id}">
+                    	<input type="hidden" id="proId" name="id" value="${product.id}">
                         <!-- <div class="control-group">
                             <label class="control-label">中文名称</label>
                             <div class="controls">
@@ -324,7 +324,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         			<c:if test="${pic.productId eq product.id && pic.imageType == 1}">
                          	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
 										<div style="display:none">
-											<input type="file" name="imageUrl" id="file${status.index}" onchange="uploadImage('${status.index}')">
+											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
+											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
 										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
@@ -361,15 +362,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 	function uploadImage(n){
+		//var productId = ${product.id};
+		var productId = $("#proId").val();
+ 		var imgId = $("#imgId"+n).val();
 		$.ajaxFileUpload({  
-        	url:'/product/update/image',  
+        	url:'update/image',  
         	secureuri:false,                       //是否启用安全提交,默认为false   
-        	fileElementId:'file'+n, 
+        	fileElementId:'file'+n,
+ 			data:{"productId":productId,"imgId":imgId},          
         	dataType:'json',                       //服务器返回的格式,可以是json或xml等  
-        	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]  
-            	var url = data.url;
-               	var img = document.getElementById("img"+n);
-               	$("#img"+n).attr("src", url.substring(1));
+        	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]
+            	var url = data.imageUrl;
+               	$("#upload"+n).attr("src", "<%=path%>/upload/"+url);
         	},  
         	error:function(data, status, e){ //服务器响应失败时的处理函数  
             	alert("图片上传失败");  

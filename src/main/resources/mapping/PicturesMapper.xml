@@ -79,26 +79,38 @@
         </foreach>
 	</update>
 	
+	<!-- 根据图片ID查询图片信息 -->
+	<select id="findPicById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select 
+        <include refid="base_column_list" />
+         from t_pictures where image_id = #{imageId} and is_delete = 0
+    </select>
 	
 	<!-- 根据ID修改 -->
-	<!-- <update id="updateCategoryById" parameterType="com.web.app.entity.Category">
-	    update t_category
+	<update id="updatePicturesById" parameterType="com.web.app.entity.Pictures">
+	    update t_pictures
 		<set>
-	      <if test="catName != null" >
-	        cat_name = #{catName, jdbcType=VARCHAR},
+		  <if test="createDate != null">
+	        create_date = #{createDate, jdbcType=INTEGER},
 	      </if>
-	      <if test="depth != null">
-	      	depth = #{depth, jdbcType=INTEGER},
+	      <if test="createUser != null">
+	        create_user = #{createUser, jdbcType=VARCHAR},
 	      </if>
-	      <if test="parentId != null">
-	        parent_id = #{parentId, jdbcType=VARCHAR},
+	      <if test="imageType != null" >
+	        image_type = #{imageType, jdbcType=VARCHAR},
 	      </if>
-	      <if test="priority != null">
-	        priority = #{priority, jdbcType=INTEGER}
+	      <if test="imageUrl != null">
+	      	image_url = #{imageUrl, jdbcType=INTEGER},
+	      </if>
+	      <if test="imageUrlSmall != null">
+	      	image_url_small = #{imageUrlSmall, jdbcType=INTEGER},
+	      </if>
+	      <if test="productId != null">
+	      	product_id = #{productId, jdbcType=INTEGER},
 	      </if>
 	    </set>
-	    where id = #{id, jdbcType=VARCHAR} and is_delete = 0
-	</update> -->
+	    where image_id = #{imageId, jdbcType=VARCHAR} and is_delete = 0
+	</update>
 </mapper>
 
 

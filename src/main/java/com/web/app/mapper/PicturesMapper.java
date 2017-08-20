@@ -27,4 +27,6 @@ public interface PicturesMapper {
 	public int updatePicturesById(Pictures pictures);
 	//通过产品ID查找图片
 	public List<Pictures> selectPicturesByProductId(String productId);
+	//根据图片ID查询图片信息
+	public Pictures findPicById(String imageId);
 }
