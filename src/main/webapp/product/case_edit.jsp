@@ -131,6 +131,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
+                        	<label class="control-label">案例图片</label>
+                        	<div class="controls">
+                        		<c:forEach items="${picList }" var="pic">
+                        			<c:if test="${pic.productId eq caseInfo.id && pic.imageType == 2}">
+                         	  	  		<img id="upload" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" />
+                         	  	  	</c:if>
+                         	  	</c:forEach>
+                        	</div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
                                 <!-- <button type="submit" class="btn btn-primary">保存</button> -->

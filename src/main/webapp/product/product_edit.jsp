@@ -313,9 +313,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
 							<label class="control-label">商品图片：</label>
 							<div class="controls">
-								<img id="upload" src="<%=path%>/upload/tibet-1.jpg" width="300" height="200" onclick="fileToUpload.click()"/>
-								<input type="file" name="imageurl" id="fileToUpload" style="display: none;" >
-								<input type="hidden" id="imgVal" name="imageurl" value="{$model.imageurl}" />
+								<c:forEach items="${picList}" var="pic">
+                        			<c:if test="${pic.productId eq product.id && pic.imageType == 1}">
+                         	  	  		<img id="upload" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" />
+                         	  	  	</c:if>
+                         	  	</c:forEach>
 							</div>
 						</div>
                         <div class="control-group">
@@ -348,21 +350,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
-	//选择文件之后执行上传  
-	/* $('#fileToUpload').on('change', function() {  
-		$("#form-sign-edit").ajaxSubmit({
-			type: 'post',
-			url: '{:U("Mall/uploadImage")}',
-			success: function(data){
-				$("#upload").attr("src", "__ROOT__/public/Uploads/" + data);
-				$("#imgVal").val(data);
-			},
-			error: function(XmlHttpRequest, textStatus, errorThrown){
-				layer.msg('上传失败，请检查网络后重试',{icon:1,time:1000});
-			}
-		});
-	}); */
-	
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");

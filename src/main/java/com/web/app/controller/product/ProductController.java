@@ -156,6 +156,11 @@ public class ProductController extends BaseController {
 		Product product = productService.getProductById(id);
 		request.setAttribute("product", product);
 		
+		//查询所有图片
+		Map<String,Object> hmap = new HashMap<String,Object>();
+		List<Pictures> pic = pictureService.getAllPictures(hmap);
+		request.setAttribute("picList", pic);
+		
 		return "product/product_edit";
 	}
 	

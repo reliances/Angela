@@ -137,6 +137,10 @@ public class CaseController extends BaseController {
 		String id = request.getParameter("id");
 		CaseInfo caseInfo = caseInfoService.getCaseInfoById(id);
 		request.setAttribute("caseInfo", caseInfo);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<Pictures> pic = pictureService.getAllPictures(map);
+		request.setAttribute("picList", pic);
 		return "product/case_edit";
 	}
 	
