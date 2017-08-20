@@ -102,25 +102,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">产品ID</label>
                             <div class="controls">
-	                            <input type="text" name="productId" placeholder="产品ID" value="${picInfo.productId}">
+	                            <input type="text" name="productId" class="js-productId" onblur="changeNo('js-productId', 'getProductId');" placeholder="产品ID" value="${picInfo.productId}">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">图片类型</label>
                             <div class="controls">
-                                <input type="text" name="imageType" placeholder="图片类型" value="${picInfo.imageType}">
+                            	<select class="w82" name="imageType">
+                            		<option value="1" <c:if test="${picInfo.imageType == 1}">selected</c:if>>产品</option>
+                                    <option value="2" <c:if test="${picInfo.imageType == 2}">selected</c:if>>案例</option>
+                                    <option value="3" <c:if test="${picInfo.imageType == 3}">selected</c:if>>广告</option>
+                                    <option value="4" <c:if test="${picInfo.imageType == 4}">selected</c:if>>其它</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">产品图片</label>
                             <div class="controls">
-                                <input type="text" name="imageUrl" placeholder="产品图片" value="${picInfo.imageUrl}">
+                                <img id="upload" src="<%=path%>/upload/${picInfo.imageUrl}" width="100" height="75" />
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <button type="submit" class="btn btn-primary">保存</button>
+								<input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -131,6 +136,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </div>
- 
+<script type="text/javascript">
+	var submitForm = function() {
+		if (changeNo('js-productId', 'getProductId')) {
+	 		return true;
+	 	} else {
+	 		return false;
+	 	}
+	}
+</script>
 </body>
 </html>

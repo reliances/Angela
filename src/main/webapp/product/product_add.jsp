@@ -125,13 +125,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">商品名称：</label>
                             <div class="controls">
-                                <input type="text" name="productName" placeholder="商品名称">
+                                <input type="text" name="productName" class="js-productName" onblur="changeNo('js-productName', 'getProductName');" placeholder="商品名称">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">商品SN码：</label>
                             <div class="controls">
-                                <input type="text" name="productSn" placeholder="商品的条形码">
+                                <input type="text" name="productSn" class="js-productSn" onblur="changeNo('js-productSn', 'getProductSn');" placeholder="商品的条形码">
                             </div>
                         </div>
                         <div class="control-group">
@@ -153,13 +153,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <div class="control-group">
                             <label class="control-label">市场价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" placeholder="市场价格"><span class="cs-dw">元</span>
+                                <input type="text" name="marketPrice" class="js-marketPrice" onblur="changeNo('js-marketPrice', 'getMarketPrice');" placeholder="市场价格"><span class="cs-dw">元</span>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">本店售价：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" placeholder="实际售价"><span class="cs-dw">元</span>
+                                <input type="text" name="productPrice" class="js-productPrice" onblur="changeNo('js-productPrice', 'getProductPrice');" placeholder="实际售价"><span class="cs-dw">元</span>
                             </div>
                         </div>
                         <div class="control-group">
@@ -201,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">库存：</label>
                             <div class="controls">
-                                <input type="text" name="stock" placeholder="库存">
+                                <input type="text" name="stock" class="js-stock" onblur="changeNo('js-stock', 'getStock');" placeholder="库存">
                             </div>
                         </div>
                         <div class="control-group">
@@ -243,7 +243,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">标签：</label>
                             <div class="controls">
-                                <input type="text" name="proTag" placeholder="标签">
+                            	<select class="w82" name="proTag">
+	                                <c:forEach items="${dictionary}" var="dic">
+	                                	<c:if test="${dic.dicKey == 'product_tag' }">
+		                              		<option value="${dic.dicId}">${dic.dicVal}</option>
+		                              	</c:if>
+	                              	</c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
@@ -315,7 +321,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">简短描述：</label>
                             <div class="controls">
-                                <input type="text" name="brief" placeholder="简短描述">
+                                <input type="text" name="brief" class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="简短描述">
                             </div>
                         </div>
                         <div class="control-group">
@@ -330,7 +336,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <button type="submit" class="btn btn-primary">保存</button>
+                                <!-- <button type="submit" class="btn btn-primary">保存</button> -->
+                                <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -342,6 +349,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	var submitForm = function() {
+		if (changeNo('js-productName', 'getProductName')&& changeNo('js-productSn', 'getProductSn') && changeNo('js-marketPrice', 'getMarketPrice')
+				&& changeNo('js-productPrice', 'getProductPrice') && changeNo('js-stock', 'getStock') && changeNo('js-brief', 'getBrief') ) {
+	 		return true;
+	 	} else {
+	 		return false;
+	 	}
+	}
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");
