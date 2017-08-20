@@ -26,7 +26,7 @@ import com.web.app.tools.DateTools;
  */
 @RestController
 @RequestMapping("/orders")
-public class OrderRestController extends BaseController {
+public class RestOrderController extends BaseController {
 	@Autowired
 	private OrderInfoService orderInfoService;
 	

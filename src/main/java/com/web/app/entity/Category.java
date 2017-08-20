@@ -1,6 +1,7 @@
 package com.web.app.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Title:Category     
@@ -13,12 +14,14 @@ public class Category implements Serializable{
 	private static final long serialVersionUID = 828569102121852733L;
 	
 	private String id;
-	private String catName;
+	private String cateName;
 	private Integer depth;
 	private String parentId;
 	private Integer priority;  //优先级
 	private Integer status;
 	private Integer isDelete;
+	
+	private List<Category> category;
 	
 	public String getId() {
 		return id;
@@ -26,11 +29,11 @@ public class Category implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getCatName() {
-		return catName;
+	public String getCateName() {
+		return cateName;
 	}
-	public void setCatName(String catName) {
-		this.catName = catName;
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
 	}
 	public Integer getDepth() {
 		return depth;
@@ -61,6 +64,12 @@ public class Category implements Serializable{
 	}
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
+	}
+	public List<Category> getCategory() {
+		return category;
+	}
+	public void setCategory(List<Category> category) {
+		this.category = category;
 	}
 	
 }

@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${cates.id}"/></span></td>
 	                          <td>${cates.catName}</td>
 	                          <td>
-	                          	<c:forEach items="${list }" var="cate">
+	                          	<c:forEach items="${cateListAdd }" var="cate">
 					       			<c:if test="${cates.parentId eq cate.id }">
 										${cate.catName }
 									</c:if>
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="control-group">
                         <label class="control-label control-slabel">类别名称:</label>
                         <div class="controls control-s">
-                            <input type="text" name="catName" id="catName1" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="catName" id="catName1"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="controls control-s">
                             <select class="w83" name="parentId">
                             <option value=" "></option>
-                              <c:forEach items="${list}" var="cate">
+                              <c:forEach items="${cateListAdd}" var="cate">
                               	 <c:if test="${cate.parentId eq ' '}">
                               	 	<option value="${cate.id}">${cate.catName}</option>
                               	 </c:if>
@@ -256,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label class="control-label control-slabel">类别名称:</label>
                         <div class="controls control-s">
                         	<input type="hidden" name="id" id="id">
-                            <input type="text" name="catName" id="catName" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="catName" id="catName"/>
                         </div>
                     </div>
                     <div class="control-group">

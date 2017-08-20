@@ -24,5 +24,8 @@ public interface CategoryMapper {
 	//编辑类别
 	public int updateCategoryById(Category category);
 	//通过名称查找类别
-	public List<Category> selectCategoryByName(String cateName);
+	public Category selectCategoryByName(String cateName);
+	//查询父类和子类
+	public List<Category> selectCategoryParent();
+	public List<Category> selectCategoryByParentId(String categoryId);
 }

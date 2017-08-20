@@ -27,7 +27,7 @@ import com.web.app.service.ProductService;
  */
 @RestController
 @RequestMapping("/products")
-public class ProductRestController extends BaseController {
+public class RestProductController extends BaseController {
 	
 	@Autowired
 	private ProductService productService;
@@ -45,17 +45,51 @@ public class ProductRestController extends BaseController {
 	 * @throws
 	 * @Time 2017年8月14日 下午10:29:51
 	 */
-	@RequestMapping("/getAllproducts")
+	@RequestMapping("/getAllProducts")
 	public JSONObject getAllproduct(HttpServletRequest request, HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		String orderBy = request.getParameter("OrderBy");
+		String size = request.getParameter("Size");
 		JSONObject jsonObj = new JSONObject();
 		Map<String,Object> map = new HashMap<String,Object>();
+		if(null != orderBy && !orderBy.equals("")){
+			if(orderBy.endsWith("createDate")){
+				map.put("createDate", "createDate");
+			}else if(orderBy.endsWith("isHot")){
+				map.put("isHot", "isHot");
+			}else if(orderBy.endsWith("sellCount")){
+				map.put("sellCount", "sellCount");
+			}
+		}
+		if(null != size && !size.equals("")){
+			map.put("startIndex", 0);
+			map.put("endIndex", size);
+		}
 		List<Product> productList = productService.getAllProduct(map);
 		for (int i = 0; i < productList.size(); i++) {
 			List<Pictures> pic = picturesService.selectPicturesByProductId(productList.get(i).getId());
 			productList.get(i).setPictures(pic);
 		}
 		jsonObj.put("products",JSONObject.toJSON(productList));
+		return jsonObj;
+	}
+	
+	
+	@RequestMapping("/getProductsDetail")
+	public JSONObject getProductsDetail(HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		String proId = request.getParameter("productId");
+		JSONObject jsonObj = new JSONObject();
+		if(null != proId && !proId.equals("")){
+			Product productDetail = productService.getProductById(proId);
+			if(null != productDetail && !productDetail.equals("")){
+				List<Pictures> pic = picturesService.selectPicturesByProductId(productDetail.getId());
+				productDetail.setPictures(pic);
+			}
+			jsonObj.put("products",JSONObject.toJSON(productDetail));
+		}else{
+			jsonObj.put("message", "product id  not be null");
+		}
 		return jsonObj;
 	}
 }

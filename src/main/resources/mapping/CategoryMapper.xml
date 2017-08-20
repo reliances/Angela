@@ -5,7 +5,7 @@
     <!-- 字典表 -->
 	<resultMap id="BaseResultMap" type="com.web.app.entity.Category" >
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="cat_name" property="catName" jdbcType="VARCHAR" />
+		<result column="cat_name" property="cateName" jdbcType="VARCHAR" />
 		<result column="depth" property="depth" jdbcType="INTEGER" />
 		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
 		<result column="priority" property="priority" jdbcType="INTEGER" />
@@ -30,7 +30,7 @@
 			status)
 		values(
 			#{id,jdbcType=VARCHAR},
-		    #{catName,jdbcType=VARCHAR}, 
+		    #{cateName,jdbcType=VARCHAR}, 
 		    #{depth,jdbcType=INTEGER},
 		    #{parentId,jdbcType=VARCHAR}, 
 			#{priority,jdbcType=INTEGER},
@@ -42,18 +42,28 @@
 	<select id="getAllCategory" parameterType="java.util.Map" resultMap="BaseResultMap" >
         select
         <include refid="base_column_list" />
-            from t_category where is_delete = 0 ORDER BY priority DESC
+            from t_category where is_delete = 0 ORDER BY parent_id ASC
         <if test="startIndex != null and endIndex != null">
         	limit ${startIndex},${endIndex}
         </if>
     </select>
     
-    <!-- 通过类型查找数据字典 -->
-    <!-- <select id="selectDicByName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    	select * from t_dictionary where dic_name = #{dicName} and is_delete = 0 ORDER BY create_date DESC
-    </select> -->
+	<!-- 根据名称查询类别 -->
+	<select id="selectCategoryByName" parameterType="java.lang.String" resultMap="BaseResultMap" >
+        select
+        <include refid="base_column_list" />
+            from t_category where is_delete = 0 and cat_name = #{cateName}
+    </select>
     
-    <!-- 查询字典个数 -->
+    <!-- 通过父级查找 -->
+    <select id="selectCategoryParent" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select * from t_category where parent_id = '' and is_delete = 0
+    </select>
+    <select id="selectCategoryByParentId" resultType="java.lang.String" resultMap="BaseResultMap">
+		select * from t_category where parent_id = #{parentId} and is_delete = 0
+	</select>
+    
+    <!-- 查询个数 -->
     <select id="countByCriteria" resultType="java.lang.Integer">
 		select count(*) from t_category where is_delete = 0
 	</select>
@@ -70,8 +80,8 @@
 	<update id="updateCategoryById" parameterType="com.web.app.entity.Category">
 	    update t_category
 		<set>
-	      <if test="catName != null" >
-	        cat_name = #{catName, jdbcType=VARCHAR},
+	      <if test="cateName != null" >
+	        cat_name = #{cateName, jdbcType=VARCHAR},
 	      </if>
 	      <if test="depth != null">
 	      	depth = #{depth, jdbcType=INTEGER},
