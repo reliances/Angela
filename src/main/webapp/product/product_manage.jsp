@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	location.href = "toEditProductPage?id="+id;
 	    }
 	    var cancel = function() {
-	    	$("#catName1").val("");
+	    	$("#cateName1").val("");
 	    }
 	</script>
 	

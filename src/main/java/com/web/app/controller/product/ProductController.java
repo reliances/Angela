@@ -35,8 +35,6 @@ import com.web.app.service.ProductService;
 import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
 
-import net.sf.json.JSONObject;
-
 /**
  * @Title:CategoryController     
  * @Description:

@@ -46,16 +46,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 	    }
 	    //修改数据
-	    function updateCategory(id, catName, parentId, depth, priority){
+	    function updateCategory(id, cateName, parentId, depth, priority){
 	    	$("#id").val(id);
-	    	$("#catName").val(catName);
+	    	$("#cateName").val(cateName);
 	    	$("#parentId").val(parentId);
 	    	$("#depth").val(depth);
 	    	$("#priority").html(priority);
 	    }
 	    
 	    var cancel = function() {
-	    	$("#catName1").val("");
+	    	$("#cateName1").val("");
 	    }
 	</script>
 	<style type="text/css">
@@ -138,8 +138,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="controls">
                                 <select class="w82" name="categoryId">
 	                                <c:forEach items="${category}" var="cate">
-		                              	<%-- <option value="${cate.id}">${cate.catName}</option> --%>
-		                              	<option value="${cate.id}" <c:if test="${cate.id eq product.categoryId}">selected</c:if>>${cate.catName}</option>
+		                              	<%-- <option value="${cate.id}">${cate.cateName}</option> --%>
+		                              	<option value="${cate.id}" <c:if test="${cate.id eq product.categoryId}">selected</c:if>>${cate.cateName}</option>
 	                              	</c:forEach>
                                 </select>
                             </div>
