@@ -98,10 +98,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="widget-content nopadding">
                     <form action="addPictures" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <div class="control-group">
+                        <!-- <div class="control-group">
                             <label class="control-label">产品ID</label>
                             <div class="controls">
                                 <input type="text" name="productId" class="js-productId" onblur="changeNo('js-productId', 'getProductId');" placeholder="产品ID" >
+                            </div>
+                        </div> -->
+                        <div class="control-group">
+                            <label class="control-label">商品分类：</label>
+                            <div class="controls">
+                                <select class="w82" name="productId">
+	                                <c:forEach items="${category}" var="cate">
+		                              	<option value="${cate.id}">${cate.cateName}</option>
+	                              	</c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
@@ -116,9 +126,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">产品图片</label>
+                            <label class="control-label">选择图片</label>
                             <div class="controls">
-                                <input type="file" name="imageUrl" placeholder="产品图片">
+                                <div style="margin-left:1px; width:990px;">
+									<input type="file" name="file" id="doc" multiple onchange="javascript:setImagePreviews();"/>
+									<div id="dd"></div>
+								</div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -137,12 +150,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 	var submitForm = function() {
-		if (changeNo('js-productId', 'getProductId')) {
+		/* if (changeNo('js-productId', 'getProductId')) {
 	 		return true;
 	 	} else {
 	 		return false;
-	 	}
+	 	} */
+		return true;
 	}
+	//下面用于多图片上传预览功能
+	    function setImagePreviews(avalue) {
+	        var docObj = document.getElementById("doc");
+	        var dd = document.getElementById("dd");
+	        dd.innerHTML = "";
+	        var fileList = docObj.files;
+	        for (var i = 0; i < fileList.length; i++) {            
+	            dd.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
+	            var imgObjPreview = document.getElementById("img"+i); 
+	            if (docObj.files && docObj.files[i]) {
+	                //火狐下，直接设img属性
+	                imgObjPreview.style.display = 'block';
+	                imgObjPreview.style.width = '150px';
+	                imgObjPreview.style.height = '180px';
+	                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+	                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+	                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+	            }else {
+	                //IE下，使用滤镜
+	                docObj.select();
+	                var imgSrc = document.selection.createRange().text;
+	                alert(imgSrc)
+	                var localImagId = document.getElementById("img" + i);
+	                //必须设置初始大小
+	                localImagId.style.width = "150px";
+	                localImagId.style.height = "180px";
+	                //图片异常的捕捉，防止用户修改后缀来伪造图片
+	                try {
+	                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	                }catch (e) {
+	                    alert("您上传的图片格式不正确，请重新选择!");
+	                    return false;
+	                }
+	                imgObjPreview.style.display = 'none';
+	                document.selection.empty();
+	            }
+	        }  
+	        return true;
+	    }
 </script>
 </body>
 </html>

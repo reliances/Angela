@@ -45,5 +45,9 @@ public class PicturesService {
 	public Pictures findPicById(String imageId) {
 		return picturesMapper.findPicById(imageId);
 	}
+
+	public List<Pictures> selectPicturesByGroup(Map<String, Object> map) {
+		return picturesMapper.selectPicturesByGroup(map);
+	}
 	
 }

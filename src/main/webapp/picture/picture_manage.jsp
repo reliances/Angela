@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <thead>
                       <tr>
                           <th><span class="icon"><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></span></th>
-                          <th>产品ID</th>
+                          <th>所属ID</th>
                           <th>图片类型</th>
                           <th>产品图片</th>
                           <th>创建时间</th>
@@ -125,27 +125,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       </tr>
                     </thead>
                     <tbody>
-                      <c:forEach items="${list}" var="ls">
+                      <c:forEach items="${list}" var="grp">
 	                      <tr>
-	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${ls.imageId}"/></span></td>
-	                          <td>${ls.productId}</td>
+	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${grp.imageId}"/></span></td>
+	                          <td>${grp.productId}</td>
 	                          <td>
 		                          <c:choose>
-		                          	<c:when test="${ls.imageType == 1}">产品</c:when>
-								   	<c:when test="${ls.imageType == 2}">案例</c:when>
-								   	<c:when test="${ls.imageType == 3}">广告</c:when>
+		                          	<c:when test="${grp.imageType == 1}">产品</c:when>
+								   	<c:when test="${grp.imageType == 2}">案例</c:when>
+								   	<c:when test="${grp.imageType == 3}">广告</c:when>
 								   	<c:otherwise>其它 </c:otherwise>  
 								  </c:choose>
 							  </td>
-	                          <td id="" class="pictures">
-	                          	<img data-original="<%=path%>/upload/${ls.imageUrl}" onclick="showPic('${ls.imageId}')" src="<%=path%>/upload/${ls.imageUrl}"/>
+	                          <td id="${grp.imageId}" class="pictures">
+		                          <c:forEach items="${allPict}" var="ls">
+		                          	  <c:if test="${grp.productId eq ls.productId }">
+		                          	  	  <img data-original="<%=path%>/upload/${ls.imageUrl}" onclick="showPic('${grp.imageId}')" src="<%=path%>/upload/${ls.imageUrl}"/>
+		                          	  </c:if>
+		                          </c:forEach>
 							  </td>
-	                          <td>${ls.createDate}</td>
+	                          <td>${grp.createDate}</td>
 	                          <td>
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.imageId}');">编辑</a></li>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${grp.imageId}');">编辑</a></li>
 	                                </ul>
 	                              </div>
 	                          </td>

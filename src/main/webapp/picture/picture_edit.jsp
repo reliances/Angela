@@ -98,11 +98,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="widget-content nopadding">
                     <form action="updatePictures" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <input type="hidden" name="id" value="${orderInfo.id}">
+                        <%-- <input type="hidden" name="id" value="${orderInfo.id}"> --%>
                         <div class="control-group">
-                            <label class="control-label">产品ID</label>
+                            <label class="control-label">商品分类：</label>
                             <div class="controls">
-	                            <input type="text" name="productId" class="js-productId" onblur="changeNo('js-productId', 'getProductId');" placeholder="产品ID" value="${picInfo.productId}">
+                                <select class="w82" name="productId">
+	                                <c:forEach items="${category}" var="cate">
+		                              	<option value="${cate.id}" <c:if test="${picInfo.productId eq cate.id}">selected</c:if>>${cate.cateName}</option>
+	                              	</c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">

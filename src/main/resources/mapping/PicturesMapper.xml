@@ -52,9 +52,19 @@
         </if>
     </select>
     
+    <!-- 分组查询 -->
+	<select id="selectPicturesByGroup" parameterType="java.util.Map" resultMap="BaseResultMap" >
+        select
+        <include refid="base_column_list" />
+            from t_pictures where is_delete = 0 GROUP BY product_id ORDER BY create_date DESC
+        <if test="startIndex != null and endIndex != null">
+        	limit ${startIndex},${endIndex}
+        </if>
+    </select>
+    
     <!-- 查询图片个数 -->
     <select id="countByCriteria" resultType="java.lang.Integer">
-		select count(*) from t_pictures where is_delete = 0
+		select count(distinct product_id) from t_pictures where is_delete = 0 ORDER BY create_date DESC
 	</select>
 	
 	<select id="selectPicturesByProductId" parameterType="java.lang.String" resultMap="BaseResultMap">

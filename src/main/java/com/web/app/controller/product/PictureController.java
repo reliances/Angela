@@ -1,5 +1,6 @@
 package com.web.app.controller.product;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.app.controller.BaseController;
+import com.web.app.entity.Category;
 import com.web.app.entity.Pictures;
 import com.web.app.entity.User;
+import com.web.app.service.CategoryService;
 import com.web.app.service.PicturesService;
 import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
@@ -34,6 +38,8 @@ import com.web.app.tools.Pager;
 public class PictureController extends BaseController {
 	@Autowired
 	private PicturesService pictureService;
+	@Autowired
+	private CategoryService categoryService;
 
 	// 查询图片
 	@SuppressWarnings("unchecked")
@@ -41,6 +47,7 @@ public class PictureController extends BaseController {
 	public String getAllPictures(Model model, @RequestParam(required = false) Integer pageNum,
 			@RequestParam(required = false) Integer pageSize, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		request.setAttribute("allPict", pictureService.getAllPictures(map));
 		Pager pager = new Pager();
 		if (pageNum == null) {
 			pageNum = pager.getCurPage();
@@ -53,7 +60,7 @@ public class PictureController extends BaseController {
 		map.put("startIndex", (pageNum - 1) * pageSize);
 		map.put("endIndex", pageSize);
 		@SuppressWarnings("rawtypes")
-		List listinfo = pictureService.getAllPictures(map);
+		List listinfo = pictureService.selectPicturesByGroup(map);
 		this.initResult(model, listinfo, map);
 		if (request.getParameter("sub") == null) {
 			request.setAttribute("sub", 3);
@@ -64,13 +71,40 @@ public class PictureController extends BaseController {
 
 	// 添加图片
 	@RequestMapping("/addPictures")
-	public String addPictures(Model model, Pictures pictures, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String addPictures(Pictures pictures,@RequestParam(value = "file", required = false) MultipartFile[] file, HttpServletRequest request) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		pictures.setImageId(UUID.randomUUID().toString());
-		pictures.setCreateUser(user.getUserId());
-		pictures.setCreateDate(DateTools.getCurrentTime());
-		pictureService.insertPictures(pictures);
+		// Pictures upload
+		for (MultipartFile mf : file) {
+			if (!mf.isEmpty()) {
+				// 取得当前上传文件的文件名称
+				// String contentType = mf.getContentType(); 文件类型
+				// String myFileName = contentType.substring(contentType.indexOf("/")+1);
+				String myFileName = mf.getOriginalFilename();
+				// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
+				if (myFileName.trim() != "") {
+					// 重命名上传后的文件名
+					String fileName = DateTools.getTimes() + "_" + myFileName;
+					// 定义上传路径
+					String path = request.getSession().getServletContext().getRealPath("upload");
+					File localFile = new File(path, fileName);
+					if (!localFile.exists()) {
+						localFile.mkdirs();
+					}
+					mf.transferTo(localFile);
+					// pic
+					Pictures pic = new Pictures();
+					pic.setImageId(UUID.randomUUID().toString());
+					pic.setCreateDate(DateTools.getCurrentTime());
+					pic.setCreateUser(user.getUserId());
+					pic.setImageType(1);// 产品图片
+					pic.setImageUrl(fileName);
+					pic.setProductId(pictures.getProductId());
+					pic.setImageUrlSmall(localFile.toString());
+					pictureService.insertPictures(pic);
+				}
+			}
+		}
 		try {
 			Log("新增操作", "新增一条名为" + pictures.getImageId() + "的图片", request);
 		} catch (Exception e) {
@@ -83,15 +117,21 @@ public class PictureController extends BaseController {
 	// 到图片添加页面
 	@RequestMapping("/toAddPicPage")
 	public String toAddPicPage(Model model, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Category> cate = categoryService.getAllCategory(map);
+		request.setAttribute("category", cate);
 		return "picture/picture_add";
 	}
 
 	// 到图片编辑页面
 	@RequestMapping("/toEditPicPage")
 	public String toEditPicPage(Model model, HttpServletRequest request) {
-//		String id = request.getParameter("id");
-//		Pictures picInfo = pictureService.getPicturesById(id);
-//		request.setAttribute("picInfo", picInfo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Category> cate = categoryService.getAllCategory(map);
+		request.setAttribute("category", cate);
+		String id = request.getParameter("id");
+		Pictures picInfo = pictureService.findPicById(id);
+		request.setAttribute("picInfo", picInfo);
 		return "picture/picture_edit";
 	}
 
