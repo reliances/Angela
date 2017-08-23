@@ -8,18 +8,14 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import com.web.app.controller.BaseController;
 import com.web.app.entity.CaseInfo;
@@ -29,8 +25,6 @@ import com.web.app.service.CaseInfoService;
 import com.web.app.service.PicturesService;
 import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
-
-import net.sf.json.JSONObject;
 
 /**
  * @Title:CaseController     
@@ -172,58 +166,6 @@ public class CaseController extends BaseController {
 		return "redirect:/case/getAllCase";
 	}
 	
-	/**
-	 * 修改案例图片
-	 * @param request
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/update/image", method = RequestMethod.POST)
-	public void updateImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html");
-		String productId = request.getParameter("productId");
-		String imageId = request.getParameter("imgId");
-
-		DefaultMultipartHttpServletRequest defaultRequest = (DefaultMultipartHttpServletRequest) request;
-		MultiValueMap<String, MultipartFile> fileMap = defaultRequest.getMultiFileMap();
-		List<MultipartFile> fileList = fileMap.get("file");
-		MultipartFile file = fileList.get(0);
-
-		if (!file.isEmpty()) {
-			// 取得当前上传文件的文件名称
-			// String contentType = mf.getContentType(); 文件类型
-			// String myFileName = contentType.substring(contentType.indexOf("/")+1);
-			String myFileName = file.getOriginalFilename();
-			// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
-			if (myFileName.trim() != "") {
-				// 重命名上传后的文件名
-				String fileName = DateTools.getTimes() + "_" + myFileName;
-				// 定义上传路径
-				String path = request.getSession().getServletContext().getRealPath("upload");
-				File localFile = new File(path, fileName);
-				if (!localFile.exists()) {
-					localFile.mkdirs();
-				}
-				file.transferTo(localFile);
-				// pic
-				Pictures pic = new Pictures();
-				pic.setProductId(productId);
-				pic.setImageId(imageId);
-				pic.setImageType(2);// 案例图片
-				pic.setImageUrl(fileName);
-				pic.setImageUrlSmall(localFile.toString());
-				pictureService.updatePicturesById(pic);
-			}
-		}
-
-		Pictures picInfo = pictureService.findPicById(imageId);                 
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("imageUrl", picInfo.getImageUrl());
-
-		// 设置响应数据的类型json                                           
-		response.setContentType("application/json; charset=utf-8");
-		response.getWriter().write(jsonObject.toString());
-	}
 }
 
 

@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
+    <script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
@@ -98,7 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="widget-content nopadding">
                     <form action="updatePictures" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <%-- <input type="hidden" name="id" value="${orderInfo.id}"> --%>
+                        <input type="hidden" id="pId" value="${picInfo.productId}">
+                        <input type="hidden" name="imageId" value="${picInfo.imageId}">
                         <div class="control-group">
                             <label class="control-label">商品分类：</label>
                             <div class="controls">
@@ -123,7 +125,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">产品图片</label>
                             <div class="controls">
-                                <img id="upload" src="<%=path%>/upload/${picInfo.imageUrl}" width="100" height="75" />
+                                <%-- <img id="upload" src="<%=path%>/upload/${picInfo.imageUrl}" width="100" height="75" /> --%>
+								<%-- <c:forEach items="${allPict}" var="pic" varStatus="status">
+									<c:if test="${picInfo.productId eq pic.productId }">
+										<img data-original="<%=path%>/upload/${ls.imageUrl}" width="100" height="75" onclick="showPic('${picInfo.imageId}')" src="<%=path%>/upload/${pic.imageUrl}"/>
+		                          	</c:if>
+		                        </c:forEach> --%>
+								<c:forEach items="${allPict}" var="pic" varStatus="status">
+                        			<c:if test="${pic.productId eq picInfo.productId}">
+                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
+										<div style="display:none">
+											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
+											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
+										</div>
+                         	  	  	</c:if>
+                         	  	</c:forEach>
                             </div>
                         </div>
                         <div class="control-group">
@@ -147,6 +163,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	} else {
 	 		return false;
 	 	}
+	}
+	//修改图片
+	function uploadImage(n){
+		var productId = $("#pId").val();
+		var imgId = $("#imgId"+n).val();
+		var imgType = ${picInfo.imageType};
+		$.ajaxFileUpload({  
+	    	url:'update/image',  
+	    	secureuri:false,                       //是否启用安全提交,默认为false   
+	    	fileElementId:'file'+n,
+			data:{"productId":productId,"imgId":imgId,"imgType":imgType},          
+	    	dataType:'json',                       //服务器返回的格式,可以是json或xml等  
+	    	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]
+	        	var url = data.imageUrl;
+	           	$("#upload"+n).attr("src", "<%=path%>/upload/"+url);
+	    	},  
+	    	error:function(data, status, e){ //服务器响应失败时的处理函数  
+	        	alert("图片上传失败");  
+	    	}  
+		}); 
 	}
 </script>
 </body>
