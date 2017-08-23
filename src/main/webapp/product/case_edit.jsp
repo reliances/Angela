@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
+    <script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
@@ -98,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="widget-content nopadding">
                     <form action="updateCase" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <input type="hidden" name="id" value="${caseInfo.id}">
+                        <input type="hidden" id="caseId" name="id" value="${caseInfo.id}">
                         <div class="control-group">
                             <label class="control-label">案例标题</label>
                             <div class="controls">
@@ -124,18 +125,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">图片上传</label>
-                            <div class="controls">
-                            	<input type="file" name="file">
-                            	<input type="file" name="file2">
-                            </div>
-                        </div>
-                        <div class="control-group">
                         	<label class="control-label">案例图片</label>
                         	<div class="controls">
-                        		<c:forEach items="${picList }" var="pic">
+                        		<c:forEach items="${picList }" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq caseInfo.id && pic.imageType == 2}">
-                         	  	  		<img id="upload" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" />
+                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
+										<div style="display:none">
+											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
+											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
+										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
                         	</div>
@@ -156,6 +154,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	function uploadImage(n){
+		//var productId = ${product.id};
+		var productId = $("#caseId").val();
+		var imgId = $("#imgId"+n).val();
+		$.ajaxFileUpload({  
+	    	url:'update/image',  
+	    	secureuri:false,                       //是否启用安全提交,默认为false   
+	    	fileElementId:'file'+n,
+			data:{"productId":productId,"imgId":imgId},          
+	    	dataType:'json',                       //服务器返回的格式,可以是json或xml等  
+	    	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]
+	        	var url = data.imageUrl;
+	           	$("#upload"+n).attr("src", "<%=path%>/upload/"+url);
+	    	},  
+	    	error:function(data, status, e){ //服务器响应失败时的处理函数  
+	        	alert("图片上传失败");  
+	    	}  
+		}); 
+	}
 	var submitForm = function() {
 		if (changeNo('js-title', 'getTitle') && changeNo('js-brief', 'getBrief') && changeNo('js-description', 'getDescription') && changeNo('js-remarks', 'getRemarks')) {
 	 		return true;
