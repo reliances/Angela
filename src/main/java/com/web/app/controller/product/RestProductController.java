@@ -92,6 +92,19 @@ public class RestProductController extends BaseController {
 		}
 		return jsonObj;
 	}
+	
+	@RequestMapping("/getAdPictures")
+	public JSONObject getAdPicture(HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		JSONObject jsonObj = new JSONObject();
+		List<Pictures> pic = picturesService.selectPicturesByType("3");
+		jsonObj.put("products",JSONObject.toJSON(pic));
+		return jsonObj;
+	}
+	
+	
+	
+	
 }
 
 

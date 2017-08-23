@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ taglib prefix="page" uri="../WEB-INF/tld/pager.tld"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,6 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     .form-horizontal .conts-3[type=text]{
         width: 25%;
     }
+    .controls-label label{ 
+		display:inline-block !important;
+	}
 </style>
 </head>
 
@@ -130,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">商品SN码：</label>
                             <div class="controls">
-                                <input type="text" name="productSn" class="js-productSn" onblur="changeNo('js-productSn', 'getProductSn');" placeholder="商品的条形码" value="${product.productSn}">
+                                <input type="text" name="productSn" placeholder="商品的条形码" value="${product.productSn}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -153,13 +157,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <div class="control-group">
                             <label class="control-label">市场价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" class="js-marketPrice" onblur="changeNo('js-marketPrice', 'getMarketPrice');" placeholder="市场价格" value="${product.marketPrice}"><span class="cs-dw">元</span>
+                                <input type="text" name="marketPrice" class="v-integerPoint" placeholder="市场价格" value="${product.marketPrice}"><span class="cs-dw">元</span>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">本店售价：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" class="js-productPrice" onblur="changeNo('js-productPrice', 'getProductPrice');" placeholder="实际售价" value="${product.productPrice}"><span class="cs-dw">元</span>
+                                <input type="text" name="productPrice" class="v-integerPoint" placeholder="实际售价" value="${product.productPrice}"><span class="cs-dw">元</span>
                             </div>
                         </div>
                         <div class="control-group">
@@ -201,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">库存：</label>
                             <div class="controls">
-                                <input type="text" name="stock" class="js-stock" onblur="changeNo('js-stock', 'getStock');" placeholder="库存" value="${product.stock}">
+                                <input type="text" name="stock" class="v-integer" onblur="changeNo('js-stock', 'getStock');" placeholder="库存" value="${product.stock}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -242,14 +246,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="control-group">
                             <label class="control-label">标签：</label>
-                            <div class="controls">
-                                <select class="w82" name="proTag">
+                            <div class="controls controls-label">
+                                <%-- <select class="w82" name="proTag">
 	                                <c:forEach items="${dictionary}" var="dic">
 	                                	<c:if test="${dic.dicKey == 'product_tag' }">
 		                              		<option value="${dic.dicId}" <c:if test="${dic.dicId eq product.proTag}">selected</c:if>>${dic.dicVal}</option>
 		                              	</c:if>
 	                              	</c:forEach>
-                                </select>
+                                </select> --%>
+                                <c:forEach items="${dictionary}" var="dic">
+                                	<c:if test="${dic.dicKey eq 'product_tag' }">
+                                		<label><input type="checkbox" name="proTag" value="${dic.dicId }" <c:if test="${fn:contains(product.proTag , dic.dicId)}">checked</c:if>/>${dic.dicVal}</label>
+	                              	</c:if>
+                              	</c:forEach>
                             </div>
                         </div>
                         <div class="control-group">

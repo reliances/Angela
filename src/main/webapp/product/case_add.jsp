@@ -101,25 +101,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">案例标题</label>
                             <div class="controls">
-                                <input type="text" name="title" class="js-title" onblur="changeNo('js-title', 'getTitle');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">
+                                <input type="text" name="title" >
+                                <!-- class="js-title" onblur="changeNo('js-title', 'getTitle');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">简短描述</label>
                             <div class="controls">
-                                <input type="text" name="brief" class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">
+                                <input type="text" name="brief" >
+                                <!-- class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">详细描述</label>
                             <div class="controls">
-                                <textarea name="description" class="js-description" onblur="changeNo('js-description', 'getDescription');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串"></textarea>
+                                <textarea name="description" ></textarea>
+                                <!-- class="js-description" onblur="changeNo('js-description', 'getDescription');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">备注</label>
                             <div class="controls">
-                                <input type="text" name="remarks" class="js-remarks" onblur="changeNo('js-remarks', 'getRemarks');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串">
+                                <input type="text" name="remarks" >
+                                <!-- class="js-remarks" onblur="changeNo('js-remarks', 'getRemarks');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
@@ -135,8 +139,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <!-- <button type="submit" class="btn btn-primary">保存</button> -->
-                                <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
+                                <button type="submit" class="btn btn-primary">保存</button>
+                                <!-- <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/> -->
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -148,13 +152,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
-	var submitForm = function() {
+	/* var submitForm = function() {
 		if (changeNo('js-title', 'getTitle') && changeNo('js-brief', 'getBrief') && changeNo('js-description', 'getDescription') && changeNo('js-remarks', 'getRemarks')) {
 	 		return true;
 	 	} else {
 	 		return false;
 	 	}
-	}
+	} */
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");

@@ -95,6 +95,12 @@
         <include refid="base_column_list" />
          from t_pictures where image_id = #{imageId} and is_delete = 0
     </select>
+	<!-- 根据图片类型查询图片 -->
+	<select id="selectPicturesByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select 
+        <include refid="base_column_list" />
+         from t_pictures where image_type = #{type} and is_delete = 0
+    </select>
 	
 	<!-- 根据ID修改 -->
 	<update id="updatePicturesById" parameterType="com.web.app.entity.Pictures">

@@ -68,10 +68,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         width: 80%;
     }
     .form-horizontal .conts-3[type=text]{
-        width: 25%;
+        width: 24%;
     }
     .w82 {
 	    width: 81.2%;
+	}
+	.controls-label label{ 
+		display:inline-block !important;
 	}
 </style>
 </head>
@@ -131,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">商品SN码：</label>
                             <div class="controls">
-                                <input type="text" name="productSn" class="js-productSn" onblur="changeNo('js-productSn', 'getProductSn');" placeholder="商品的条形码">
+                                <input type="text" name="productSn" class="js-productSn" placeholder="商品的条形码">
                             </div>
                         </div>
                         <div class="control-group">
@@ -153,13 +156,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <div class="control-group">
                             <label class="control-label">市场价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" class="js-marketPrice" onblur="changeNo('js-marketPrice', 'getMarketPrice');" placeholder="市场价格"><span class="cs-dw">元</span>
+                                <input type="text" name="marketPrice" class="v-integerPoint" placeholder="市场价格">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">本店售价：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" class="js-productPrice" onblur="changeNo('js-productPrice', 'getProductPrice');" placeholder="实际售价"><span class="cs-dw">元</span>
+                                <input type="text" name="productPrice" class="v-integerPoint"  placeholder="实际售价">
                             </div>
                         </div>
                         <div class="control-group">
@@ -183,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">排序号：</label>
                             <div class="controls">
-                                <input type="text" name="sortOrder" placeholder="排序号">
+                                <input type="text" name="sortOrder" class="v-integer" placeholder="排序号">
                             </div>
                         </div>
                         <div class="control-group">
@@ -201,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">库存：</label>
                             <div class="controls">
-                                <input type="text" name="stock" class="js-stock" onblur="changeNo('js-stock', 'getStock');" placeholder="库存">
+                                <input type="text" name="stock" class="v-integer" placeholder="库存">
                             </div>
                         </div>
                         <div class="control-group">
@@ -242,22 +245,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="control-group">
                             <label class="control-label">标签：</label>
-                            <div class="controls">
-                            	<select class="w82" name="proTag">
+                            <div class="controls controls-label">
+                            	<c:forEach items="${dictionary}" var="dic">
+                                	<c:if test="${dic.dicKey eq 'product_tag' }">
+                                		<label><input type="checkbox" name="proTag" value="${dic.dicId }"/>${dic.dicVal}</label>
+	                              	</c:if>
+                              	</c:forEach>
+                            	<%-- <select class="w82" name="proTag">
 	                                <c:forEach items="${dictionary}" var="dic">
 	                                	<c:if test="${dic.dicKey == 'product_tag' }">
 		                              		<option value="${dic.dicId}">${dic.dicVal}</option>
 		                              	</c:if>
 	                              	</c:forEach>
-                                </select>
+                                </select> --%>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">尺寸：</label>
                             <div class="controls controls-flex">
-                                <input type="text" name="sizeL" class="conts-3" placeholder="长度">&nbsp;&nbsp;&nbsp;
-                                <input type="text" name="sizeW" class="conts-3" placeholder="宽度">&nbsp;&nbsp;&nbsp;
-                                <input type="text" name="sizeH" class="conts-3" placeholder="高度">&nbsp;&nbsp;
+                                                             长&nbsp;<input type="text" name="sizeL" class="conts-3 v-integer" placeholder="长度">
+                                                             宽&nbsp;<input type="text" name="sizeW" class="conts-3 v-integer" placeholder="宽度">
+                                                             高&nbsp;<input type="text" name="sizeH" class="conts-3 v-integer" placeholder="高度">
                             </div>
                         </div>
                         <!-- <div class="control-group">
@@ -350,8 +358,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 	var submitForm = function() {
-		if (changeNo('js-productName', 'getProductName')&& changeNo('js-productSn', 'getProductSn') && changeNo('js-marketPrice', 'getMarketPrice')
-				&& changeNo('js-productPrice', 'getProductPrice') && changeNo('js-stock', 'getStock') && changeNo('js-brief', 'getBrief') ) {
+		if (changeNo('js-productName', 'getProductName')&& changeNo('v-integerPoint', 'productPrice') && changeNo('js-stock', 'getStock') && changeNo('js-brief', 'getBrief') ) {
 	 		return true;
 	 	} else {
 	 		return false;

@@ -95,7 +95,17 @@
       var reg = /^-?\d+$/g;
       return this.optional(element) || reg.test(value);
     }, "必须为数字");
-
+    
+    $.validator.addMethod("integerPoint", function(value, element) {
+    	var reg = /^\d+(\.\d+)?$/g;
+    	return this.optional(element) || reg.test(value);
+    }, "允许数字和小数点");
+    
+    $.validator.addMethod("notNull", function(value, element) {
+    	var reg = /^\s+$/g;
+    	return this.optional(element) || reg.test(value);
+    }, "非空");
+   
     $.validator.addMethod("lettersnumericonly", function(value, element) {
       var reg = /^[a-zA-Z0-9]+$/g;
       return this.optional(element) || reg.test(value);

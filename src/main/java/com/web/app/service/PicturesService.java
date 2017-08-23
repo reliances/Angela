@@ -49,5 +49,9 @@ public class PicturesService {
 	public List<Pictures> selectPicturesByGroup(Map<String, Object> map) {
 		return picturesMapper.selectPicturesByGroup(map);
 	}
+
+	public List<Pictures> selectPicturesByType(String type) {
+		return picturesMapper.selectPicturesByType(type);
+	}
 	
 }
