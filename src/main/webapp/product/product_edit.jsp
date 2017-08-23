@@ -362,14 +362,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 	function uploadImage(n){
-		//var productId = ${product.id};
 		var productId = $("#proId").val();
  		var imgId = $("#imgId"+n).val();
 		$.ajaxFileUpload({  
-        	url:'update/image',  
+        	url:'../picture/update/image',  
         	secureuri:false,                       //是否启用安全提交,默认为false   
         	fileElementId:'file'+n,
- 			data:{"productId":productId,"imgId":imgId},          
+ 			data:{"productId":productId,"imgId":imgId,"imgType":1},          
         	dataType:'json',                       //服务器返回的格式,可以是json或xml等  
         	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]
             	var url = data.imageUrl;
