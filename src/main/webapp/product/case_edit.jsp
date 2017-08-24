@@ -62,17 +62,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     .form-horizontal .conts-3[type=text]{
         width: 25%;
     }
-    .hid {
-		display: none;
-	}
-	.xx {
-		width: 15px;
-		height: 15px;
-	}
 	.addImg{
 		margin: 25px;
 		width:	30px;
 		height: 30px;
+	}
+	.img-wrap{
+	  display: block;
+	  position: relative;
+	  display:inline-block;
+	}
+	.img-wrap .img{
+	  display:block;
+	}
+	.img-wrap:hover .img-close-icon{
+	  display:block;
+	}
+	.img-wrap .img-close-icon{
+	  display:none;
+	  position: absolute;
+	  left: 95px;
+	  top: 10px;
+	  display: block;
+	  background: url(../img/cancel.png);
+	  width: 16px;
+	  height: 16px;
 	}
 </style>
 </head>
@@ -146,7 +160,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	<div class="controls">
                         		<c:forEach items="${picList }" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq caseInfo.id && pic.imageType == 2}">
-                         	  	  		<img id="upload${status.index}" onmouseover="mouseOver('${pic.imageId}',this)" onmouseout="mouseOut()" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
+                         	  	  		<a class="img-wrap" href="javascript:void(0)">
+	                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" style="width:100px;height:100px; margin: 10px;" onclick="file${status.index}.click()"/>
+											<i class="img-close-icon" onclick="setImage('${pic.imageId}',this);"></i>
+										</a>
 										<div style="display:none">
 											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
 											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
@@ -177,28 +194,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 	var imgIds = [];
-	function mouseOver(imgId,obj){
-		var myself = $(obj);
-	    var xx = $("<img src='<%=path%>/img/cancel.png' class='xx' />");
-	    var top = $(obj).offset().top;
-	    var left = $(obj).offset().left + $(obj).width() - 15;
-	    xx.css({ "position": "absolute", "top": top, "left": left, "display": "" });
-	    $(document.body).append(xx);
-		$(".xx").click(function () {
-			imgIds.push(imgId);
-	    	myself.hide();
-	        $("#imgs img").each(function () {
-	        	if ($(this).hasClass("hid")) {
-	            	$(this).removeClass("hid");
-	                return false;
-	            }
-	        });
-	    });
+	function setImage(imgId,obj){
+		$(obj).parent().hide();
+		imgIds.push(imgId);
 		$("#imgIds").val(imgIds); 
-	}
-	
-	function mouseOut(){
-		$(".xx").hide();
 	}
 	
 	function uploadImage(n){
@@ -239,8 +238,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             if (docObj.files && docObj.files[i]) {
                 //火狐下，直接设img属性
                 imgObjPreview.style.display = 'block';
-                imgObjPreview.style.width = '150px';
-                imgObjPreview.style.height = '180px';
+                imgObjPreview.style.width = '100px';
+                imgObjPreview.style.height = '100px';
+				imgObjPreview.style.margin = "10px";
                 //imgObjPreview.src = docObj.files[0].getAsDataURL();
                 //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
                 imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
@@ -251,8 +251,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 alert(imgSrc)
                 var localImagId = document.getElementById("img" + i);
                 //必须设置初始大小
-                localImagId.style.width = "150px";
-                localImagId.style.height = "180px";
+                localImagId.style.width = "100px";
+                localImagId.style.height = "100px";
+				localImagId.style.margin = "10px";
                 //图片异常的捕捉，防止用户修改后缀来伪造图片
                 try {
                     localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
