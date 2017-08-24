@@ -62,6 +62,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     .form-horizontal .conts-3[type=text]{
         width: 25%;
     }
+    .hid {
+		display: none;
+	}
+	.xx {
+		width: 15px;
+		height: 15px;
+	}
+	.addImg{
+		margin: 25px;
+		width:	30px;
+		height: 30px;
+	}
 </style>
 </head>
 
@@ -100,6 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="widget-content nopadding">
                     <form action="updateCase" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
                         <input type="hidden" id="caseId" name="id" value="${caseInfo.id}">
+                        <input type="hidden" id="imgIds" name="imgIds">
                         <div class="control-group">
                             <label class="control-label">案例标题</label>
                             <div class="controls">
@@ -133,13 +146,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	<div class="controls">
                         		<c:forEach items="${picList }" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq caseInfo.id && pic.imageType == 2}">
-                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
+                         	  	  		<img id="upload${status.index}" onmouseover="mouseOver('${pic.imageId}',this)" onmouseout="mouseOut()" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
 										<div style="display:none">
 											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
 											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
 										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
+                         	  	<img class="addImg" src="<%=path%>/img/plus.jpg" onclick="doc.click()"/>
+                         	  	<div style="display:none">
+									<input type="file" name="myFiles" id="doc" multiple="multiple" onchange="javascript:setImagePreviews();" accept="image/*" >
+								</div>
+								<div id="dd"></div>
                         	</div>
                         </div>
                         <div class="control-group">
@@ -158,6 +176,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	var imgIds = [];
+	function mouseOver(imgId,obj){
+		var myself = $(obj);
+	    var xx = $("<img src='<%=path%>/img/cancel.png' class='xx' />");
+	    var top = $(obj).offset().top;
+	    var left = $(obj).offset().left + $(obj).width() - 15;
+	    xx.css({ "position": "absolute", "top": top, "left": left, "display": "" });
+	    $(document.body).append(xx);
+		$(".xx").click(function () {
+			imgIds.push(imgId);
+	    	myself.hide();
+	        $("#imgs img").each(function () {
+	        	if ($(this).hasClass("hid")) {
+	            	$(this).removeClass("hid");
+	                return false;
+	            }
+	        });
+	    });
+		$("#imgIds").val(imgIds); 
+	}
+	
+	function mouseOut(){
+		$(".xx").hide();
+	}
+	
 	function uploadImage(n){
 		var productId = $("#caseId").val();
 		var imgId = $("#imgId"+n).val();
@@ -183,6 +226,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 		return false;
 	 	}
 	} */
+	
+	//下面用于多图片上传预览功能
+    function setImagePreviews() {
+        var docObj = document.getElementById("doc");
+        var dd = document.getElementById("dd");
+        dd.innerHTML = "";
+        var fileList = docObj.files;
+        for (var i = 0; i < fileList.length; i++) {            
+            dd.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
+            var imgObjPreview = document.getElementById("img"+i); 
+            if (docObj.files && docObj.files[i]) {
+                //火狐下，直接设img属性
+                imgObjPreview.style.display = 'block';
+                imgObjPreview.style.width = '150px';
+                imgObjPreview.style.height = '180px';
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+            }else {
+                //IE下，使用滤镜
+                docObj.select();
+                var imgSrc = document.selection.createRange().text;
+                alert(imgSrc)
+                var localImagId = document.getElementById("img" + i);
+                //必须设置初始大小
+                localImagId.style.width = "150px";
+                localImagId.style.height = "180px";
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                }catch (e) {
+                    alert("您上传的图片格式不正确，请重新选择!");
+                    return false;
+                }
+                imgObjPreview.style.display = 'none';
+                document.selection.empty();
+            }
+        }  
+        return true;
+    }
 </script>
 </body>
 </html>

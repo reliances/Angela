@@ -177,6 +177,11 @@ public class ProductController extends BaseController {
 	// 修改商品
 	@RequestMapping("/updateProduct")
 	public String updateProduct(Model model, Product product, @RequestParam(value = "myFiles", required = false) MultipartFile[] myFiles, HttpServletRequest request) throws IllegalStateException, IOException {
+		String imgIds = request.getParameter("imgIds");
+		if (imgIds != "") {
+			String[] imageid = imgIds.split(",");
+			pictureService.deletePicturesById(imageid);
+		}
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		uploadFile(product, myFiles, request, user);

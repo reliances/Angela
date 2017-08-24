@@ -75,6 +75,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     .controls-label label{ 
 		display:inline-block !important;
 	}
+	.hid {
+		display: none;
+	}
+	.xx {
+		width: 15px;
+		height: 15px;
+	}
+	.addImg{
+		margin: 25px;
+		width:	30px;
+		height: 30px;
+	}
 </style>
 </head>
 
@@ -113,6 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="widget-content nopadding">
                     <form action="updateProduct" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
                     	<input type="hidden" id="proId" name="id" value="${product.id}">
+                    	<input type="hidden" id="imgIds" name="imgIds">
                         <!-- <div class="control-group">
                             <label class="control-label">中文名称</label>
                             <div class="controls">
@@ -322,14 +335,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="controls">
 								<c:forEach items="${picList}" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq product.id && pic.imageType == 1}">
-                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
+                         	  	  		<img id="upload${status.index}" onmouseover="mouseOver('${pic.imageId}',this)" onmouseout="mouseOut()" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
 										<div style="display:none">
 											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
 											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
 										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
-                         	  	<img id="addImg" src="<%=path%>/img/plus.jpg" width="30" height="30" onclick="doc.click()"/>
+                         	  	<img class="addImg" src="<%=path%>/img/plus.jpg" onclick="doc.click()"/>
                          	  	<div style="display:none">
 									<input type="file" name="myFiles" id="doc" multiple="multiple" onchange="javascript:setImagePreviews();" accept="image/*" >
 								</div>
@@ -366,6 +379,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	var imgIds = [];
+	function mouseOver(imgId,obj){
+		var myself = $(obj);
+	    var xx = $("<img src='<%=path%>/img/cancel.png' class='xx' />");
+	    var top = $(obj).offset().top;
+	    var left = $(obj).offset().left + $(obj).width() - 15;
+	    xx.css({ "position": "absolute", "top": top, "left": left, "display": "" });
+	    $(document.body).append(xx);
+		$(".xx").click(function () {
+			imgIds.push(imgId);
+	    	myself.hide();
+	        $("#imgs img").each(function () {
+	        	if ($(this).hasClass("hid")) {
+	            	$(this).removeClass("hid");
+	                return false;
+	            }
+	        });
+	    });
+		$("#imgIds").val(imgIds); 
+	}
+	
+	function mouseOut(){
+		$(".xx").hide();
+	}
+	
 	function uploadImage(n){
 		var productId = $("#proId").val();
  		var imgId = $("#imgId"+n).val();

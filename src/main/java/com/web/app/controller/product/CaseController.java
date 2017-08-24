@@ -80,6 +80,18 @@ public class CaseController extends BaseController {
 		caseInfo.setCreateDate(DateTools.getCurrentTime());
 		caseInfoService.insertCaseInfo(caseInfo);
 		//Pictures upload
+		uploadFile(caseInfo, file, request, user);  
+		try {
+			Log("新增操作", "新增一条名为"+caseInfo.getTitle()+"的案例", request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("sub", request.getParameter("sub"));
+		return "redirect:/case/getAllCase";
+	}
+
+	//图片上传
+	private void uploadFile(CaseInfo caseInfo, MultipartFile[] file, HttpServletRequest request, User user) throws IOException {
 		for(MultipartFile mf : file) {  
 	       if(!mf.isEmpty()){  
 	    	   //取得当前上传文件的文件名称  
@@ -109,14 +121,7 @@ public class CaseController extends BaseController {
                    pictureService.insertPictures(pic);
                }  		
 	       }
-	    }  
-		try {
-			Log("新增操作", "新增一条名为"+caseInfo.getTitle()+"的案例", request);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		request.getSession().setAttribute("sub", request.getParameter("sub"));
-		return "redirect:/case/getAllCase";
+	    }
 	}
 	
 	
@@ -156,7 +161,15 @@ public class CaseController extends BaseController {
 	
 	//修改案例
 	@RequestMapping("/updateCase")
-	public String updateCase(Model model, CaseInfo caseInfo,HttpServletRequest request){
+	public String updateCase(Model model, CaseInfo caseInfo, @RequestParam(value="myFiles",required=false) MultipartFile[] myFiles, HttpServletRequest request) throws IOException{
+		String imgIds = request.getParameter("imgIds");
+		if (imgIds != "") {
+			String[] imageid = imgIds.split(",");
+			pictureService.deletePicturesById(imageid);
+		}
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		uploadFile(caseInfo, myFiles, request, user);
 		caseInfoService.updateCaseInfoById(caseInfo);
 		try {
 			Log("修改操作", "修改一条名为"+caseInfo.getTitle()+"的案例", request);

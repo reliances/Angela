@@ -50,8 +50,7 @@ public class PictureController extends BaseController {
 	// 查询图片
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getAllPictures")
-	public String getAllPictures(Model model, @RequestParam(required = false) Integer pageNum,
-			@RequestParam(required = false) Integer pageSize, HttpServletRequest request) {
+	public String getAllPictures(Model model, @RequestParam(required = false) Integer pageNum, @RequestParam(required = false) Integer pageSize, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		request.setAttribute("allPict", pictureService.getAllPictures(map));
 		Pager pager = new Pager();
@@ -81,6 +80,18 @@ public class PictureController extends BaseController {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		// Pictures upload
+		uploadFile(pictures, file, request, user);
+		try {
+			Log("新增操作", "新增一条名为" + pictures.getImageId() + "的图片", request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("sub", request.getParameter("sub"));
+		return "redirect:/picture/getAllPictures";
+	}
+
+	//图片上传
+	private void uploadFile(Pictures pictures, MultipartFile[] file, HttpServletRequest request, User user) throws IOException {
 		for (MultipartFile mf : file) {
 			if (!mf.isEmpty()) {
 				// 取得当前上传文件的文件名称
@@ -103,7 +114,7 @@ public class PictureController extends BaseController {
 					pic.setImageId(UUID.randomUUID().toString());
 					pic.setCreateDate(DateTools.getCurrentTime());
 					pic.setCreateUser(user.getUserId());
-					pic.setImageType(1);// 产品图片
+					pic.setImageType(pictures.getImageType());
 					pic.setImageUrl(fileName);
 					pic.setProductId(pictures.getProductId());
 					pic.setImageUrlSmall(localFile.toString());
@@ -111,13 +122,6 @@ public class PictureController extends BaseController {
 				}
 			}
 		}
-		try {
-			Log("新增操作", "新增一条名为" + pictures.getImageId() + "的图片", request);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		request.getSession().setAttribute("sub", request.getParameter("sub"));
-		return "redirect:/picture/getAllPictures";
 	}
 
 	// 到图片添加页面
@@ -155,7 +159,16 @@ public class PictureController extends BaseController {
 
 	// 修改图片信息
 	@RequestMapping("/updatePictures")
-	public String updatePictures(Model model, Pictures pictures, HttpServletRequest request) {
+	public String updatePictures(Model model, Pictures pictures, @RequestParam(value = "myFiles", required = false) MultipartFile[] myFiles, HttpServletRequest request) throws IOException {
+		String imgIds = request.getParameter("imgIds");
+		if (imgIds != "") {
+			String[] imageid = imgIds.split(",");
+			pictureService.deletePicturesById(imageid);
+		}
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		uploadFile(pictures, myFiles, request, user);
 		pictureService.updatePicturesById(pictures);
 		try {
 			Log("修改操作", "修改一条名为" + pictures.getImageId() + "的图片", request);

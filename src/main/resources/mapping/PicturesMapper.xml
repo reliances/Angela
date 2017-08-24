@@ -74,7 +74,7 @@
     </select>
 	
 	<!-- 根据ID删除 -->
-	<update id="deleteProductById" parameterType="java.lang.String">
+	<update id="deletePicturesById" parameterType="java.lang.String">
 		update t_pictures set is_delete = 1 where image_id in
         <foreach item="idItem" collection="array" open="(" separator="," close=")">
            #{idItem}

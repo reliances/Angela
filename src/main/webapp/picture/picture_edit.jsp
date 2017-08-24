@@ -4,109 +4,101 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ taglib prefix="page" uri="../WEB-INF/tld/pager.tld"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Angela后台管理平台</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <jsp:include page="../header.jsp" flush="true"/>
-    <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
-    <script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
-	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script language="javascript" type="text/javascript">
-	    function deleteDictionary(){
-			var dicId = [];
-			$("input[name='checkbox2']").each(function() {
-				if ($(this).attr("checked")) {
-					dicId.push($(this).val());
-				}
-			});
-			if (dicId == "") {
-				ymPrompt.alert("请选择需要删除的字典!");
-			} else {
-				ymPrompt.confirmInfo("确定要删除选择的字典信息吗？",null,null,"删除提示",function(tp) {
-					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
-					}
-				});
-			}
-	    }
-	    //修改数据
-	    function updateCategory(id, catName, parentId, depth, priority){
-	    	$("#id").val(id);
-	    	$("#catName").val(catName);
-	    	$("#parentId").val(parentId);
-	    	$("#depth").val(depth);
-	    	$("#priority").html(priority);
-	    }
-	    
-	    var cancel = function() {
-	    	$("#catName1").val("");
-	    }
-	</script>
-	<style type="text/css">
-    .form-horizontal .control-label{
-        padding-top: 12px;
-    }
-    .controls .cs-dw{
-        margin-left: 5px;
-    }
-    .uploader-list-container{
-        width: 80%;
-    }
-    .form-horizontal .conts-3[type=text]{
-        width: 25%;
-    }
+<title>Angela后台管理平台</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<jsp:include page="../header.jsp" flush="true" />
+<script type="text/javascript" src="<%=path%>/js/ymPrompt.js"></script>
+<script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
+<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"
+	rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript" type="text/javascript">
+	var cancel = function() {
+		$("#catName1").val("");
+	}
+</script>
+<style type="text/css">
+.form-horizontal .control-label {
+	padding-top: 12px;
+}
+
+.controls .cs-dw {
+	margin-left: 5px;
+}
+
+.uploader-list-container {
+	width: 80%;
+}
+
+.form-horizontal .conts-3[type=text] {
+	width: 25%;
+}
+
+.hid {
+	display: none;
+}
+
+.xx {
+	width: 15px;
+	height: 15px;
+}
+
+.addImg{
+	margin: 25px;
+	width:	30px;
+	height: 30px;
+}
 </style>
 </head>
-
-
-
 <body>
-<div id="header">
-    <h1><a href="#">Angela后台管理平台</a></h1>
-</div>
-<div id="user-nav" class="navbar navbar-inverse">
-    <jsp:include page="../top.jsp" flush="true"/>
-</div>
+	<div id="header">
+		<h1>
+			<a href="#">Angela后台管理平台</a>
+		</h1>
+	</div>
+	<div id="user-nav" class="navbar navbar-inverse">
+		<jsp:include page="../top.jsp" flush="true" />
+	</div>
 
-<!--左侧菜单 start-->	
-<div id="sidebar">
-	<jsp:include page="../left.jsp" flush="true"/>
-</div>
-<!--左侧菜单 end-->
-<div id="content">
-<div id="breadcrumb">
-    <a href="#" title="图片管理" class="tip-bottom"><i class="icon-home"></i>图片管理</a>
-    <a href="#" class="current">图片编辑</a>
-</div>
+	<!--左侧菜单 start-->
+	<div id="sidebar">
+		<jsp:include page="../left.jsp" flush="true" />
+	</div>
+	<!--左侧菜单 end-->
+	<div id="content">
+		<div id="breadcrumb">
+			<a href="#" title="图片管理" class="tip-bottom"><i class="icon-home"></i>图片管理</a>
+			<a href="#" class="current">图片编辑</a>
+		</div>
 
-
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon">
-                        <i class="icon-align-justify"></i>                                  
-                    </span>
-                    <h5>图片信息</h5>
-                </div>
-                <div class="widget-content nopadding">
-                    <form action="updatePictures" method="post" class="form-horizontal" style="padding-top: 10px">
-                        <input type="hidden" id="pId" value="${picInfo.productId}">
-                        <input type="hidden" name="imageId" value="${picInfo.imageId}">
-                        <div class="control-group">
-                            <label class="control-label">商品分类：</label>
-                            <div class="controls">
-                                <select class="w82" name="productId">
-	                                <c:forEach items="${category}" var="cate">
-		                              	<option value="${cate.id}" <c:if test="${picInfo.productId eq cate.id}">selected</c:if>>${cate.cateName}</option>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="widget-box">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-align-justify"></i>
+							</span>
+							<h5>图片信息</h5>
+						</div>
+						<div class="widget-content nopadding">
+							<form action="updatePictures" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
+								<input type="hidden" id="pId" name="productId" value="${picInfo.productId}"> 
+								<input type="hidden" name="imageId" value="${picInfo.imageId}">
+								<input type="hidden" id="imgIds" name="imgIds">
+								<div class="control-group">
+									<label class="control-label">商品分类：</label>
+									<div class="controls">
+										<select class="w82" name="categoryId">
+											<c:forEach items="${category}" var="cate">
+												<option value="${cate.id}"
+													<c:if test="${picInfo.productId eq cate.id}">selected</c:if>>${cate.cateName}</option>
 	                              	</c:forEach>
                                 </select>
                             </div>
@@ -125,21 +117,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">产品图片</label>
                             <div class="controls">
-                                <%-- <img id="upload" src="<%=path%>/upload/${picInfo.imageUrl}" width="100" height="75" /> --%>
-								<%-- <c:forEach items="${allPict}" var="pic" varStatus="status">
-									<c:if test="${picInfo.productId eq pic.productId }">
-										<img data-original="<%=path%>/upload/${ls.imageUrl}" width="100" height="75" onclick="showPic('${picInfo.imageId}')" src="<%=path%>/upload/${pic.imageUrl}"/>
-		                          	</c:if>
-		                        </c:forEach> --%>
 								<c:forEach items="${allPict}" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq picInfo.productId}">
-                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" width="100" height="75" onclick="file${status.index}.click()"/>
-										<div style="display:none">
-											<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
-											<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
+                        				<div style="float: left;" id="imgs">
+	                         	  	  		<img id="upload${status.index}" onmouseover="mouseOver('${pic.imageId}',this)" onmouseout="mouseOut()" src="<%=path%>/upload/${pic.imageUrl}" width="100px;" height="75px;" onclick="file${status.index}.click()"/>
+											<div style="display:none">
+												<input type="file" name="file" id="file${status.index}" onchange="uploadImage('${status.index}')">
+												<input id="imgId${status.index}" type="hidden" value="${pic.imageId}" />
+											</div>
 										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
+								<img src="<%=path%>/img/plus.jpg" class="addImg" onclick="doc.click()"/>
+                         	  	<div style="display:none">
+									<input type="file" name="myFiles" id="doc" multiple="multiple" onchange="javascript:setImagePreviews();" accept="image/*" >
+								</div>
+								<div id="dd"></div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -157,6 +150,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	var imgIds = [];
+	function mouseOver(imgId,obj){
+		var myself = $(obj);
+        var xx = $("<img src='<%=path%>/img/cancel.png' class='xx' />");
+        var top = $(obj).offset().top;
+        var left = $(obj).offset().left + $(obj).width() - 15;
+        xx.css({ "position": "absolute", "top": top, "left": left, "display": "" });
+        $(document.body).append(xx);
+		$(".xx").click(function () {
+			imgIds.push(imgId);
+        	myself.hide();
+            $("#imgs img").each(function () {
+            	if ($(this).hasClass("hid")) {
+                	$(this).removeClass("hid");
+                    return false;
+                }
+            });
+        });
+		$("#imgIds").val(imgIds); 
+	}
+
+	function mouseOut(){
+		$(".xx").hide();
+	}
+
 	var submitForm = function() {
 		if (changeNo('js-productId', 'getProductId')) {
 	 		return true;
@@ -184,6 +202,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}  
 		}); 
 	}
+	//下面用于多图片上传预览功能
+    function setImagePreviews() {
+        var docObj = document.getElementById("doc");
+        var dd = document.getElementById("dd");
+        dd.innerHTML = "";
+        var fileList = docObj.files;
+        for (var i = 0; i < fileList.length; i++) {            
+            dd.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
+            var imgObjPreview = document.getElementById("img"+i); 
+            if (docObj.files && docObj.files[i]) {
+                //火狐下，直接设img属性
+                imgObjPreview.style.display = 'block';
+                imgObjPreview.style.width = '150px';
+                imgObjPreview.style.height = '180px';
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+            }else {
+                //IE下，使用滤镜
+                docObj.select();
+                var imgSrc = document.selection.createRange().text;
+                alert(imgSrc)
+                var localImagId = document.getElementById("img" + i);
+                //必须设置初始大小
+                localImagId.style.width = "150px";
+                localImagId.style.height = "180px";
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                }catch (e) {
+                    alert("您上传的图片格式不正确，请重新选择!");
+                    return false;
+                }
+                imgObjPreview.style.display = 'none';
+                document.selection.empty();
+            }
+        }  
+        return true;
+    }
 </script>
 </body>
 </html>
