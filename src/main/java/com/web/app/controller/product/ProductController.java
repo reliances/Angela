@@ -91,6 +91,25 @@ public class ProductController extends BaseController {
 		product.setCreateDate(DateTools.getCurrentTime());
 		productService.insertProduct(product);
 		// Pictures upload
+		uploadFile(product, file, request, user);
+		try {
+			Log("新增操作", "新增一条名为" + product.getProductName() + "的商品", request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("sub", request.getParameter("sub"));
+		return "redirect:/product/getAllproduct";
+	}
+
+	/**
+	 * 图片上传
+	 * @param product
+	 * @param file
+	 * @param request
+	 * @param user
+	 * @throws IOException
+	 */
+	private void uploadFile(Product product, MultipartFile[] file, HttpServletRequest request, User user) throws IOException {
 		for (MultipartFile mf : file) {
 			if (!mf.isEmpty()) {
 				// 取得当前上传文件的文件名称
@@ -121,13 +140,6 @@ public class ProductController extends BaseController {
 				}
 			}
 		}
-		try {
-			Log("新增操作", "新增一条名为" + product.getProductName() + "的商品", request);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		request.getSession().setAttribute("sub", request.getParameter("sub"));
-		return "redirect:/product/getAllproduct";
 	}
 
 	// 到商品添加页面
@@ -164,7 +176,10 @@ public class ProductController extends BaseController {
 
 	// 修改商品
 	@RequestMapping("/updateProduct")
-	public String updateProduct(Model model, Product product, HttpServletRequest request) {
+	public String updateProduct(Model model, Product product, @RequestParam(value = "myFiles", required = false) MultipartFile[] myFiles, HttpServletRequest request) throws IllegalStateException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		uploadFile(product, myFiles, request, user);
 		productService.updateProductById(product);
 		try {
 			Log("修改操作", "修改一条名为" + product.getProductName() + "的商品", request);

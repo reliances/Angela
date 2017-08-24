@@ -298,8 +298,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                  <span class="add-on"><i class="icon-th"></i></span>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="control-group">
+                        </div> 
+                        <div class="control-group">
                             <label class="control-label">产品状态</label>
                             <div class="controls">
                                 <select class="w82" name="productStatus">
@@ -316,16 +316,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <option>否</option>
                                 </select>
                             </div>
-                        </div> -->
-                        <div class="control-group">
-                            <label class="control-label">图片上传：</label>
-                            <div class="controls">
-                            	<div style="margin-left:1px; width:990px;">
-									<input type="file" name="file" id="doc" multiple="multiple" onchange="javascript:setImagePreviews();" accept="image/*" />
-									<div id="dd"></div>
-								</div>
-                            </div>
-                        </div>
+                        </div>-->
                         <div class="control-group">
 							<label class="control-label">商品图片：</label>
 							<div class="controls">
@@ -338,6 +329,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
                          	  	  	</c:if>
                          	  	</c:forEach>
+                         	  	<img id="addImg" src="<%=path%>/img/plus.jpg" width="30" height="30" onclick="doc.click()"/>
+                         	  	<div style="display:none">
+									<input type="file" name="myFiles" id="doc" multiple="multiple" onchange="javascript:setImagePreviews();" accept="image/*" >
+								</div>
+								<div id="dd"></div>
 							</div>
 						</div>
                         <div class="control-group">
