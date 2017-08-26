@@ -16,11 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
     
-    <script type="text/javascript" src="<%=path%>/js/validation/jquery.validate.js"></script> 
-	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
-	<script type="text/javascript" src="<%=path%>/js/validation/messages_zh.js"></script> 
-	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
-	
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css">
@@ -35,6 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
     .form-horizontal .conts-3[type=text]{
         width: 25%;
+    }
+    .c-red{
+    	color:red;
     }
 </style>
 </head>
@@ -69,25 +67,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="widget-content nopadding">
                     <form action="addCase" enctype="multipart/form-data" id="form-member-add" method="post" class="form-horizontal" style="padding-top: 10px">
                         <div class="control-group">
-                            <label class="control-label">案例标题</label>
+                            <label class="control-label"><span class="c-red">*</span>案例标题</label>
                             <div class="controls">
                                 <input type="text" id="title" name="title">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">简短描述</label>
+                            <label class="control-label"><span class="c-red">*</span>简短描述</label>
                             <div class="controls">
                                 <input type="text" name="brief" >
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">详细描述</label>
+                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
                             <div class="controls">
                                 <textarea name="description" ></textarea>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label"><span class="c-red">*</span>备注</label>
                             <div class="controls">
                                 <input type="text" name="remarks" >
                             </div>
@@ -127,15 +125,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					maxlength:16
 				},
 				brief:{
-					required:true,
-					digits:true,
+					required:true
+					/* digits:true, */
 				},
 				description:{
-					required:true,
-					number:true,
+					required:true
+					/* number:true, */
 				},
 				remarks:{
-					required:true,
+					required:true
 				},
 			},
 			onkeyup:false,

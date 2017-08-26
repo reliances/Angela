@@ -88,6 +88,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  width: 16px;
 	  height: 16px;
 	}
+	.c-red{
+    	color:red;
+    }
 </style>
 </head>
 
@@ -124,32 +127,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h5>案例信息</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form action="updateCase" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
+                    <form action="updateCase" enctype="multipart/form-data" id="form-member-add" method="post" class="form-horizontal" style="padding-top: 10px">
                         <input type="hidden" id="caseId" name="id" value="${caseInfo.id}">
                         <input type="hidden" id="imgIds" name="imgIds">
                         <div class="control-group">
-                            <label class="control-label">案例标题</label>
+                            <label class="control-label"><span class="c-red">*</span>案例标题</label>
                             <div class="controls">
                                 <input type="text" name="title" value="${caseInfo.title}" >
                                 <!-- class="js-title" onblur="changeNo('js-title', 'getTitle');" placeholder="可输入中文,字母,数字" -->
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">简短描述</label>
+                            <label class="control-label"><span class="c-red">*</span>简短描述</label>
                             <div class="controls">
                                 <input type="text" name="brief" value="${caseInfo.brief}" >
                                 <!-- class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="可输入中文,字母,数字" -->
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">详细描述</label>
+                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
                             <div class="controls">
                                 <textarea name="description" >${caseInfo.description}</textarea>
                                 <!-- class="js-description" onblur="changeNo('js-description', 'getDescription');" placeholder="可输入中文,字母,数字" -->
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label"><span class="c-red">*</span>备注</label>
                             <div class="controls">
                                 <input type="text" name="remarks" value="${caseInfo.remarks}" >
                                 <!-- class="js-remarks" onblur="changeNo('js-remarks', 'getRemarks');" placeholder="可输入中文,字母,数字" -->
@@ -193,6 +196,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	//表单验证
+	$(function(){
+		$("#form-member-add").validate({
+			rules:{
+				title:{
+					required:true,
+					minlength:2,
+					maxlength:16
+				},
+				brief:{
+					required:true
+					/* digits:true, */
+				},
+				description:{
+					required:true
+					/* number:true, */
+				},
+				remarks:{
+					required:true
+				},
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit();
+			}
+		});
+	});
+
 	var imgIds = [];
 	function setImage(imgId,obj){
 		$(obj).parent().hide();
