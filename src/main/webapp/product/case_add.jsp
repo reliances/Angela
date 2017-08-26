@@ -15,39 +15,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
+    
+    <script type="text/javascript" src="<%=path%>/js/validation/jquery.validate.js"></script> 
+	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
+	<script type="text/javascript" src="<%=path%>/js/validation/messages_zh.js"></script> 
+	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+	
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script language="javascript" type="text/javascript">
-	    function deleteDictionary(){
-			var dicId = [];
-			$("input[name='checkbox2']").each(function() {
-				if ($(this).attr("checked")) {
-					dicId.push($(this).val());
-				}
-			});
-			if (dicId == "") {
-				ymPrompt.alert("请选择需要删除的字典!");
-			} else {
-				ymPrompt.confirmInfo("确定要删除选择的字典信息吗？",null,null,"删除提示",function(tp) {
-					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
-					}
-				});
-			}
-	    }
-	    //修改数据
-	    function updateCategory(id, catName, parentId, depth, priority){
-	    	$("#id").val(id);
-	    	$("#catName").val(catName);
-	    	$("#parentId").val(parentId);
-	    	$("#depth").val(depth);
-	    	$("#priority").html(priority);
-	    }
-	    
-	    var cancel = function() {
-	    	$("#catName1").val("");
-	    }
-	</script>
 	<style type="text/css">
     .form-horizontal .control-label{
         padding-top: 12px;
@@ -63,9 +38,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 </style>
 </head>
-
-
-
 <body>
 <div id="header">
     <h1><a href="#">Angela后台管理平台</a></h1>
@@ -84,8 +56,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <a href="#" title="案例管理" class="tip-bottom"><i class="icon-home"></i>案例管理</a>
     <a href="#" class="current">案例添加</a>
 </div>
-
-
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
@@ -97,33 +67,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h5>案例信息</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form action="addCase" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
+                    <form action="addCase" enctype="multipart/form-data" id="form-member-add" method="post" class="form-horizontal" style="padding-top: 10px">
                         <div class="control-group">
                             <label class="control-label">案例标题</label>
                             <div class="controls">
-                                <input type="text" name="title" >
-                                <!-- class="js-title" onblur="changeNo('js-title', 'getTitle');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
+                                <input type="text" id="title" name="title">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">简短描述</label>
                             <div class="controls">
                                 <input type="text" name="brief" >
-                                <!-- class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">详细描述</label>
                             <div class="controls">
                                 <textarea name="description" ></textarea>
-                                <!-- class="js-description" onblur="changeNo('js-description', 'getDescription');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">备注</label>
                             <div class="controls">
                                 <input type="text" name="remarks" >
-                                <!-- class="js-remarks" onblur="changeNo('js-remarks', 'getRemarks');" placeholder="可输入中文,字母,数字,'-','_','.'，请输入一个长度最多是 255 的字符串" -->
                             </div>
                         </div>
                         <div class="control-group">
@@ -140,7 +106,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label"></label>
                             <div class="controls">
                                 <button type="submit" class="btn btn-primary">保存</button>
-                                <!-- <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/> -->
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -152,13 +117,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
-	/* var submitForm = function() {
-		if (changeNo('js-title', 'getTitle') && changeNo('js-brief', 'getBrief') && changeNo('js-description', 'getDescription') && changeNo('js-remarks', 'getRemarks')) {
-	 		return true;
-	 	} else {
-	 		return false;
-	 	}
-	} */
+	//表单验证
+	$(function(){
+		$("#form-member-add").validate({
+			rules:{
+				title:{
+					required:true,
+					minlength:2,
+					maxlength:16
+				},
+				brief:{
+					required:true,
+					digits:true,
+				},
+				description:{
+					required:true,
+					number:true,
+				},
+				remarks:{
+					required:true,
+				},
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit();
+			}
+		});
+	});
+	
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");

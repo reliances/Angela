@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+.input-text:hover, .textarea:hover {
+	border: solid 1px #3bb4f2;
+}
+
+.Validform_error, input.error, select.error, textarea.error {
+	background-color: #fbe2e2;
+	border-color: #c66161;
+	color: #c00;
+}
+
+label.error {
+	position: absolute;
+	right: 230px;
+	margin-top: -25px;
+	color: #ef392b;
+	font-size: 12px;
+}
