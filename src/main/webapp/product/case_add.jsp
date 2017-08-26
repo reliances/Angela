@@ -32,9 +32,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     .form-horizontal .conts-3[type=text]{
         width: 25%;
     }
-    .c-red{
-    	color:red;
-    }
 </style>
 </head>
 <body>

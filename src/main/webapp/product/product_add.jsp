@@ -15,72 +15,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
+    
     <link type="text/css" href="<%=path%>/css/webuploader/0.1.5/webuploader.css" rel="stylesheet" />
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
 	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.all.min.js"> </script>
 	<script type="text/javascript" src="<%=path%>/js/pace.min.js"> </script>
 	<script type="text/javascript" src="<%=path%>/css/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
 	    $(function(){
 	    	var ue = UE.getEditor('editor');
 	    });
-    
-	    function deleteDictionary(){
-			var dicId = [];
-			$("input[name='checkbox2']").each(function() {
-				if ($(this).attr("checked")) {
-					dicId.push($(this).val());
-				}
-			});
-			if (dicId == "") {
-				ymPrompt.alert("请选择需要删除的字典!");
-			} else {
-				ymPrompt.confirmInfo("确定要删除选择的字典信息吗？",null,null,"删除提示",function(tp) {
-					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
-					}
-				});
-			}
-	    }
-	    //修改数据
-	    function updateCategory(id, cateName, parentId, depth, priority){
-	    	$("#id").val(id);
-	    	$("#cateName").val(cateName);
-	    	$("#parentId").val(parentId);
-	    	$("#depth").val(depth);
-	    	$("#priority").html(priority);
-	    }
-	    
-	    var cancel = function() {
-	    	$("#cateName1").val("");
-	    }
 	</script>
 	<style type="text/css">
-    .form-horizontal .control-label{
-        padding-top: 12px;
-    }
-    .controls .cs-dw{
-        margin-left: 5px;
-    }
-    .uploader-list-container{
-        width: 80%;
-    }
-    .form-horizontal .conts-3[type=text]{
-        width: 24%;
-    }
-    .w82 {
-	    width: 81.2%;
-	}
-	.controls-label label{ 
-		display:inline-block !important;
-	}
-</style>
+	    .form-horizontal .control-label{
+	        padding-top: 12px;
+	    }
+	    .controls .cs-dw{
+	        margin-left: 5px;
+	    }
+	    .uploader-list-container{
+	        width: 80%;
+	    }
+	    .form-horizontal .conts-3[type=text]{
+	        width: 24%;
+	    }
+	    .w82 {
+		    width: 81.2%;
+		}
+		.controls-label label{ 
+			display:inline-block !important;
+		}
+	</style>
 </head>
-
-
-
 <body>
 <div id="header">
     <h1><a href="#">Angela后台管理平台</a></h1>
@@ -99,8 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <a href="#" title="商品管理" class="tip-bottom"><i class="icon-home"></i>商品管理</a>
     <a href="#" class="current">商品添加</a>
 </div>
-
-
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
@@ -112,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h5>产品信息</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form action="addProduct" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
+                    <form action="addProduct" id="form-product-add" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
                         <!-- <div class="control-group">
                             <label class="control-label">中文名称</label>
                             <div class="controls">
@@ -126,19 +94,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                         <div class="control-group">
-                            <label class="control-label">商品名称：</label>
+                            <label class="control-label"><span class="c-red">*</span>商品名称：</label>
                             <div class="controls">
-                                <input type="text" name="productName" class="js-productName" onblur="changeNo('js-productName', 'getProductName');" placeholder="商品名称">
+                                <input type="text" name="productName" placeholder="商品名称">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">商品SN码：</label>
                             <div class="controls">
-                                <input type="text" name="productSn" class="js-productSn" placeholder="商品的条形码">
+                                <input type="text" name="productSn" placeholder="商品的条形码">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">商品分类：</label>
+                            <label class="control-label"><span class="c-red">*</span>商品分类：</label>
                             <div class="controls">
                                 <select class="w82" name="categoryId">
 	                                <c:forEach items="${category}" var="cate">
@@ -154,19 +122,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                        <div class="control-group">
-                            <label class="control-label">市场价：</label>
+                            <label class="control-label"><span class="c-red">*</span>市场价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" class="v-integerPoint" placeholder="市场价格">
+                                <input type="text" name="marketPrice" placeholder="市场价格">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">本店售价：</label>
+                            <label class="control-label"><span class="c-red">*</span>本店售价：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" class="v-integerPoint"  placeholder="实际售价">
+                                <input type="text" name="productPrice" placeholder="实际售价">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">是否上架：</label>
+                            <label class="control-label"><span class="c-red">*</span>是否上架：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isOnSale">
                                     <option value="0">是</option>
@@ -175,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">是否热销：</label>
+                            <label class="control-label"><span class="c-red">*</span>是否热销：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isHot">
                                     <option value="0">是</option>
@@ -186,11 +154,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label">排序号：</label>
                             <div class="controls">
-                                <input type="text" name="sortOrder" class="v-integer" placeholder="排序号">
+                                <input type="text" name="sortOrder" placeholder="排序号">
                             </div>
                         </div>
                         <div class="control-group">
-                       		<label class="control-label">计量单位：</label>
+                       		<label class="control-label"><span class="c-red">*</span>计量单位：</label>
                        		<div class="controls">
 	                            <select class="w82" name="productUnit">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -202,13 +170,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">库存：</label>
+                            <label class="control-label"><span class="c-red">*</span>库存：</label>
                             <div class="controls">
-                                <input type="text" name="stock" class="v-integer" placeholder="库存">
+                                <input type="text" name="stock" placeholder="库存">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">颜色：</label>
+                            <label class="control-label"><span class="c-red">*</span>颜色：</label>
                             <div class="controls">
                                 <select class="w82" name="productColor">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -220,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label">产地：</label>
+                        	<label class="control-label"><span class="c-red">*</span>产地：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productArea">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -232,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label">材质：</label>
+                        	<label class="control-label"><span class="c-red">*</span>材质：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="material">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -244,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">标签：</label>
+                            <label class="control-label"><span class="c-red">*</span>标签：</label>
                             <div class="controls controls-label">
                             	<c:forEach items="${dictionary}" var="dic">
                                 	<c:if test="${dic.dicKey eq 'product_tag' }">
@@ -261,11 +229,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">尺寸：</label>
+                            <label class="control-label"><span class="c-red">*</span>尺寸：</label>
                             <div class="controls controls-flex">
-                                                             长&nbsp;<input type="text" name="sizeL" class="conts-3 v-integer" placeholder="长度">
-                                                             宽&nbsp;<input type="text" name="sizeW" class="conts-3 v-integer" placeholder="宽度">
-                                                             高&nbsp;<input type="text" name="sizeH" class="conts-3 v-integer" placeholder="高度">
+                                                             长&nbsp;<input type="text" name="sizeL" class="conts-3" placeholder="长度">
+                                                             宽&nbsp;<input type="text" name="sizeW" class="conts-3" placeholder="宽度">
+                                                             高&nbsp;<input type="text" name="sizeH" class="conts-3" placeholder="高度">
                             </div>
                         </div>
                         <!-- <div class="control-group">
@@ -317,6 +285,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                         <div class="control-group">
+                            <label class="control-label"><span class="c-red">*</span>简短描述：</label>
+                            <div class="controls">
+                                <input type="text" name="brief" placeholder="简短描述">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">图片上传：</label>
                             <div class="controls">
 	                            <!-- <input type="file" name="file" multiple> -->
@@ -327,13 +301,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">简短描述：</label>
-                            <div class="controls">
-                                <input type="text" name="brief" class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="简短描述">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">详细描述：</label>
+                            <label class="control-label"><span class="c-red">*</span>详细描述：</label>
                             <div class="controls">
 								<script id="editor" name="productDetails" type="text/plain" style="width:90%; height:300px;"></script> 
 							</div>
@@ -344,8 +312,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <!-- <button type="submit" class="btn btn-primary">保存</button> -->
-                                <input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
+                                <button type="submit" class="btn btn-primary">保存</button>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -357,15 +324,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
-	var submitForm = function() {
-		if (changeNo('js-productName', 'getProductName')&& changeNo('v-integerPoint', 'productPrice') && changeNo('js-stock', 'getStock') && changeNo('js-brief', 'getBrief') ) {
-	 		return true;
-	 	} else {
-	 		return false;
-	 	}
-	}
+	//表单验证
+	$(function(){
+		$("#form-product-add").validate({
+			rules:{
+				productName:{
+					required:true,
+					maxlength:50
+				},
+				marketPrice:{
+					required:true,
+					number:true
+				},
+				productPrice:{
+					required:true,
+					number:true
+				},
+				stock:{
+					required:true,
+					digits:true
+				},
+				sizeL:{
+					required:false,
+					digits:true
+				},
+				sizeW:{
+					required:false,
+					digits:true
+				},
+				sizeH:{
+					required:false,
+					digits:true
+				},
+				brief:{
+					required:true,
+					maxlength:255
+				},
+				productDetails:{
+					required:true,
+					maxlength:255
+				}
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit();
+			}
+		});
+	});
     //下面用于多图片上传预览功能
-    function setImagePreviews(avalue) {
+    function setImagePreviews() {
         var docObj = document.getElementById("doc");
         var dd = document.getElementById("dd");
         dd.innerHTML = "";

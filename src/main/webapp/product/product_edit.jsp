@@ -23,89 +23,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path%>/js/pace.min.js"> </script>
 	<script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
 	<script type="text/javascript" src="<%=path%>/css/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
 	    $(function(){
 	    	var ue = UE.getEditor('editor');
 	    });
-    
-	    function deleteDictionary(){
-			var dicId = [];
-			$("input[name='checkbox2']").each(function() {
-				if ($(this).attr("checked")) {
-					dicId.push($(this).val());
-				}
-			});
-			if (dicId == "") {
-				ymPrompt.alert("请选择需要删除的字典!");
-			} else {
-				ymPrompt.confirmInfo("确定要删除选择的字典信息吗？",null,null,"删除提示",function(tp) {
-					if (tp == "ok") {
-						location.href = "deleteDictionaryById?sub=1&dicId="+dicId;
-					}
-				});
-			}
-	    }
-	    //修改数据
-	    function updateCategory(id, cateName, parentId, depth, priority){
-	    	$("#id").val(id);
-	    	$("#cateName").val(cateName);
-	    	$("#parentId").val(parentId);
-	    	$("#depth").val(depth);
-	    	$("#priority").html(priority);
-	    }
-	    
-	    var cancel = function() {
-	    	$("#cateName1").val("");
-	    }
 	</script>
 	<style type="text/css">
-    .form-horizontal .control-label{
-        padding-top: 12px;
-    }
-    .controls .cs-dw{
-        margin-left: 5px;
-    }
-    .uploader-list-container{
-        width: 80%;
-    }
-    .form-horizontal .conts-3[type=text]{
-        width: 25%;
-    }
-    .controls-label label{ 
-		display:inline-block !important;
-	}
-	.addImg{
-		margin: 50px;
-		width:	30px;
-		height: 30px;
-	}
-	.img-wrap{
-	  display: block;
-	  position: relative;
-	  display:inline-block;
-	}
-	.img-wrap .img{
-	  display:block;
-	}
-	.img-wrap:hover .img-close-icon{
-	  display:block;
-	}
-	.img-wrap .img-close-icon{
-	  display:none;
-	  position: absolute;
-	  left: 95px;
-	  top: 10px;
-	  display: block;
-	  background: url(../img/cancel.png);
-	  width: 16px;
-	  height: 16px;
-	}
-</style>
+	    .form-horizontal .control-label{
+	        padding-top: 12px;
+	    }
+	    .controls .cs-dw{
+	        margin-left: 5px;
+	    }
+	    .uploader-list-container{
+	        width: 80%;
+	    }
+	    .form-horizontal .conts-3[type=text]{
+	        width: 25%;
+	    }
+	    .controls-label label{ 
+			display:inline-block !important;
+		}
+		.addImg{
+			margin: 50px;
+			width:	30px;
+			height: 30px;
+		}
+		.img-wrap{
+		  display: block;
+		  position: relative;
+		  display:inline-block;
+		}
+		.img-wrap .img{
+		  display:block;
+		}
+		.img-wrap:hover .img-close-icon{
+		  display:block;
+		}
+		.img-wrap .img-close-icon{
+		  display:none;
+		  position: absolute;
+		  left: 95px;
+		  top: 10px;
+		  display: block;
+		  background: url(../img/cancel.png);
+		  width: 16px;
+		  height: 16px;
+		}
+	</style>
 </head>
-
-
-
 <body>
 <div id="header">
     <h1><a href="#">Angela后台管理平台</a></h1>
@@ -124,8 +93,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <a href="#" title="商品管理" class="tip-bottom"><i class="icon-home"></i>商品管理</a>
     <a href="#" class="current">商品编辑</a>
 </div>
-
-
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
@@ -137,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h5>产品信息</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form action="updateProduct" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
+                    <form action="updateProduct" id="form-product-edit" enctype="multipart/form-data" method="post" class="form-horizontal" style="padding-top: 10px">
                     	<input type="hidden" id="proId" name="id" value="${product.id}">
                     	<input type="hidden" id="imgIds" name="imgIds">
                         <!-- <div class="control-group">
@@ -153,9 +120,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                         <div class="control-group">
-                            <label class="control-label">商品名称：</label>
+                            <label class="control-label"><span class="c-red">*</span>商品名称：</label>
                             <div class="controls">
-                                <input type="text" name="productName" class="js-productName" onblur="changeNo('js-productName', 'getProductName');" placeholder="商品名称" value="${product.productName}">
+                                <input type="text" name="productName" placeholder="商品名称" value="${product.productName}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -165,11 +132,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">商品分类：</label>
+                            <label class="control-label"><span class="c-red">*</span>商品分类：</label>
                             <div class="controls">
                                 <select class="w82" name="categoryId">
 	                                <c:forEach items="${category}" var="cate">
-		                              	<%-- <option value="${cate.id}">${cate.cateName}</option> --%>
+		                              	<option value="${cate.id}">${cate.cateName}</option>
 		                              	<option value="${cate.id}" <c:if test="${cate.id eq product.categoryId}">selected</c:if>>${cate.cateName}</option>
 	                              	</c:forEach>
                                 </select>
@@ -182,19 +149,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                        <div class="control-group">
-                            <label class="control-label">市场价：</label>
+                            <label class="control-label"><span class="c-red">*</span>市场价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" class="v-integerPoint" placeholder="市场价格" value="${product.marketPrice}"><span class="cs-dw">元</span>
+                                <input type="text" name="marketPrice" placeholder="市场价格" value="${product.marketPrice}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">本店售价：</label>
+                            <label class="control-label"><span class="c-red">*</span>本店售价：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" class="v-integerPoint" placeholder="实际售价" value="${product.productPrice}"><span class="cs-dw">元</span>
+                                <input type="text" name="productPrice" placeholder="实际售价" value="${product.productPrice}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">是否上架：</label>
+                            <label class="control-label"><span class="c-red">*</span>是否上架：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isOnSale">
                                     <option value="0" <c:if test="${product.isOnSale eq 0}">selected</c:if>>是</option>
@@ -203,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">是否热销：</label>
+                            <label class="control-label"><span class="c-red">*</span>是否热销：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isHot">
                                     <option value="0" <c:if test="${product.isHot eq 0}">selected</c:if>>是</option>
@@ -218,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                       		<label class="control-label">计量单位：</label>
+                       		<label class="control-label"><span class="c-red">*</span>计量单位：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productUnit">
                                     <c:forEach items="${dictionary}" var="dic">
@@ -230,13 +197,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">库存：</label>
+                            <label class="control-label"><span class="c-red">*</span>库存：</label>
                             <div class="controls">
-                                <input type="text" name="stock" class="v-integer" onblur="changeNo('js-stock', 'getStock');" placeholder="库存" value="${product.stock}">
+                                <input type="text" name="stock" placeholder="库存" value="${product.stock}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">颜色：</label>
+                            <label class="control-label"><span class="c-red">*</span>颜色：</label>
                             <div class="controls">
                                 <select class="w82" name="productColor">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -248,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label">产地：</label>
+                        	<label class="control-label"><span class="c-red">*</span>产地：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productArea">
                                     <c:forEach items="${dictionary}" var="dic">
@@ -260,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label">材质：</label>
+                        	<label class="control-label"><span class="c-red">*</span>材质：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="material">
                                     <c:forEach items="${dictionary}" var="dic">
@@ -272,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">标签：</label>
+                            <label class="control-label"><span class="c-red">*</span>标签：</label>
                             <div class="controls controls-label">
                                 <%-- <select class="w82" name="proTag">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -289,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">尺寸：</label>
+                            <label class="control-label"><span class="c-red">*</span>尺寸：</label>
                             <div class="controls controls-flex">
                                 <input type="text" name="sizeL" class="conts-3" placeholder="长度" value="${product.sizeL}">&nbsp;&nbsp;&nbsp;
                                 <input type="text" name="sizeW" class="conts-3" placeholder="宽度" value="${product.sizeW}">&nbsp;&nbsp;&nbsp;
@@ -345,6 +312,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>-->
                         <div class="control-group">
+                            <label class="control-label"><span class="c-red">*</span>简短描述：</label>
+                            <div class="controls">
+                                <input type="text" name="brief" placeholder="简短描述" value="${product.brief}">
+                            </div>
+                        </div>
+                        <div class="control-group">
 							<label class="control-label">商品图片：</label>
 							<div class="controls">
 								<c:forEach items="${picList}" var="pic" varStatus="status">
@@ -367,13 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
                         <div class="control-group">
-                            <label class="control-label">简短描述：</label>
-                            <div class="controls">
-                                <input type="text" name="brief" class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="简短描述" value="${product.brief}">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">详细描述：</label>
+                            <label class="control-label"><span class="c-red">*</span>详细描述：</label>
                             <div class="controls">
 								<script id="editor" name="productDetails" type="text/plain" style="width:90%; height:300px;">${product.productDetails}</script> 
 							</div>
@@ -384,7 +351,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-								<input type="submit" value="保存" class="btn btn-primary" onclick="return submitForm();"/>
+								<input type="submit" value="保存" class="btn btn-primary"/>
                                 <a data-dismiss="modal" class="btn" onclick="javascript:window.history.go(-1);">取消</a>
                             </div>
                         </div>
@@ -396,6 +363,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <script type="text/javascript">
+	//表单验证
+	$(function(){
+		$("#form-product-edit").validate({
+			rules:{
+				productName:{
+					required:true,
+					maxlength:50
+				},
+				marketPrice:{
+					required:true,
+					number:true
+				},
+				productPrice:{
+					required:true,
+					number:true
+				},
+				stock:{
+					required:true,
+					digits:true
+				},
+				sizeL:{
+					required:false,
+					digits:true
+				},
+				sizeW:{
+					required:false,
+					digits:true
+				},
+				sizeH:{
+					required:false,
+					digits:true
+				},
+				brief:{
+					required:true,
+					maxlength:255
+				},
+				productDetails:{
+					required:true,
+					maxlength:255
+				}
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit();
+			}
+		});
+	});
+	
 	var imgIds = [];
 	function setImage(imgId,obj){
 		$(obj).parent().hide();
@@ -420,16 +437,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	alert("图片上传失败");  
         	}  
     	}); 
-	}
+	};
 
-	var submitForm = function() {
-		if (changeNo('js-productName', 'getProductName')&& changeNo('js-productSn', 'getProductSn') && changeNo('js-marketPrice', 'getMarketPrice')
-				&& changeNo('js-productPrice', 'getProductPrice') && changeNo('js-stock', 'getStock') && changeNo('js-brief', 'getBrief') ) {
-	 		return true;
-	 	} else {
-	 		return false;
-	 	}
-	}
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");
