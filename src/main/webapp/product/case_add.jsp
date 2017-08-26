@@ -15,7 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
-    
+    <link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css">
@@ -121,20 +122,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			rules:{
 				title:{
 					required:true,
-					minlength:2,
-					maxlength:16
+					/* minlength:2, */
+					maxlength:100
 				},
 				brief:{
-					required:true
+					required:true,
 					/* digits:true, */
+					maxlength:150
 				},
 				description:{
-					required:true
+					required:true,
 					/* number:true, */
-				},
-				remarks:{
-					required:true
-				},
+					maxlength:200
+				}
 			},
 			onkeyup:false,
 			focusCleanup:true,

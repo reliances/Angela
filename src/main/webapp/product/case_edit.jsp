@@ -17,6 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
     <script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
+	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script language="javascript" type="text/javascript">
 	    function deleteDictionary(){
@@ -202,20 +204,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			rules:{
 				title:{
 					required:true,
-					minlength:2,
-					maxlength:16
+					/* minlength:2, */
+					maxlength:100
 				},
 				brief:{
-					required:true
+					required:true,
 					/* digits:true, */
+					maxlength:150
 				},
 				description:{
-					required:true
+					required:true,
 					/* number:true, */
-				},
-				remarks:{
-					required:true
-				},
+					maxlength:200
+				}
 			},
 			onkeyup:false,
 			focusCleanup:true,
