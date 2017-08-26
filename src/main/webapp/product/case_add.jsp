@@ -32,9 +32,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     .form-horizontal .conts-3[type=text]{
         width: 25%;
     }
-    .c-red{
-    	color:red;
-    }
 </style>
 </head>
 <body>
@@ -86,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>备注</label>
+                            <label class="control-label">备注</label>
                             <div class="controls">
                                 <input type="text" name="remarks" >
                             </div>
