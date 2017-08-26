@@ -14,9 +14,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
-    <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
-	<link type="text/css" title="www"  rel="stylesheet" href="<%=path%>/css/ymPrompt.css">
+	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www" rel="stylesheet" >
+	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www" rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
+	<script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+		.c-red{
+	    	color:red;
+	    }
+	</style>
     <script language="javascript" type="text/javascript">
 	    function deleteCategoryById(){
 			var dicId = [];
@@ -47,6 +54,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    var cancel = function() {
 	    	$("#cateName1").val("");
 	    }
+	    
+	    //表单验证
+		$(function(){
+			$("#form-member-add").validate({
+				rules:{
+					cateName:{
+						required:true,
+						/* minlength:2, */
+						maxlength:100
+					}
+				},
+				onkeyup:false,
+				focusCleanup:true,
+				success:"valid",
+				submitHandler:function(form){
+					$(form).ajaxSubmit();
+				}
+			});
+		});
 	</script>
 </head>
 <body>
@@ -164,12 +190,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <button data-dismiss="modal" class="close" type="button">×</button>
         <h3><i></i>新增类别</h3>
     </div>
-    <form class="form-horizontal" method="post" action="addCategory" novalidate="novalidate">
+    <form class="form-horizontal" method="post"  id="form-member-add" action="addCategory" novalidate="novalidate">
         <div class="modal-body">
             <div class="widget-box">
                 <div class="poplump">
                     <div class="control-group">
-                        <label class="control-label control-slabel">类别名称:</label>
+                        <label class="control-label control-slabel"><span class="c-red">*</span>类别名称:</label>
                         <div class="controls control-s">
                             <input type="text" name="cateName" id="cateName1"/>
                         </div>

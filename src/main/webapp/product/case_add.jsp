@@ -14,10 +14,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
-    <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
+    <link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
 	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
-	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css">
     .form-horizontal .control-label{
@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>备注</label>
+                            <label class="control-label">备注</label>
                             <div class="controls">
                                 <input type="text" name="remarks" >
                             </div>
