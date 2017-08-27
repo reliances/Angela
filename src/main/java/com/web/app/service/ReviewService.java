@@ -26,4 +26,8 @@ public class ReviewService {
 		return reviewMapper.deletById(id);
 	}
 
+	public List<Review> getReviewByProductId(String proId) {
+		return reviewMapper.getReviewByProductId(proId);
+	}
+
 }

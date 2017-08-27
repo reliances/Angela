@@ -42,6 +42,7 @@ public class Product implements Serializable{
     private Integer isDelete=0;
     
     private List<Pictures> pictures;
+    private List<Review> reviews;
 
 	public String getId() {
 		return id;
@@ -265,6 +266,14 @@ public class Product implements Serializable{
 
 	public void setPictures(List<Pictures> pictures) {
 		this.pictures = pictures;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
     
 }

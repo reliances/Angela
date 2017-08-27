@@ -39,6 +39,14 @@
 		select count(*) from t_review where is_delete = 0
 	</select>
 	
+	<!-- 查询产品个数 -->
+	<select id="getReviewByProductId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="base_column_list" /> 
+		from t_review where is_delete = 0 and product_id = #{proId}
+	</select>
+	
+	
 	<!-- 根据ID删除 -->
 	<update id="deletById" parameterType="java.lang.String">
 		update t_review set is_delete = 1 where id in

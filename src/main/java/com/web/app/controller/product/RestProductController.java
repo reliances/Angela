@@ -15,8 +15,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.web.app.controller.BaseController;
 import com.web.app.entity.Pictures;
 import com.web.app.entity.Product;
+import com.web.app.entity.Review;
 import com.web.app.service.PicturesService;
 import com.web.app.service.ProductService;
+import com.web.app.service.ReviewService;
 
 /**
  * @Title:CategoryController     
@@ -33,6 +35,8 @@ public class RestProductController extends BaseController {
 	private ProductService productService;
 	@Autowired
 	private PicturesService picturesService;
+	@Autowired
+	private ReviewService reviewService;
 	
 	/**
 	 * @Title: getAllproduct
@@ -79,9 +83,11 @@ public class RestProductController extends BaseController {
 	public JSONObject getProductsDetail(HttpServletRequest request, HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		String proId = request.getParameter("productId");
+		List<Review> review = reviewService.getReviewByProductId(proId);
 		JSONObject jsonObj = new JSONObject();
 		if(null != proId && !proId.equals("")){
 			Product productDetail = productService.getProductById(proId);
+			productDetail.setReviews(review);
 			if(null != productDetail && !productDetail.equals("")){
 				List<Pictures> pic = picturesService.selectPicturesByProductId(productDetail.getId());
 				productDetail.setPictures(pic);

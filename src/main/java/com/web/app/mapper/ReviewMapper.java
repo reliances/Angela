@@ -14,5 +14,8 @@ public interface ReviewMapper {
 
 	// 根据ID删除
 	public int deletById(String[] id);
+	
+	//根据产品ID查询评价
+	public List<Review> getReviewByProductId(String proId);
 
 }
