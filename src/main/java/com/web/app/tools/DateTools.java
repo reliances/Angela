@@ -14,7 +14,7 @@ public class DateTools {
     }
 	
 	public static String getTimes() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyymmddhhmmss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssSSS");
         return format.format(new java.util.Date());
     }
 }

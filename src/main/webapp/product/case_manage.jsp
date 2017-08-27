@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          	 <ul>
 	                          	  <c:forEach items="${picList }" var="pic">
 	                          	  	  <c:if test="${pic.productId eq ls.id && pic.imageType == 2}">
-	                          	  	  	<li><img data-original="${ls.imageUrlSmall}" onclick="showPic('${ls.id}')" src="${ls.imageUrlSmall}"/></li>
+	                          	  	  	<li><img data-original="${ls.imageUrl}" onclick="showPic('${ls.id}')" src="${ls.imageUrl}"/></li>
 	                          	  	  </c:if>
 	                          	  </c:forEach>
 							 	</ul>
