@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<c:forEach items="${allPict}" var="pic" varStatus="status">
                         			<c:if test="${pic.productId eq picInfo.productId}">
                         				<a class="img-wrap" href="javascript:void(0)">
-	                         	  	  		<img id="upload${status.index}" src="${pic.imageUrl}" style="width:100px;height:100px; margin: 10px;" onclick="file${status.index}.click()"/>
+	                         	  	  		<img id="upload${status.index}" src="<%=path%>/upload/${pic.imageUrl}" style="width:100px;height:100px; margin: 10px;" onclick="file${status.index}.click()"/>
 											<i class="img-close-icon" onclick="setImage('${pic.imageId}',this);"></i>
 										</a>
 										<div style="display:none">

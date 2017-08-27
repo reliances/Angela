@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          	 <ul>
 	                          	  <c:forEach items="${picList }" var="pic">
 	                          	  	  <c:if test="${pic.productId eq ls.id && pic.imageType == 1}">
-	                          	  	  	<li><img data-original="${ls.imageUrl}" onclick="showPic('${ls.id}')" src="${ls.imageUrl}"/></li>
+	                          	  	  	<li><img data-original="<%=path%>/upload/${pic.imageUrl}" onclick="showPic('${ls.id}')" src="<%=path%>/upload/${pic.imageUrl}"/></li>
 	                          	  	  </c:if>
 	                          	  </c:forEach>
 							 	</ul>

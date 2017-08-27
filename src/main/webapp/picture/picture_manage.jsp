@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td id="${grp.imageId}" class="pictures">
 		                          <c:forEach items="${allPict}" var="ls">
 		                          	  <c:if test="${grp.productId eq ls.productId}">
-		                          	  	  <img data-original="${ls.imageUrl}" onclick="showPic('${grp.imageId}')" src="${ls.imageUrl}"/>
+		                          	  	  <img data-original="<%=path%>/upload/${ls.imageUrl}" onclick="showPic('${grp.imageId}')" src="<%=path%>/upload/${ls.imageUrl}"/>
 		                          	  </c:if>
 		                          </c:forEach>
 							  </td>
