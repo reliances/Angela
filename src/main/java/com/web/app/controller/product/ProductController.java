@@ -121,7 +121,8 @@ public class ProductController extends BaseController {
 				// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
 				if (myFileName.trim() != "") {
 					// 重命名上传后的文件名
-					String fileName = DateTools.getTimes();
+					//String fileName = DateTools.getTimes();
+					String fileName = DateTools.getTimes() + "_" + myFileName;
 					// 定义上传路径
 					String path = "";
 					if(Constant.IS_SERVICE){
