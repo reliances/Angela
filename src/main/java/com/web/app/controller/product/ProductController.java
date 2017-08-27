@@ -29,6 +29,7 @@ import com.web.app.service.CategoryService;
 import com.web.app.service.DictionaryService;
 import com.web.app.service.PicturesService;
 import com.web.app.service.ProductService;
+import com.web.app.tools.Constant;
 import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
 
@@ -82,7 +83,7 @@ public class ProductController extends BaseController {
 
 	// 添加商品
 	@RequestMapping("/addProduct")
-	public String addProduct(Product product, @RequestParam(value = "file", required = false) MultipartFile[] file, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String addProduct(Product product, @RequestParam(value = "file", required = false) MultipartFile[] file,@RequestParam(value = "file2", required = false) MultipartFile[] file2, HttpServletRequest request) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		// product
@@ -92,6 +93,7 @@ public class ProductController extends BaseController {
 		productService.insertProduct(product);
 		// Pictures upload
 		uploadFile(product, file, request, user);
+		uploadFile2(product, file2, request, user);
 		try {
 			Log("新增操作", "新增一条名为" + product.getProductName() + "的商品", request);
 		} catch (Exception e) {
@@ -121,7 +123,12 @@ public class ProductController extends BaseController {
 					// 重命名上传后的文件名
 					String fileName = DateTools.getTimes() + "_" + myFileName;
 					// 定义上传路径
-					String path = request.getSession().getServletContext().getRealPath("upload");
+					String path = "";
+					if(Constant.IS_SERVICE){
+						path = Constant.FILE_UPLOAD_PATH;
+					}else{
+						path = request.getSession().getServletContext().getRealPath("upload");
+					}
 					File localFile = new File(path, fileName);
 					if (!localFile.exists()) {
 						localFile.mkdirs();
@@ -133,6 +140,53 @@ public class ProductController extends BaseController {
 					pic.setCreateDate(DateTools.getCurrentTime());
 					pic.setCreateUser(user.getUserId());
 					pic.setImageType(1);// 产品图片
+					pic.setImageUrl(fileName);
+					pic.setProductId(product.getId());
+					pic.setImageUrlSmall(localFile.toString());
+					pictureService.insertPictures(pic);
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * 图片详情上传
+	 * @param product
+	 * @param file
+	 * @param request
+	 * @param user
+	 * @throws IOException
+	 */
+	private void uploadFile2(Product product, MultipartFile[] file2, HttpServletRequest request, User user) throws IOException {
+		for (MultipartFile mf : file2) {
+			if (!mf.isEmpty()) {
+				// 取得当前上传文件的文件名称
+				// String contentType = mf.getContentType(); 文件类型
+				// String myFileName = contentType.substring(contentType.indexOf("/")+1);
+				String myFileName = mf.getOriginalFilename();
+				// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
+				if (myFileName.trim() != "") {
+					// 重命名上传后的文件名
+					String fileName = DateTools.getTimes() + "_" + myFileName;
+					// 定义上传路径
+					String path = "";
+					if(Constant.IS_SERVICE){
+						path = Constant.FILE_UPLOAD_PATH;
+					}else{
+						path = request.getSession().getServletContext().getRealPath("upload");
+					}
+					File localFile = new File(path, fileName);
+					if (!localFile.exists()) {
+						localFile.mkdirs();
+					}
+					mf.transferTo(localFile);
+					// pic
+					Pictures pic = new Pictures();
+					pic.setImageId(UUID.randomUUID().toString());
+					pic.setCreateDate(DateTools.getCurrentTime());
+					pic.setCreateUser(user.getUserId());
+					pic.setImageType(4);// 产品详情
 					pic.setImageUrl(fileName);
 					pic.setProductId(product.getId());
 					pic.setImageUrlSmall(localFile.toString());
@@ -176,7 +230,7 @@ public class ProductController extends BaseController {
 
 	// 修改商品
 	@RequestMapping("/updateProduct")
-	public String updateProduct(Model model, Product product, @RequestParam(value = "myFiles", required = false) MultipartFile[] myFiles, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String updateProduct(Model model, Product product, @RequestParam(value = "myFiles", required = false) MultipartFile[] myFiles, @RequestParam(value = "myFiles2", required = false) MultipartFile[] myFiles2, HttpServletRequest request) throws IllegalStateException, IOException {
 		String imgIds = request.getParameter("imgIds");
 		if (imgIds != "") {
 			String[] imageid = imgIds.split(",");
@@ -185,6 +239,7 @@ public class ProductController extends BaseController {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		uploadFile(product, myFiles, request, user);
+		uploadFile2(product, myFiles2, request, user);
 		productService.updateProductById(product);
 		try {
 			Log("修改操作", "修改一条名为" + product.getProductName() + "的商品", request);

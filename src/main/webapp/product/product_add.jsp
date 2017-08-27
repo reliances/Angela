@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>商品名称：</label>
+                            <label class="control-label"> 商品名称：</label>
                             <div class="controls">
                                 <input type="text" name="productName" placeholder="商品名称">
                             </div>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>商品分类：</label>
+                            <label class="control-label"> 商品分类：</label>
                             <div class="controls">
                                 <select class="w82" name="categoryId">
 	                                <c:forEach items="${category}" var="cate">
@@ -122,19 +122,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                        <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>市场价：</label>
+                            <label class="control-label"> 市场价：</label>
                             <div class="controls">
                                 <input type="text" name="marketPrice" placeholder="市场价格">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>本店售价：</label>
+                            <label class="control-label"> 本店售价：</label>
                             <div class="controls">
                                 <input type="text" name="productPrice" placeholder="实际售价">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>是否上架：</label>
+                            <label class="control-label"> 是否上架：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isOnSale">
                                     <option value="0">是</option>
@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>是否热销：</label>
+                            <label class="control-label"> 是否热销：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isHot">
                                     <option value="0">是</option>
@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                       		<label class="control-label"><span class="c-red">*</span>计量单位：</label>
+                       		<label class="control-label"> 计量单位：</label>
                        		<div class="controls">
 	                            <select class="w82" name="productUnit">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -170,13 +170,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>库存：</label>
+                            <label class="control-label"> 库存：</label>
                             <div class="controls">
                                 <input type="text" name="stock" placeholder="库存">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>颜色：</label>
+                            <label class="control-label"> 颜色：</label>
                             <div class="controls">
                                 <select class="w82" name="productColor">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label"><span class="c-red">*</span>产地：</label>
+                        	<label class="control-label"> 产地：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productArea">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -200,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label"><span class="c-red">*</span>材质：</label>
+                        	<label class="control-label"> 材质：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="material">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>标签：</label>
+                            <label class="control-label"> 标签：</label>
                             <div class="controls controls-label">
                             	<c:forEach items="${dictionary}" var="dic">
                                 	<c:if test="${dic.dicKey eq 'product_tag' }">
@@ -229,7 +229,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>尺寸：</label>
+                            <label class="control-label"> 尺寸：</label>
                             <div class="controls controls-flex">
                                                              长&nbsp;<input type="text" name="sizeL" class="conts-3" placeholder="长度">
                                                              宽&nbsp;<input type="text" name="sizeW" class="conts-3" placeholder="宽度">
@@ -285,13 +285,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>简短描述：</label>
+                            <label class="control-label"> 简短描述：</label>
                             <div class="controls">
                                 <input type="text" name="brief" placeholder="简短描述">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">图片上传：</label>
+                            <label class="control-label">产品图片：</label>
                             <div class="controls">
 	                            <!-- <input type="file" name="file" multiple> -->
                             	<div style="margin-left:1px; width:990px;">
@@ -301,13 +301,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>详细描述：</label>
+                            <label class="control-label"> 详细描述：</label>
                             <div class="controls">
 								<script id="editor" name="productDetails" type="text/plain" style="width:90%; height:300px;"></script> 
 							</div>
                             <!-- <div class="controls">
                                 <textarea name="productDetails" placeholder="详细描述"></textarea>
                             </div> -->
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">产品详情图：</label>
+                            <div class="controls">
+	                            <!-- <input type="file" name="file" multiple> -->
+                            	<div style="margin-left:1px; width:990px;">
+									<input type="file" name="file2" id="doc2" multiple onchange="javascript:setImagePreviews2();"/>
+									<div id="dd2"></div>
+								</div>
+                            </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"></label>
@@ -329,19 +339,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#form-product-add").validate({
 			rules:{
 				productName:{
-					required:true,
-					maxlength:50
+					required:false,
+					maxlength:150
 				},
 				marketPrice:{
-					required:true,
+					required:false,
 					number:true
 				},
 				productPrice:{
-					required:true,
+					required:false,
 					number:true
 				},
 				stock:{
-					required:true,
+					required:false,
 					digits:true
 				},
 				sizeL:{
@@ -357,11 +367,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					digits:true
 				},
 				brief:{
-					required:true,
+					required:false,
 					maxlength:255
 				},
 				productDetails:{
-					required:true,
+					required:false,
 					maxlength:255
 				}
 			},
@@ -413,6 +423,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }  
         return true;
     }
+
+	function setImagePreviews2() {
+	        var docObj = document.getElementById("doc2");
+	        var dd = document.getElementById("dd2");
+	        dd.innerHTML = "";
+	        var fileList = docObj.files;
+			alert(fileList.length);
+	        for (var i = 0; i < fileList.length; i++) {            
+	            dd.innerHTML += "<div style='float:left' > <img id='img2" + i + "'  /> </div>";
+	            var imgObjPreview = document.getElementById("img2"+i); 
+	            if (docObj.files && docObj.files[i]) {
+	                //火狐下，直接设img属性
+	                imgObjPreview.style.display = 'block';
+	                imgObjPreview.style.width = '150px';
+	                imgObjPreview.style.height = '180px';
+	                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+	                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+	                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+	            }else {
+	                //IE下，使用滤镜
+	                docObj.select();
+	                var imgSrc = document.selection.createRange().text;
+	                alert(imgSrc)
+	                var localImagId = document.getElementById("img2" + i);
+	                //必须设置初始大小
+	                localImagId.style.width = "150px";
+	                localImagId.style.height = "180px";
+	                //图片异常的捕捉，防止用户修改后缀来伪造图片
+	                try {
+	                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	                }catch (e) {
+	                    alert("您上传的图片格式不正确，请重新选择!");
+	                    return false;
+	                }
+	                imgObjPreview.style.display = 'none';
+	                document.selection.empty();
+	            }
+	        }  
+	        return true;
+	    }
 </script>
 </body>
 </html>

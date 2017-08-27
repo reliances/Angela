@@ -27,6 +27,7 @@ import com.web.app.entity.Pictures;
 import com.web.app.entity.User;
 import com.web.app.service.CategoryService;
 import com.web.app.service.PicturesService;
+import com.web.app.tools.Constant;
 import com.web.app.tools.DateTools;
 import com.web.app.tools.Pager;
 
@@ -103,7 +104,12 @@ public class PictureController extends BaseController {
 					// 重命名上传后的文件名
 					String fileName = DateTools.getTimes() + "_" + myFileName;
 					// 定义上传路径
-					String path = request.getSession().getServletContext().getRealPath("upload");
+					String path = "";
+					if(Constant.IS_SERVICE){
+						path = Constant.FILE_UPLOAD_PATH;
+					}else{
+						path = request.getSession().getServletContext().getRealPath("upload");
+					}
 					File localFile = new File(path, fileName);
 					if (!localFile.exists()) {
 						localFile.mkdirs();
@@ -206,7 +212,12 @@ public class PictureController extends BaseController {
 				// 重命名上传后的文件名
 				String fileName = DateTools.getTimes() + "_" + myFileName;
 				// 定义上传路径
-				String path = request.getSession().getServletContext().getRealPath("upload");
+				String path = "";
+				if(Constant.IS_SERVICE){
+					path = Constant.FILE_UPLOAD_PATH;
+				}else{
+					path = request.getSession().getServletContext().getRealPath("upload");
+				}
 				File localFile = new File(path, fileName);
 				if (!localFile.exists()) {
 					localFile.mkdirs();

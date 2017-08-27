@@ -123,7 +123,7 @@
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
-		<!-- activiti核心包 -->
+		<!-- activiti核心包 
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
@@ -133,7 +133,7 @@
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring</artifactId>
 			<version>5.15.1</version>
-		</dependency>
+		</dependency>-->
 		<!-- json核心包 -->
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>

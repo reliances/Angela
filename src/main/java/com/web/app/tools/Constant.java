@@ -14,4 +14,8 @@ public class Constant {
 	public static final String MENU_LEVEL_SEX = "6";
 	public static final String MENU_LEVEL_SEVEN = "7";
 	public static final String MENU_LEVEL_EIGHT = "8";
+	
+	public static final Boolean IS_SERVICE = true;
+	public static final String FILE_UPLOAD_PATH = "/usr/share/tomcat/images";
+	
 }

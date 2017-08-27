@@ -18,7 +18,7 @@ public class Pictures implements Serializable{
 	private String imageUrlSmall;
 	private String createDate;
 	private String createUser;
-	private Integer imageType;
+	private Integer imageType;    //1:产品   2: 案例  3:广告  4:产品详情
 	private Integer isDelete=0;
 	
 	public String getImageId() {

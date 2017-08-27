@@ -132,14 +132,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td>
 		                          <c:choose>
 		                          	<c:when test="${grp.imageType == 1}">产品</c:when>
+								   	<c:when test="${grp.imageType == 4}">产品详情</c:when>
 								   	<c:when test="${grp.imageType == 2}">案例</c:when>
 								   	<c:when test="${grp.imageType == 3}">广告</c:when>
-								   	<c:otherwise>其它 </c:otherwise>  
 								  </c:choose>
 							  </td>
 	                          <td id="${grp.imageId}" class="pictures">
 		                          <c:forEach items="${allPict}" var="ls">
-		                          	  <c:if test="${grp.productId eq ls.productId }">
+		                          	  <c:if test="${grp.productId eq ls.productId}">
 		                          	  	  <img data-original="<%=path%>/upload/${ls.imageUrl}" onclick="showPic('${grp.imageId}')" src="<%=path%>/upload/${ls.imageUrl}"/>
 		                          	  </c:if>
 		                          </c:forEach>

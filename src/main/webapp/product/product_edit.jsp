@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>商品名称：</label>
+                            <label class="control-label"> 商品名称：</label>
                             <div class="controls">
                                 <input type="text" name="productName" placeholder="商品名称" value="${product.productName}">
                             </div>
@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>商品分类：</label>
+                            <label class="control-label"> 商品分类：</label>
                             <div class="controls">
                                 <select class="w82" name="categoryId">
 	                                <c:forEach items="${category}" var="cate">
@@ -149,19 +149,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div> -->
                        <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>市场价：</label>
+                            <label class="control-label"> 市场价：</label>
                             <div class="controls">
                                 <input type="text" name="marketPrice" placeholder="市场价格" value="${product.marketPrice}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>本店售价：</label>
+                            <label class="control-label"> 本店售价：</label>
                             <div class="controls">
                                 <input type="text" name="productPrice" placeholder="实际售价" value="${product.productPrice}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>是否上架：</label>
+                            <label class="control-label"> 是否上架：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isOnSale">
                                     <option value="0" <c:if test="${product.isOnSale eq 0}">selected</c:if>>是</option>
@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>是否热销：</label>
+                            <label class="control-label"> 是否热销：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="isHot">
                                     <option value="0" <c:if test="${product.isHot eq 0}">selected</c:if>>是</option>
@@ -185,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                       		<label class="control-label"><span class="c-red">*</span>计量单位：</label>
+                       		<label class="control-label"> 计量单位：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productUnit">
                                     <c:forEach items="${dictionary}" var="dic">
@@ -197,13 +197,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>库存：</label>
+                            <label class="control-label"> 库存：</label>
                             <div class="controls">
                                 <input type="text" name="stock" placeholder="库存" value="${product.stock}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>颜色：</label>
+                            <label class="control-label"> 颜色：</label>
                             <div class="controls">
                                 <select class="w82" name="productColor">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label"><span class="c-red">*</span>产地：</label>
+                        	<label class="control-label"> 产地：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="productArea">
                                     <c:forEach items="${dictionary}" var="dic">
@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                        	<label class="control-label"><span class="c-red">*</span>材质：</label>
+                        	<label class="control-label"> 材质：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="material">
                                     <c:forEach items="${dictionary}" var="dic">
@@ -239,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>标签：</label>
+                            <label class="control-label"> 标签：</label>
                             <div class="controls controls-label">
                                 <%-- <select class="w82" name="proTag">
 	                                <c:forEach items="${dictionary}" var="dic">
@@ -256,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>尺寸：</label>
+                            <label class="control-label"> 尺寸：</label>
                             <div class="controls controls-flex">
                                 <input type="text" name="sizeL" class="conts-3" placeholder="长度" value="${product.sizeL}">&nbsp;&nbsp;&nbsp;
                                 <input type="text" name="sizeW" class="conts-3" placeholder="宽度" value="${product.sizeW}">&nbsp;&nbsp;&nbsp;
@@ -312,7 +312,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>-->
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>简短描述：</label>
+                            <label class="control-label"> 简短描述：</label>
                             <div class="controls">
                                 <input type="text" name="brief" placeholder="简短描述" value="${product.brief}">
                             </div>
@@ -340,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>详细描述：</label>
+                            <label class="control-label"> 详细描述：</label>
                             <div class="controls">
 								<script id="editor" name="productDetails" type="text/plain" style="width:90%; height:300px;">${product.productDetails}</script> 
 							</div>
@@ -348,6 +348,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <textarea name="productDetails" placeholder="详细描述"></textarea>
                             </div> -->
                         </div>
+                        <div class="control-group">
+							<label class="control-label">商品详情图片：</label>
+							<div class="controls">
+								<c:forEach items="${picList}" var="pic" varStatus="status">
+                        			<c:if test="${pic.productId eq product.id && pic.imageType == 4}">
+                         	  	  		<a class="img-wrap" href="javascript:void(0)">
+	                         	  	  		<img id="upload2${status.index}" src="<%=path%>/upload/${pic.imageUrl}" style="width:100px;height:100px; margin: 10px;" onclick="file2${status.index}.click()"/>
+											<i class="img-close-icon" onclick="setImage('${pic.imageId}',this);"></i>
+										</a>
+										<div style="display:none">
+											<input type="file" name="file" id="file2${status.index}" onchange="uploadImage2('${status.index}')">
+											<input id="imgId2${status.index}" type="hidden" value="${pic.imageId}" />
+										</div>
+                         	  	  	</c:if>
+                         	  	</c:forEach>
+                         	  	<img class="addImg" src="<%=path%>/img/plus.jpg" onclick="doc2.click()"/>
+                         	  	<div style="display:none">
+									<input type="file" name="myFiles2" id="doc2" multiple="multiple" onchange="javascript:setImagePreviews2();" accept="image/*" >
+								</div>
+								<div id="dd2"></div>
+							</div>
+						</div>
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
@@ -368,19 +390,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#form-product-edit").validate({
 			rules:{
 				productName:{
-					required:true,
-					maxlength:50
+					required:false,
+					maxlength:150
 				},
 				marketPrice:{
-					required:true,
+					required:false,
 					number:true
 				},
 				productPrice:{
-					required:true,
+					required:false,
 					number:true
 				},
 				stock:{
-					required:true,
+					required:false,
 					digits:true
 				},
 				sizeL:{
@@ -396,11 +418,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					digits:true
 				},
 				brief:{
-					required:true,
+					required:false,
 					maxlength:255
 				},
 				productDetails:{
-					required:true,
+					required:false,
 					maxlength:255
 				}
 			},
@@ -438,7 +460,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	}  
     	}); 
 	};
-
+	function uploadImage2(n){
+		var productId = $("#proId").val();
+ 		var imgId = $("#imgId2"+n).val();
+		$.ajaxFileUpload({  
+        	url:'../picture/update/image',  
+        	secureuri:false,                       //是否启用安全提交,默认为false   
+        	fileElementId:'file2'+n,
+ 			data:{"productId":productId,"imgId":imgId,"imgType":4},          
+        	dataType:'json',                       //服务器返回的格式,可以是json或xml等  
+        	success:function(data, status){ //本例中设定上传文件完毕后,服务端会返回给前台[filepath]
+            	var url = data.imageUrl;
+               	$("#upload2"+n).attr("src", "<%=path%>/upload/"+url);
+        	},  
+        	error:function(data, status, e){ //服务器响应失败时的处理函数  
+            	alert("图片上传失败");  
+        	}  
+    	}); 
+	};
     //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
         var docObj = document.getElementById("doc");
@@ -463,6 +502,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 var imgSrc = document.selection.createRange().text;
                 alert(imgSrc)
                 var localImagId = document.getElementById("img" + i);
+                //必须设置初始大小
+                localImagId.style.width = "100px";
+                localImagId.style.height = "100px";
+				localImagId.style.margin = "10px";
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                }catch (e) {
+                    alert("您上传的图片格式不正确，请重新选择!");
+                    return false;
+                }
+                imgObjPreview.style.display = 'none';
+                document.selection.empty();
+            }
+        }  
+        return true;
+    }
+
+	//下面用于多图片上传预览功能
+    function setImagePreviews2(avalue) {
+        var docObj = document.getElementById("doc2");
+        var dd = document.getElementById("dd2");
+        dd.innerHTML = "";
+        var fileList = docObj.files;
+        for (var i = 0; i < fileList.length; i++) {            
+            dd.innerHTML += "<div style='float:left' > <img id='img2" + i + "'  /> </div>";
+            var imgObjPreview = document.getElementById("img2"+i); 
+            if (docObj.files && docObj.files[i]) {
+                //火狐下，直接设img属性
+                imgObjPreview.style.display = 'block';
+                imgObjPreview.style.width = '100px';
+                imgObjPreview.style.height = '100px';
+				imgObjPreview.style.margin = "10px";
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+            }else {
+                //IE下，使用滤镜
+                docObj.select();
+                var imgSrc = document.selection.createRange().text;
+                alert(imgSrc)
+                var localImagId = document.getElementById("img2" + i);
                 //必须设置初始大小
                 localImagId.style.width = "100px";
                 localImagId.style.height = "100px";
