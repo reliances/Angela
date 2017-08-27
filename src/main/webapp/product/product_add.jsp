@@ -404,7 +404,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 //IE下，使用滤镜
                 docObj.select();
                 var imgSrc = document.selection.createRange().text;
-                alert(imgSrc)
                 var localImagId = document.getElementById("img" + i);
                 //必须设置初始大小
                 localImagId.style.width = "150px";
@@ -429,7 +428,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        var dd = document.getElementById("dd2");
 	        dd.innerHTML = "";
 	        var fileList = docObj.files;
-			alert(fileList.length);
 	        for (var i = 0; i < fileList.length; i++) {            
 	            dd.innerHTML += "<div style='float:left' > <img id='img2" + i + "'  /> </div>";
 	            var imgObjPreview = document.getElementById("img2"+i); 
@@ -445,7 +443,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                //IE下，使用滤镜
 	                docObj.select();
 	                var imgSrc = document.selection.createRange().text;
-	                alert(imgSrc)
 	                var localImagId = document.getElementById("img2" + i);
 	                //必须设置初始大小
 	                localImagId.style.width = "150px";

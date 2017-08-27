@@ -163,7 +163,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 //IE下，使用滤镜
                 docObj.select();
                 var imgSrc = document.selection.createRange().text;
-                alert(imgSrc)
                 var localImagId = document.getElementById("img" + i);
                 //必须设置初始大小
                 localImagId.style.width = "150px";
