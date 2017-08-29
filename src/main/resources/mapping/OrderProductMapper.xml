@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.web.app.mapper.OrderInfoMapper">
-	<!-- 订单表 -->
-	<resultMap id="BaseResultMap" type="com.web.app.entity.OrderInfo">
+<mapper namespace="com.web.app.mapper.OrderProductMapper">
+	<!-- 订单产品表 -->
+	<resultMap id="BaseResultMap" type="com.web.app.entity.OrderProduct">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-		<result column="user_id" property="userId" jdbcType="VARCHAR" />
-		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
-		<result column="custom_name" property="customName" jdbcType="VARCHAR" />
-		<result column="email" property="email" jdbcType="VARCHAR" />
-		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
-		<result column="asi" property="asi" jdbcType="VARCHAR" />
-		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="quantity" property="quantity" jdbcType="INTEGER" />
+		<result column="delivery_time" property="deliveryTime" jdbcType="VARCHAR" />
 		<result column="target_price" property="targetPrice" jdbcType="DECIMAL" />
-		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+		<result column="asi_sage_no" property="asiSageNo" jdbcType="VARCHAR" />
+		<result column="message" property="message" jdbcType="VARCHAR" />
 		<result column="create_date" property="createDate" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="INTEGER" />
 		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
 	</resultMap>
+
 	<!-- SQL语句段 -->
 	<sql id="base_column_list">
-		id,user_id,company_name,custom_name,email,phone_number,
-		asi,fax,target_price,remarks,create_date,status,is_delete
+		id,order_id,product_id,quantity,delivery_time,target_price,
+		phone_number,asi_sage_no,message,create_date,status,is_delete
 	</sql>
-	
+
 	<!-- 添加订单 -->
-	<insert id="insertOrderInfo" parameterType="com.web.app.entity.OrderInfo">
+	<insert id="insertOrderProduct" parameterType="com.web.app.entity.OrderProduct">
 		insert into
-		t_order_info(
+		t_order_product(
 			id,
-			user_id,
-			company_name,
-			custom_name,
-			email,
-			phone_number,
-			asi,
-			fax,
+			order_id,
+			product_id,
+			quantity,
+			delivery_time,
 			target_price,
-			remarks,
+			phone_number,
+			asi_sage_no,
+			message,
 			create_date,
 			status,
 			is_delete
 		)values(
 			#{id},
-			#{userId},
-			#{companyName},
-			#{customName},
-			#{email},
-			#{phoneNumber},
-			#{asi},
-			#{fax},
+			#{orderId},
+			#{productId},
+			#{quantity},
+			#{deliveryTime},
 			#{targetPrice},
-			#{remarks},
+			#{phoneNumber},
+			#{asiSageNo},
+			#{message},
 			#{createDate},
 			#{status},
 			#{isDelete}
@@ -59,10 +57,10 @@
 	</insert>
 
 	<!-- 查询所有订单 -->
-	<select id="getAllOrderInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+	<select id="getAllOrderProduct" parameterType="java.util.Map" resultMap="BaseResultMap">
 		select
 		<include refid="base_column_list" />
-			from t_order_info where is_delete = 0 ORDER BY create_date DESC
+		from t_order_product where is_delete = 0 ORDER BY create_date DESC
 		<if test="startIndex != null and endIndex != null">
 			limit ${startIndex},${endIndex}
 		</if>
@@ -70,24 +68,24 @@
 
 	<!-- 查询产品个数 -->
 	<select id="countByCriteria" resultType="java.lang.Integer">
-		select count(*) from t_order_info where is_delete = 0
+		select count(*) from t_order_product where is_delete = 0
 	</select>
 
 	<!-- 根据id查询 -->
-	<select id="getOrderInfoById" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select <include refid="base_column_list" /> from t_order_info where id = #{id}
+	<select id="getOrderProductById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="base_column_list" /> from t_order_product where order_id = #{orderId}
 	</select>
 
 	<!-- 根据ID删除 -->
-	<update id="deleteOrderInfoById" parameterType="java.lang.String">
-		update t_order_info set is_delete = 1 where id in
+	<update id="deleteOrderProductById" parameterType="java.lang.String">
+		update t_order_product set is_delete = 1 where id in
 		<foreach item="id" collection="array" open="(" separator="," close=")"> 
 			#{id} 
 		</foreach>
 	</update>
 
 	<!-- 根据ID修改 -->
-	<update id="updateOrderInfoById" parameterType="com.web.app.entity.OrderInfo">
+	<update id="updateOrderProductById" parameterType="com.web.app.entity.OrderInfo">
 		<!-- update t_order_info
 		<set>
 			<if test="connectStatus != null">

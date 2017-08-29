@@ -64,15 +64,15 @@ public class OrderController extends BaseController {
 
 	// 添加订单
 	@RequestMapping("/addOrder")
-	public String addOrder(Model model, OrderInfo orderInfo, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String addOrder(OrderInfo orderInfo, HttpServletRequest request) throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		orderInfo.setId(UUID.randomUUID().toString());
-		orderInfo.setCreateUser(user.getUserId());
+		orderInfo.setUserId(user.getUserId());
 		orderInfo.setCreateDate(DateTools.getCurrentTime());
 		orderInfoService.insertOrderInfo(orderInfo);
 		try {
-			Log("新增操作", "新增一条名为" + orderInfo.getOrderId() + "的订单", request);
+			Log("新增操作", "新增一条名为" + orderInfo.getId() + "的订单", request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,7 +109,7 @@ public class OrderController extends BaseController {
 	public String updateOrder(Model model, OrderInfo orderInfo, HttpServletRequest request) {
 		orderInfoService.updateOrderInfoById(orderInfo);
 		try {
-			Log("修改操作", "修改一条名为" + orderInfo.getOrderId() + "的订单", request);
+			Log("修改操作", "修改一条名为" + orderInfo.getId() + "的订单", request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

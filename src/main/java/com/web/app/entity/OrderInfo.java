@@ -1,6 +1,7 @@
 package com.web.app.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Title:OrderInfo
@@ -13,85 +14,104 @@ public class OrderInfo implements Serializable {
 	private static final long serialVersionUID = -7809732860592303381L;
 
 	private String id;
-	private String connectStatus;
-	private String orderId;
-	private String productCount;
-	private String productId;
+	private String userId;
+	private String companyName;
+	private String customName;
+	private String email;
+	private String phoneNumber;
+	private String asi;
+	private String fax;
+	private Double targetPrice;
+	private String remarks;
 	private String createDate;
-	private String createUser;
 	private Integer status = 0;
 	private Integer isDelete = 0;
-
+	
+	private List<OrderProduct> orderProduct;
+	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getConnectStatus() {
-		return connectStatus;
+	public String getUserId() {
+		return userId;
 	}
-
-	public void setConnectStatus(String connectStatus) {
-		this.connectStatus = connectStatus;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-
-	public String getOrderId() {
-		return orderId;
+	public String getCompanyName() {
+		return companyName;
 	}
-
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
-
-	public String getProductCount() {
-		return productCount;
+	public String getCustomName() {
+		return customName;
 	}
-
-	public void setProductCount(String productCount) {
-		this.productCount = productCount;
+	public void setCustomName(String customName) {
+		this.customName = customName;
 	}
-
-	public String getProductId() {
-		return productId;
+	public String getEmail() {
+		return email;
 	}
-
-	public void setProductId(String productId) {
-		this.productId = productId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getAsi() {
+		return asi;
+	}
+	public void setAsi(String asi) {
+		this.asi = asi;
+	}
+	public String getFax() {
+		return fax;
+	}
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+	public Double getTargetPrice() {
+		return targetPrice;
+	}
+	public void setTargetPrice(Double targetPrice) {
+		this.targetPrice = targetPrice;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getCreateDate() {
 		return createDate;
 	}
-
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-
-	public String getCreateUser() {
-		return createUser;
-	}
-
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
-	}
-
 	public Integer getStatus() {
 		return status;
 	}
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
 	public Integer getIsDelete() {
 		return isDelete;
 	}
-
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
+	}
+	public List<OrderProduct> getOrderProduct() {
+		return orderProduct;
+	}
+	public void setOrderProduct(List<OrderProduct> orderProduct) {
+		this.orderProduct = orderProduct;
 	}
 
 }

@@ -16,9 +16,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../header.jsp" flush="true"/>
     <link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
     <link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+    <script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" src="<%=path%>/css/ueditor/lang/zh-cn/zh-cn.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
 	<script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script language="javascript" type="text/javascript">
+	    $(function(){
+	    	var ue = UE.getEditor('editor');
+	    });
+	</script>
 	<style type="text/css">
     .form-horizontal .control-label{
         padding-top: 12px;
@@ -77,13 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
-                            <div class="controls">
-                                <textarea name="description" ></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label">备注信息</label>
                             <div class="controls">
                                 <input type="text" name="remarks" >
                             </div>
@@ -96,6 +98,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<input type="file" name="file" id="doc" multiple onchange="javascript:setImagePreviews();"/>
 									<div id="dd"></div>
 								</div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
+                            <div class="controls">
+                            	<script id="editor" name="description" type="text/plain" style="width:90%; height:300px;"></script>
                             </div>
                         </div>
                         <div class="control-group">

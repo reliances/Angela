@@ -18,8 +18,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"> </script>
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
 	<link type="text/css" href="<%=path%>/js/validation/base.css" title="www"  rel="stylesheet" >
+	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" src="<%=path%>/css/ueditor/lang/zh-cn/zh-cn.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/validation/validate-methods.js"></script> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script language="javascript" type="text/javascript">
+	    $(function(){
+	    	var ue = UE.getEditor('editor');
+	    });
+	</script>
 	<style type="text/css">
     .form-horizontal .control-label{
         padding-top: 12px;
@@ -108,14 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
-                            <div class="controls">
-                                <textarea name="description" >${caseInfo.description}</textarea>
-                                <!-- class="js-description" onblur="changeNo('js-description', 'getDescription');" placeholder="可输入中文,字母,数字" -->
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label">备注信息</label>
                             <div class="controls">
                                 <input type="text" name="remarks" value="${caseInfo.remarks}" >
                                 <!-- class="js-remarks" onblur="changeNo('js-remarks', 'getRemarks');" placeholder="可输入中文,字母,数字" -->
@@ -142,6 +143,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div id="dd"></div>
                         	</div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
+                            <div class="controls">
+                            	<script id="editor" name="productDetails" type="text/plain" style="width:90%; height:300px;">${caseInfo.description}</script>
+                            </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"></label>

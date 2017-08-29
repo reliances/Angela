@@ -1,5 +1,8 @@
 package com.web.app.controller.product;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +17,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.web.app.controller.BaseController;
 import com.web.app.entity.OrderInfo;
+import com.web.app.entity.OrderProduct;
 import com.web.app.service.OrderInfoService;
-import com.web.app.tools.DateTools;
+import com.web.app.service.OrderProductService;
 
 /**
  * @Title:OrderRestController     
@@ -29,6 +33,8 @@ import com.web.app.tools.DateTools;
 public class RestOrderController extends BaseController {
 	@Autowired
 	private OrderInfoService orderInfoService;
+	@Autowired
+	private OrderProductService orderProductService;
 	
 	/**
 	 * @Title: postAddOrders
@@ -47,7 +53,6 @@ public class RestOrderController extends BaseController {
 		JSONObject jsonObj = new JSONObject();
 		OrderInfo orderInfo = (OrderInfo) JSON.parseObject(jsObj.toString(), OrderInfo.class);
 		orderInfo.setId(UUID.randomUUID().toString());
-		orderInfo.setOrderId(DateTools.getTimes());
 		int count = orderInfoService.insertOrderInfo(orderInfo);
 		if(count > 0){
 			jsonObj.put("status", "200");
@@ -56,6 +61,23 @@ public class RestOrderController extends BaseController {
 			jsonObj.put("status", "500");
 			jsonObj.put("return", "error");
 		}
+		return jsonObj;
+	}
+	
+	
+	@RequestMapping("/getOrders")
+	public JSONObject getOrders(HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		JSONObject jsonObj = new JSONObject();
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<OrderInfo> order = orderInfoService.getAllOrderInfo(map);
+		for (int i = 0; i < order.size(); i++) {
+			List<OrderProduct> product = orderProductService.getOrderProductById(order.get(i).getId());
+			if(null != product){
+				order.get(i).setOrderProduct(product);
+			}
+		}
+		jsonObj.put("OrderInfo", JSON.toJSON(order));
 		return jsonObj;
 	}
 }
