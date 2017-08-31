@@ -25,6 +25,8 @@ public class OrderProduct implements Serializable {
 	private Integer status = 0;   //有效
 	private Integer isDelete = 0; //未删除
 	
+	private Product product;
+	
 	public String getId() {
 		return id;
 	}
@@ -97,5 +99,11 @@ public class OrderProduct implements Serializable {
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
-	
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	 
 }

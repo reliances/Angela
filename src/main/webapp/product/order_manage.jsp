@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ taglib prefix="page" uri="../WEB-INF/tld/pager.tld"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,11 +113,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <tr>
                           <th><span class="icon"><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></span></th>
                           <th>订单ID</th>
-                          <th>产品ID</th>
-                          <th>产品数量</th>
-                          <th>连接状态</th>
+                          <th>公司名称</th>
+                          <th>用户名称</th>
+                          <th>E-Mail</th>
+                          <th>PhoneNo</th>
+                          <th>ASI</th>
+                          <th>FAX</th>
+                          <th>订单时间</th>
                           <th>订单状态</th>
-                          <th>创建时间</th>
                           <th class="center">操作</th>
                       </tr>
                     </thead>
@@ -124,17 +128,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <c:forEach items="${list}" var="ls">
 	                      <tr>
 	                          <td><span class="icon"><input type="checkbox" id="checkbox2" name="checkbox2" value="${ls.id}"/></span></td>
-	                          <td>${ls.orderId}</td>
-	                          <td>${ls.productId}</td>
-	                          <td>${ls.productCount}</td>
-	                          <td>${ls.connectStatus}</td>
-	                          <td>${ls.status}</td>
+	                          <td><a href="getOrderDetail?orderId=${ls.id }&sub=2">${fn:substring(ls.id, 0, 13)}...</a></td>
+	                          <td>${ls.companyName}</td>
+	                          <td>${ls.customName}</td>
+	                          <td>${ls.email}</td>
+	                          <td>${ls.phoneNumber}</td>
+	                          <td>${ls.asi}</td>
+	                          <td>${ls.fax}</td>
 	                          <td>${ls.createDate}</td>
+	                          <td>
+	                          	<c:if test="${ls.status eq 0}"><p style="color: red;">未处理</p></c:if>
+	                          	<c:if test="${ls.status eq 1}"><p style="color: red;">已处理</p></c:if>
+	                          </td>
 	                          <td>
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.id}');">编辑</a></li>
+	                                	<%-- <li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.id}');">处理订单</a></li> --%>
 	                                </ul>
 	                              </div>
 	                          </td>

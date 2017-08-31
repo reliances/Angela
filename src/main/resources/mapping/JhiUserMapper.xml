@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.JhiUserMapper" >
+  
+	<resultMap id="BaseResultMap" type="com.web.app.entity.JhiUser" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="login" property="login" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="activated" property="activated" jdbcType="BOOLEAN" />
+		<result column="langKey" property="langKey" jdbcType="VARCHAR" />
+		<result column="imageUrl" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="activationKey" property="activationKey" jdbcType="VARCHAR" />
+		<result column="reset_key" property="resetKey" jdbcType="VARCHAR" />
+		<result column="reset_date" property="resetDate" jdbcType="DATE" />
+		<result column="tel_number" property="telNumber" jdbcType="VARCHAR" />
+		<result column="asi_sage_number" property="asiSageNumber" jdbcType="VARCHAR" />
+		<result column="fax_number" property="faxNumber" jdbcType="VARCHAR" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<select id="getJhiuserInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from jhi_user where id= #{userId}
+	</select>
+
+</mapper>

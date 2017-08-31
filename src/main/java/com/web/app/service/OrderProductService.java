@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.web.app.entity.OrderProduct;
 import com.web.app.mapper.OrderProductMapper;
 
-@Service("OrderProductService")
+@Service("orderProductService")
 public class OrderProductService {
 	@Autowired
 	private OrderProductMapper orderProductMapper;

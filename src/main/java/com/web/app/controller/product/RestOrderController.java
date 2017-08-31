@@ -20,6 +20,7 @@ import com.web.app.entity.OrderInfo;
 import com.web.app.entity.OrderProduct;
 import com.web.app.service.OrderInfoService;
 import com.web.app.service.OrderProductService;
+import com.web.app.tools.DateTools;
 
 /**
  * @Title:OrderRestController     
@@ -52,8 +53,17 @@ public class RestOrderController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		JSONObject jsonObj = new JSONObject();
 		OrderInfo orderInfo = (OrderInfo) JSON.parseObject(jsObj.toString(), OrderInfo.class);
-		orderInfo.setId(UUID.randomUUID().toString());
+		String orderId = UUID.randomUUID().toString();
+		orderInfo.setId(orderId);
+		orderInfo.setCreateDate(DateTools.getCurrentTime());
 		int count = orderInfoService.insertOrderInfo(orderInfo);
+		for (int i = 0; i < orderInfo.getOrderProduct().size(); i++) {
+			OrderProduct odp = orderInfo.getOrderProduct().get(i);
+			odp.setOrderId(orderId);
+			odp.setId(UUID.randomUUID().toString());
+			odp.setCreateDate(DateTools.getCurrentTime());
+			orderProductService.insertOrderProduct(orderInfo.getOrderProduct().get(i));
+		}
 		if(count > 0){
 			jsonObj.put("status", "200");
 			jsonObj.put("return", "success");
@@ -65,6 +75,17 @@ public class RestOrderController extends BaseController {
 	}
 	
 	
+	/**
+	 * @Title: getOrders
+	 * @Description:
+	 * @param @param request
+	 * @param @param response
+	 * @param @return
+	 * @retrun JSONObject
+	 * @author LiangRui
+	 * @throws
+	 * @Time 2017年8月31日 下午4:21:48
+	 */
 	@RequestMapping("/getOrders")
 	public JSONObject getOrders(HttpServletRequest request, HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -80,6 +101,7 @@ public class RestOrderController extends BaseController {
 		jsonObj.put("OrderInfo", JSON.toJSON(order));
 		return jsonObj;
 	}
+	 
 }
 
 
