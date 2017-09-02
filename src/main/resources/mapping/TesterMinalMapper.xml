@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.app.mapper.TesterMinalMapper">
+	<!-- 企业评价 -->
+	<resultMap id="BaseResultMap" type="com.web.app.entity.Testerminal">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="company" property="company" jdbcType="VARCHAR" />
+		<result column="contact" property="contact" jdbcType="VARCHAR" />
+		<result column="tell_number" property="tellNumber" jdbcType="VARCHAR" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="asi" property="asi" jdbcType="VARCHAR" />
+		<result column="supplier_rating" property="supplierRating" jdbcType="INTEGER" />
+		<result column="satisfaction" property="satisfaction" jdbcType="INTEGER" />
+		<result column="product_quality" property="productQuality" jdbcType="INTEGER" />
+		<result column="responsiveness" property="responsiveness" jdbcType="INTEGER" />
+		<result column="delivery" property="delivery" jdbcType="INTEGER" />
+		<result column="problem_resolution" property="problemResolution" jdbcType="INTEGER" />
+		<result column="imprinting" property="imprinting" jdbcType="INTEGER" />
+		<result column="adivse_note" property="adivseNote" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- SQL语句段 -->
+	<sql id="base_column_list">
+	  id,company,contact,tell_number,fax,email,asi,supplier_rating,satisfaction,product_quality,
+	  responsiveness,delivery,problem_resolution,imprinting,adivse_note,create_time,is_delete
+	</sql>
+	
+	<!-- 添加 -->
+	<insert id="insertTesterminal" parameterType="com.web.app.entity.Testerminal">
+		insert into t_tester_minal(
+		   id,
+		   company,
+		   contact,
+		   tell_number,
+		   fax,
+		   email,
+		   asi,
+		   supplier_rating,
+		   satisfaction,
+		   product_quality,
+		   responsiveness,
+		   delivery,
+		   problem_resolution,
+		   imprinting,
+		   adivse_note,
+		   create_time,
+		   is_delete
+		)values(
+		   #{id},
+		   #{company},
+		   #{contact},
+		   #{tellNumber},
+		   #{fax},
+		   #{email},
+		   #{asi},
+		   #{supplierRating},
+		   #{satisfaction},
+		   #{productQuality},
+		   #{responsiveness},
+		   #{delivery},
+		   #{problemResolution},
+		   #{imprinting},
+		   #{adivseNote},
+		   #{createTime},
+		   #{isDelete})
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="getAllTesterMinal" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="base_column_list" />
+		from t_tester_minal where is_delete = 0 ORDER BY create_time DESC
+		<if test="startIndex != null and endIndex != null">
+			limit ${startIndex},${endIndex}
+		</if>
+	</select>
+
+	<!-- 查询产品个数 -->
+	<select id="countByCriteria" resultType="java.lang.Integer">
+		select count(*) from t_tester_minal where is_delete = 0
+	</select>
+	 
+</mapper>

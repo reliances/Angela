@@ -29,7 +29,7 @@ import com.web.app.service.ReviewService;
  */
 @RestController
 @RequestMapping("/products")
-public class RestProductController extends BaseController {
+public class ProductRestController extends BaseController {
 	
 	@Autowired
 	private ProductService productService;

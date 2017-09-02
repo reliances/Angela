@@ -27,7 +27,7 @@ import com.web.app.service.PicturesService;
  */
 @RestController
 @RequestMapping("/cases")
-public class RestCaseController extends BaseController {
+public class CaseRestController extends BaseController {
 	@Autowired
 	private CaseInfoService caseInfoService;
 	@Autowired

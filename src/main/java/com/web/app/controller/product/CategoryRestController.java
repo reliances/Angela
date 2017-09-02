@@ -23,7 +23,7 @@ import com.web.app.service.CategoryService;
  */
 @RestController
 @RequestMapping("/categorys")
-public class RestCategoryController extends BaseController {
+public class CategoryRestController extends BaseController {
 	
 	@Autowired
 	private CategoryService categoryService;
