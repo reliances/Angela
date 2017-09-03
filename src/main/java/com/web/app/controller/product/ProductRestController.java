@@ -135,6 +135,7 @@ public class ProductRestController extends BaseController {
 		List<Review> review = reviewService.getReviewByProductId(proId);
 		int total = 0;
 		int count = review.size();
+		BigDecimal avg = null;
 		for (int i = 0; i < review.size(); i++) {
 			total= total + review.get(i).getSatisfaction()
 						 + review.get(i).getProductQuality()
@@ -143,16 +144,19 @@ public class ProductRestController extends BaseController {
 						 + review.get(i).getProblemResolution()
 						 + review.get(i).getImprinting();
 		}
-		BigDecimal avgDcm = new BigDecimal(total+"");
-		BigDecimal one = new BigDecimal(count * 6);   
-		BigDecimal avg = avgDcm.divide(one,1,BigDecimal.ROUND_HALF_UP);
-		
+		if(review.size() > 0){
+			BigDecimal avgDcm = new BigDecimal(total+"");
+			BigDecimal one = new BigDecimal(count * 6);   
+			avg = avgDcm.divide(one,1,BigDecimal.ROUND_HALF_UP);
+		}
 		JSONObject jsonObj = new JSONObject();
 		if(null != proId && !proId.equals("")){
 			Product productDetail = productService.getProductById(proId);
 			productDetail.setReviews(review);
-			productDetail.setAvgScore(avg.doubleValue());
-			productDetail.setTotalReview(count);
+			if(null != avg){
+				productDetail.setAvgScore(avg.doubleValue());
+				productDetail.setTotalReview(count);
+			}
 			if(null != productDetail && !productDetail.equals("")){
 				List<Pictures> pic = picturesService.selectPicturesByProductId(productDetail.getId());
 				productDetail.setPictures(pic);
