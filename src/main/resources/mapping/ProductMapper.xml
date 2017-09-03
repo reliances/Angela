@@ -115,6 +115,15 @@
         <if test="sellCount != null">
         	ORDER BY sell_count DESC
         </if>
+        <if test="categoryId != null">
+        	and category_id = #{categoryId}
+        </if>
+        <if test="productColor != null">
+        	and product_color = #{productColor}
+        </if>
+        <if test="material != null">
+        	and material = #{material}
+        </if>
         <if test="startIndex != null and endIndex != null">
         	limit ${startIndex},${endIndex}
         </if>

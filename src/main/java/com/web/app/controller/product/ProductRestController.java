@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -77,7 +78,41 @@ public class ProductRestController extends BaseController {
 			if(null != productList.get(i).getProTag() && !productList.get(i).getProTag().equals("")){
 				String[] proTag = productList.get(i).getProTag().split(",");
 				String dicName = dictionaryService.getDictionaryByIds(proTag);
-				productList.get(i).setProTag(dicName);
+				productList.get(i).setProTagName(dicName);
+			}
+			List<Pictures> pic = picturesService.selectPicturesByProductId(productList.get(i).getId());
+			productList.get(i).setPictures(pic);
+		}
+		jsonObj.put("products",JSONObject.toJSON(productList));
+		return jsonObj;
+	}
+	
+	
+	@RequestMapping("/getAllProductsByParms")
+	public JSONObject getAllProductsByParms(@RequestBody JSONObject jsObj, HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		String size = request.getParameter("Size");
+		JSONObject jsonObj = new JSONObject();
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(null != jsObj.get("categoryId") && !jsObj.get("categoryId").equals("")){
+			map.put("categoryId", jsObj.get("categoryId"));
+		}
+		if(null != jsObj.get("productColor") && !jsObj.get("productColor").equals("")){
+			map.put("productColor", jsObj.get("productColor"));
+		}
+		if(null != jsObj.get("material") && !jsObj.get("material").equals("")){
+			map.put("material", jsObj.get("material"));
+		}
+		if(null != size && !size.equals("")){
+			map.put("startIndex", 0);
+			map.put("endIndex", size);
+		}
+		List<Product> productList = productService.getAllProduct(map);
+		for (int i = 0; i < productList.size(); i++) {
+			if(null != productList.get(i).getProTag() && !productList.get(i).getProTag().equals("")){
+				String[] proTag = productList.get(i).getProTag().split(",");
+				String dicName = dictionaryService.getDictionaryByIds(proTag);
+				productList.get(i).setProTagName(dicName);
 			}
 			List<Pictures> pic = picturesService.selectPicturesByProductId(productList.get(i).getId());
 			productList.get(i).setPictures(pic);
@@ -115,8 +150,6 @@ public class ProductRestController extends BaseController {
 		jsonObj.put("products",JSONObject.toJSON(pic));
 		return jsonObj;
 	}
-	
-	
 	
 	
 }

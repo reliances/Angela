@@ -75,7 +75,7 @@
 	<select id="getReviewByProductId" parameterType="java.lang.String" resultMap="BaseResultMap">
 		select 
 		<include refid="base_column_list" /> 
-		from t_review where is_delete = 0 and product_id = #{proId}
+		from t_review where is_delete = 0 and product_id = #{proId} ORDER BY create_date DESC
 	</select>
 	
 	

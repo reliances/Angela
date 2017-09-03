@@ -31,6 +31,7 @@ public class Product implements Serializable{
     private String productArea;
     private String material;
     private String proTag;
+    private String proTagName;
     private Integer sizeL;
     private Integer sizeW;
     private Integer sizeH;
@@ -274,6 +275,14 @@ public class Product implements Serializable{
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public String getProTagName() {
+		return proTagName;
+	}
+
+	public void setProTagName(String proTagName) {
+		this.proTagName = proTagName;
 	}
     
 }
