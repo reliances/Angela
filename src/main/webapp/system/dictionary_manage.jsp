@@ -169,19 +169,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="control-group">
                         <label class="control-label control-slabel">字典名称:</label>
                         <div class="controls control-s">
-                            <input type="text" name="dicName" id="dicName1" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="dicName" id="dicName1"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label control-slabel">字典键:</label>
                         <div class="controls control-s">
-                            <input type="text" name="dicKey" id="dicKey1" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="dicKey" id="dicKey1"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label control-slabel">字典值:</label>
                         <div class="controls control-s">
-                            <input type="text" name="dicVal" id="dicVal1" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="dicVal" id="dicVal1"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -230,19 +230,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label class="control-label control-slabel">字典名称:</label>
                         <div class="controls control-s">
                         	<input type="hidden" name="dicId" id="dicId">
-                            <input type="text" name="dicName" id="dicName" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="dicName" id="dicName"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label control-slabel">字典键:</label>
                         <div class="controls control-s">
-                            <input type="text" name="dicKey" id="dicKey" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="dicKey" id="dicKey"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label control-slabel">字典值:</label>
                         <div class="controls control-s">
-                            <input type="text" name="dicVal" id="dicVal" class="v-zhlettersnum-r--25"/>
+                            <input type="text" name="dicVal" id="dicVal"/>
                         </div>
                     </div>
                     <div class="control-group">
