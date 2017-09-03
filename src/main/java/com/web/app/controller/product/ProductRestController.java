@@ -74,8 +74,8 @@ public class ProductRestController extends BaseController {
 		}
 		List<Product> productList = productService.getAllProduct(map);
 		for (int i = 0; i < productList.size(); i++) {
-			String[] proTag = productList.get(i).getProTag().split(",");
-			if(null != proTag){
+			if(null != productList.get(i).getProTag() && !productList.get(i).getProTag().equals("")){
+				String[] proTag = productList.get(i).getProTag().split(",");
 				String dicName = dictionaryService.getDictionaryByIds(proTag);
 				productList.get(i).setProTag(dicName);
 			}
