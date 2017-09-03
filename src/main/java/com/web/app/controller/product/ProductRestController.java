@@ -144,7 +144,7 @@ public class ProductRestController extends BaseController {
 						 + review.get(i).getImprinting();
 		}
 		BigDecimal avgDcm = new BigDecimal(total+"");
-		BigDecimal one = new BigDecimal(count * 5);   
+		BigDecimal one = new BigDecimal(count * 6);   
 		BigDecimal avg = avgDcm.divide(one,1,BigDecimal.ROUND_HALF_UP);
 		
 		JSONObject jsonObj = new JSONObject();
