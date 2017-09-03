@@ -16,6 +16,7 @@ import com.web.app.controller.BaseController;
 import com.web.app.entity.Pictures;
 import com.web.app.entity.Product;
 import com.web.app.entity.Review;
+import com.web.app.service.DictionaryService;
 import com.web.app.service.PicturesService;
 import com.web.app.service.ProductService;
 import com.web.app.service.ReviewService;
@@ -37,6 +38,8 @@ public class ProductRestController extends BaseController {
 	private PicturesService picturesService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private DictionaryService dictionaryService;
 	
 	/**
 	 * @Title: getAllproduct
@@ -71,6 +74,11 @@ public class ProductRestController extends BaseController {
 		}
 		List<Product> productList = productService.getAllProduct(map);
 		for (int i = 0; i < productList.size(); i++) {
+			String[] proTag = productList.get(i).getProTag().split(",");
+			if(null != proTag){
+				String dicName = dictionaryService.getDictionaryByIds(proTag);
+				productList.get(i).setProTag(dicName);
+			}
 			List<Pictures> pic = picturesService.selectPicturesByProductId(productList.get(i).getId());
 			productList.get(i).setPictures(pic);
 		}

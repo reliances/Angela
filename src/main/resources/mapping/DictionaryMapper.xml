@@ -85,6 +85,15 @@
 	    </set>
 	    where dic_id = #{dicId, jdbcType=VARCHAR} and is_delete = 0
 	</update>
+	
+	<!-- 根据ID批量查询 -->
+	<select id="getDictionaryByIds" parameterType="java.lang.String"  resultMap="BaseResultMap">
+		select  t.* FROM t_dictionary t WHERE t.is_delete = 0 and t.dic_id IN
+		<foreach item="idItem" collection="array" open="(" separator="," close=")">
+           #{idItem}
+        </foreach>
+	</select>
+	
 </mapper>
 
 

@@ -31,6 +31,18 @@ public class DictionaryService {
 		return dictionaryMapper.deleteDictionaryById(dicIds);
 	}
 
+	public String getDictionaryByIds(String[] dicIds) {
+		List<Dictionary>  dicList = dictionaryMapper.getDictionaryByIds(dicIds);
+		if(null != dicList){
+			String dicName = "";
+			for (int i = 0; i < dicList.size(); i++) {
+				dicName = dicName + dicList.get(i).getDicVal()+",";
+			}
+			return dicName.substring(0, dicName.length()-1);
+		}
+		return null;
+	}
+	
 	public int updateDictionaryById(Dictionary dictionary) {
 		return dictionaryMapper.updateDictionaryById(dictionary);
 	}

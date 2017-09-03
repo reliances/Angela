@@ -15,6 +15,8 @@ public interface DictionaryMapper {
 	public int countByCriteria();
 	//删除字典
 	public int deleteDictionaryById(String[] dicIds);
+	//批量查询
+	public List<Dictionary> getDictionaryByIds(String[] dicIds);
 	//编辑字典
 	public int updateDictionaryById(Dictionary dictionary);
 	//通过名称查找字典
