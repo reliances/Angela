@@ -14,20 +14,19 @@ public class Review implements Serializable {
 	private static final long serialVersionUID = -7809732860592303381L;
 
 	private String id;
-	private String comment;
-	private String createDate;
-	private String createUser;
 	private String productId;
-	private String remarks;
 	private Integer satisfaction;
 	private Integer productQuality;
 	private Integer responsiveness;
 	private Integer delivery;
 	private Integer problemResolution;
 	private Integer imprinting;
+	private String comment;
+	private String createUser;
+	private String createDate;
 	private Integer isUseful = 0;
 	private Integer isDelete = 0;
-
+	
 	public String getId() {
 		return id;
 	}
@@ -66,14 +65,6 @@ public class Review implements Serializable {
 
 	public void setProductId(String productId) {
 		this.productId = productId;
-	}
-
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
 	}
 
 	public Integer getSatisfaction() {

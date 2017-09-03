@@ -6,6 +6,9 @@ import java.util.Map;
 import com.web.app.entity.Review;
 
 public interface ReviewMapper {
+	//添加
+	public int insertReview(Review review);
+		
 	// 查询所有
 	public List<Review> getAllReview(Map<String, Object> map);
 

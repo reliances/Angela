@@ -128,7 +128,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           <th>交付</th>
                           <th>解决问题</th>
                           <th>印记/个性化</th>
-                          <th>备注</th>
                           <th>创建时间</th>
                           <!-- <th class="center">操作</th> -->
                       </tr>
@@ -145,7 +144,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td>${ls.delivery}</td>
 	                          <td>${ls.problemResolution}</td>
 	                          <td>${ls.imprinting}</td>
-	                          <td>${ls.remarks}</td>
 	                          <td>${ls.createDate}</td>
 	                          <%-- <td>
 	                              <div class="btn-group">

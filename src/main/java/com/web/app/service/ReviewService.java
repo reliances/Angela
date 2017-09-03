@@ -30,4 +30,8 @@ public class ReviewService {
 		return reviewMapper.getReviewByProductId(proId);
 	}
 
+	public int insertReview(Review review) {
+		return reviewMapper.insertReview(review);
+	}
+
 }

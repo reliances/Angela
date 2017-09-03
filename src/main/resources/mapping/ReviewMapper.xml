@@ -9,19 +9,51 @@
 		<result column="create_date" property="createDate" jdbcType="VARCHAR" />
 		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
 		<result column="product_id" property="productId" jdbcType="VARCHAR" />
-		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="satisfaction" property="satisfaction" jdbcType="INTEGER" />
 		<result column="product_quality" property="productQuality" jdbcType="INTEGER" />
+		<result column="responsiveness" property="responsiveness" jdbcType="INTEGER" />
 		<result column="delivery" property="delivery" jdbcType="INTEGER" />
 		<result column="problem_resolution" property="problemResolution" jdbcType="INTEGER" />
 		<result column="imprinting" property="imprinting" jdbcType="INTEGER" />
 		<result column="is_useful" property="isUseful" jdbcType="INTEGER" />
 		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
 	</resultMap>
-
+	
+	<!-- 添加 -->
+	<insert id="insertReview" parameterType="com.web.app.entity.Review">
+		insert into t_review(
+		   id,
+		   product_id,
+		   satisfaction,
+		   product_quality,
+		   responsiveness,
+	       delivery,
+		   problem_resolution,
+		   imprinting, 
+		   comment,
+		   create_user,
+		   create_date,
+		   is_useful,
+		   is_delete
+		)values(
+		   #{id},
+		   #{productId},
+		   #{satisfaction},
+		   #{productQuality},
+		   #{responsiveness},
+		   #{delivery},
+		   #{problemResolution},
+		   #{imprinting},
+		   #{comment},
+		   #{createUser},
+		   #{createDate},
+		   #{isUseful},
+		   #{isDelete})
+	</insert>
+	
 	<!-- SQL语句段 -->
 	<sql id="base_column_list">
-		id,comment,create_date,create_user,product_id,remarks,satisfaction,product_quality,responsiveness,delivery,problem_resolution,imprinting,is_useful,is_delete
+		id,comment,create_date,create_user,product_id,satisfaction,product_quality,responsiveness,delivery,problem_resolution,imprinting,is_useful,is_delete
 	</sql>
 
 	<!-- 查询所产品 -->
