@@ -21,4 +21,6 @@ public interface DictionaryMapper {
 	public int updateDictionaryById(Dictionary dictionary);
 	//通过名称查找字典
 	public List<Dictionary> selectDicByName(String dicName);
+	//根据ID查询
+	public Dictionary selectDicById(String dicId);
 }

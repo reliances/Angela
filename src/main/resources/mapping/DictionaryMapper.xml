@@ -53,6 +53,11 @@
     	select * from t_dictionary where dic_name = #{dicName} and is_delete = 0 ORDER BY create_date DESC
     </select>
     
+    <!-- 根据ID查询 -->
+    <select id="selectDicById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select * from t_dictionary where dic_id = #{dicId} and is_delete = 0
+    </select>
+    
     <!-- 查询字典个数 -->
     <select id="countByCriteria" resultType="java.lang.Integer">
 		select count(*) from t_dictionary where is_delete = 0

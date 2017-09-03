@@ -50,5 +50,9 @@ public class DictionaryService {
 	public List<Dictionary> getDicByName(String dicName) {
 		return dictionaryMapper.selectDicByName(dicName);
 	}
+
+	public Dictionary selectDicById(String dicId) {
+		return dictionaryMapper.selectDicById(dicId);
+	}
 	
 }

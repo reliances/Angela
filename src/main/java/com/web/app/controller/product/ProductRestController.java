@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.web.app.controller.BaseController;
+import com.web.app.entity.Dictionary;
 import com.web.app.entity.Pictures;
 import com.web.app.entity.Product;
 import com.web.app.entity.Review;
@@ -81,6 +82,10 @@ public class ProductRestController extends BaseController {
 				productList.get(i).setProTagName(dicName);
 			}
 			List<Pictures> pic = picturesService.selectPicturesByProductId(productList.get(i).getId());
+			Dictionary dicColor = dictionaryService.selectDicById(productList.get(i).getProductColor());
+			if(null != dicColor){
+				productList.get(i).setProductColor(dicColor.getDicName());
+			}
 			productList.get(i).setPictures(pic);
 		}
 		jsonObj.put("products",JSONObject.toJSON(productList));
