@@ -151,7 +151,7 @@ public class ProductRestController extends BaseController {
 		if(null != proId && !proId.equals("")){
 			Product productDetail = productService.getProductById(proId);
 			productDetail.setReviews(review);
-			productDetail.setAvgNum(avg.doubleValue());
+			productDetail.setAvgScore(avg.doubleValue());
 			productDetail.setTotalReview(count);
 			if(null != productDetail && !productDetail.equals("")){
 				List<Pictures> pic = picturesService.selectPicturesByProductId(productDetail.getId());

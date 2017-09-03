@@ -45,7 +45,7 @@ public class Product implements Serializable{
     private List<Pictures> pictures;
     private List<Review> reviews;
     
-	private Double avgNum;
+	private Double avgScore;
 	private int totalReview;
 	
 	public String getId() {
@@ -288,12 +288,12 @@ public class Product implements Serializable{
 		this.proTagName = proTagName;
 	}
 
-	public Double getAvgNum() {
-		return avgNum;
+	public Double getAvgScore() {
+		return avgScore;
 	}
 
-	public void setAvgNum(Double avgNum) {
-		this.avgNum = avgNum;
+	public void setAvgScore(Double avgScore) {
+		this.avgScore = avgScore;
 	}
 
 	public int getTotalReview() {
