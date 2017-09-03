@@ -1,5 +1,6 @@
 package com.web.app.controller.product;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,10 +133,26 @@ public class ProductRestController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		String proId = request.getParameter("productId");
 		List<Review> review = reviewService.getReviewByProductId(proId);
+		int total = 0;
+		int count = review.size();
+		for (int i = 0; i < review.size(); i++) {
+			total= total + review.get(i).getSatisfaction()
+						 + review.get(i).getProductQuality()
+						 + review.get(i).getResponsiveness()
+						 + review.get(i).getDelivery()
+						 + review.get(i).getProblemResolution()
+						 + review.get(i).getImprinting();
+		}
+		BigDecimal avgDcm = new BigDecimal(total+"");
+		BigDecimal one = new BigDecimal(count * 5);   
+		BigDecimal avg = avgDcm.divide(one,1,BigDecimal.ROUND_HALF_UP);
+		
 		JSONObject jsonObj = new JSONObject();
 		if(null != proId && !proId.equals("")){
 			Product productDetail = productService.getProductById(proId);
 			productDetail.setReviews(review);
+			productDetail.setAvgNum(avg.doubleValue());
+			productDetail.setTotalReview(count);
 			if(null != productDetail && !productDetail.equals("")){
 				List<Pictures> pic = picturesService.selectPicturesByProductId(productDetail.getId());
 				productDetail.setPictures(pic);

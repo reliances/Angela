@@ -44,7 +44,10 @@ public class Product implements Serializable{
     
     private List<Pictures> pictures;
     private List<Review> reviews;
-
+    
+	private Double avgNum;
+	private int totalReview;
+	
 	public String getId() {
 		return id;
 	}
@@ -283,6 +286,22 @@ public class Product implements Serializable{
 
 	public void setProTagName(String proTagName) {
 		this.proTagName = proTagName;
+	}
+
+	public Double getAvgNum() {
+		return avgNum;
+	}
+
+	public void setAvgNum(Double avgNum) {
+		this.avgNum = avgNum;
+	}
+
+	public int getTotalReview() {
+		return totalReview;
+	}
+
+	public void setTotalReview(int totalReview) {
+		this.totalReview = totalReview;
 	}
     
 }

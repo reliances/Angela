@@ -27,6 +27,7 @@ public class Review implements Serializable {
 	private Integer isUseful = 0;
 	private Integer isDelete = 0;
 	
+	
 	public String getId() {
 		return id;
 	}
