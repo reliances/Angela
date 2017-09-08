@@ -102,14 +102,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input type="hidden" id="caseId" name="id" value="${caseInfo.id}">
                         <input type="hidden" id="imgIds" name="imgIds">
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>案例标题</label>
+                            <label class="control-label">案例标题</label>
                             <div class="controls">
                                 <input type="text" name="title" value="${caseInfo.title}" >
                                 <!-- class="js-title" onblur="changeNo('js-title', 'getTitle');" placeholder="可输入中文,字母,数字" -->
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>简短描述</label>
+                            <label class="control-label">简短描述</label>
                             <div class="controls">
                                 <input type="text" name="brief" value="${caseInfo.brief}" >
                                 <!-- class="js-brief" onblur="changeNo('js-brief', 'getBrief');" placeholder="可输入中文,字母,数字" -->
@@ -171,17 +171,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#form-member-add").validate({
 			rules:{
 				title:{
-					required:true,
+					required:false,
 					/* minlength:2, */
 					maxlength:100
 				},
 				brief:{
-					required:true,
+					required:false,
 					/* digits:true, */
 					maxlength:150
 				},
 				description:{
-					required:true,
+					required:false,
 					/* number:true, */
 					maxlength:200
 				}

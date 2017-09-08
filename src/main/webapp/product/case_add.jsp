@@ -73,13 +73,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="widget-content nopadding">
                     <form action="addCase" enctype="multipart/form-data" id="form-member-add" method="post" class="form-horizontal" style="padding-top: 10px">
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>案例标题</label>
+                            <label class="control-label">案例标题</label>
                             <div class="controls">
                                 <input type="text" id="title" name="title">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>简短描述</label>
+                            <label class="control-label">简短描述</label>
                             <div class="controls">
                                 <input type="text" name="brief" >
                             </div>
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><span class="c-red">*</span>详细描述</label>
+                            <label class="control-label">详细描述</label>
                             <div class="controls">
                             	<script id="editor" name="description" type="text/plain" style="width:90%; height:300px;"></script>
                             </div>
@@ -126,17 +126,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#form-member-add").validate({
 			rules:{
 				title:{
-					required:true,
+					required:false,
 					/* minlength:2, */
 					maxlength:100
 				},
 				brief:{
-					required:true,
+					required:false,
 					/* digits:true, */
 					maxlength:150
 				},
 				description:{
-					required:true,
+					required:false,
 					/* number:true, */
 					maxlength:200
 				}
