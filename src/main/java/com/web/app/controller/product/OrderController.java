@@ -144,23 +144,18 @@ public class OrderController extends BaseController {
 	}
 
 	
-	// 添加订单
-	/*@RequestMapping("/addOrder")
-	public String addOrder(OrderInfo orderInfo, HttpServletRequest request) throws IllegalStateException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		orderInfo.setId(UUID.randomUUID().toString());
-		orderInfo.setUserId(user.getUserId());
-		orderInfo.setCreateDate(DateTools.getCurrentTime());
-		orderInfoService.insertOrderInfo(orderInfo);
-		try {
-			Log("新增操作", "新增一条名为" + orderInfo.getId() + "的订单", request);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	// 修改订单
+	@RequestMapping("/updateOrderStatus")
+	public String updateOrderStatus(HttpServletRequest request) {
+		String orderId = request.getParameter("id");
+		String orderStatus = request.getParameter("status");
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setId(orderId);
+		orderInfo.setStatus(Integer.parseInt(orderStatus));
+		orderInfoService.updateOrderInfoById(orderInfo);
 		request.getSession().setAttribute("sub", request.getParameter("sub"));
 		return "redirect:/order/getAllOrder";
-	}*/
+	}
 	
 	
 	// 删除操作

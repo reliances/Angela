@@ -115,6 +115,12 @@
         <if test="sellCount != null">
         	ORDER BY sell_count DESC
         </if>
+        <if test="priceUp != null">
+        	ORDER BY product_price ASC
+        </if>
+        <if test="priceDown != null">
+        	ORDER BY product_price DESC
+        </if>
         <if test="categoryId != null">
         	and category_id = #{categoryId}
         </if>

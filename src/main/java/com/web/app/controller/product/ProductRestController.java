@@ -69,6 +69,10 @@ public class ProductRestController extends BaseController {
 				map.put("isHot", "isHot");
 			}else if(orderBy.endsWith("sellCount")){
 				map.put("sellCount", "sellCount");
+			}else if(orderBy.endsWith("priceUp")){
+				map.put("priceUp", "priceUp");
+			}else if(orderBy.endsWith("priceDown")){
+				map.put("priceDown", "priceDown");
 			}
 		}
 		if(null != size && !size.equals("")){
@@ -108,6 +112,13 @@ public class ProductRestController extends BaseController {
 		}
 		if(null != jsObj.get("material") && !jsObj.get("material").equals("")){
 			map.put("material", jsObj.get("material"));
+		}
+		if(null != jsObj.get("orderBy") && !jsObj.get("orderBy").equals("")){
+			if(jsObj.get("orderBy").equals("priceUp")){
+				map.put("priceUp", "priceUp");
+			}else{
+				map.put("priceDown", "priceDown");
+			}
 		}
 		if(null != size && !size.equals("")){
 			map.put("startIndex", 0);

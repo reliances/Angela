@@ -27,9 +27,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			if (Ids == "") {
-				ymPrompt.alert("请选择需要删除的商品!");
+				ymPrompt.alert("请选择需要删除的订单!");
 			} else {
-				ymPrompt.confirmInfo("确定要删除选择的商品信息吗？",null,null,"删除提示",function(tp) {
+				ymPrompt.confirmInfo("确定要删除选择的订单信息吗？",null,null,"订单提示",function(tp) {
 					if (tp == "ok") {
 						location.href = "deleteOrder?Ids="+Ids;
 					}
@@ -55,6 +55,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    var cancel = function() {
 	    	$("#catName1").val("");
+	    }
+	    
+	    function updateStatus(id,status){
+	    	if(status == 0){
+	    		status = 1;
+	    	}else{
+	    		status = 0;
+	    	}
+			ymPrompt.confirmInfo("确定要处理改订单吗？",null,null,"处理提示",function(tp) {
+				if (tp == "ok") {
+					
+					location.href = "updateOrderStatus?id="+id+"&status="+status;
+				}
+			});
 	    }
 	</script>
 </head>
@@ -137,14 +151,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <td>${ls.fax}</td>
 	                          <td>${ls.createDate}</td>
 	                          <td>
-	                          	<c:if test="${ls.status eq 0}"><p style="color: red;">未处理</p></c:if>
-	                          	<c:if test="${ls.status eq 1}"><p style="color: red;">已处理</p></c:if>
+	                          	<c:if test="${ls.status eq 0}"><p style="color: red;">未回复</p></c:if>
+	                          	<c:if test="${ls.status eq 1}"><p style="color: green;">已回复</p></c:if>
 	                          </td>
 	                          <td>
 	                              <div class="btn-group">
 	                                <button data-toggle="dropdown" class="btn min-btn dropdown-toggle"><i class="icon-wrench"></i>操作<span class="caret"></span></button>
 	                                <ul class="dropdown-menu">
-	                                	<%-- <li><a href="#myAlertEdit" data-toggle="modal" onclick="updateInfo('${ls.id}');">处理订单</a></li> --%>
+	                                	<li><a href="#myAlertEdit" data-toggle="modal" onclick="updateStatus('${ls.id}', '${ls.status }');">处理</a></li>
 	                                </ul>
 	                              </div>
 	                          </td>
