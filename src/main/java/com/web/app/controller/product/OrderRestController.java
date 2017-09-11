@@ -18,8 +18,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.web.app.controller.BaseController;
 import com.web.app.entity.OrderInfo;
 import com.web.app.entity.OrderProduct;
+import com.web.app.entity.Product;
 import com.web.app.service.OrderInfoService;
 import com.web.app.service.OrderProductService;
+import com.web.app.service.ProductService;
 import com.web.app.tools.DateTools;
 
 /**
@@ -36,6 +38,8 @@ public class OrderRestController extends BaseController {
 	private OrderInfoService orderInfoService;
 	@Autowired
 	private OrderProductService orderProductService;
+	@Autowired
+	private ProductService productService;
 	
 	/**
 	 * @Title: postAddOrders
@@ -91,14 +95,26 @@ public class OrderRestController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		JSONObject jsonObj = new JSONObject();
 		Map<String,Object> map = new HashMap<String,Object>();
-		List<OrderInfo> order = orderInfoService.getAllOrderInfo(map);
-		for (int i = 0; i < order.size(); i++) {
-			List<OrderProduct> product = orderProductService.getOrderProductById(order.get(i).getId());
-			if(null != product){
-				order.get(i).setOrderProduct(product);
+		String userId = request.getParameter("userId");
+		map.put("userId", userId);
+		map.put("createDate", "createDate");
+		if(null != userId && !userId.equals("")){
+			List<OrderInfo> order = orderInfoService.getAllOrderInfo(map);
+			for (int i = 0; i < order.size(); i++) {
+				List<OrderProduct> product = orderProductService.getOrderProductById(order.get(i).getId());
+				if(null != product){
+					for (int j = 0; j < product.size(); j++) {
+						Product pd = new Product();
+						pd = productService.getProductById(product.get(j).getProductId());
+						product.get(j).setProduct(pd);
+					}
+					order.get(i).setOrderProduct(product);
+				}
 			}
+			jsonObj.put("OrderInfo", JSON.toJSON(order));
+		}else{
+			jsonObj.put("error", "用户ID不能为空!");
 		}
-		jsonObj.put("OrderInfo", JSON.toJSON(order));
 		return jsonObj;
 	}
 	 

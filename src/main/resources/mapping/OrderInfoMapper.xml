@@ -62,7 +62,13 @@
 	<select id="getAllOrderInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
 		select
 		<include refid="base_column_list" />
-			from t_order_info where is_delete = 0 ORDER BY create_date DESC
+			from t_order_info where is_delete = 0
+		<if test="userId != null">
+        	and user_id = #{userId}
+        </if>
+        <if test="createDate != null">
+        	ORDER BY create_date DESC
+        </if>
 		<if test="startIndex != null and endIndex != null">
 			limit ${startIndex},${endIndex}
 		</if>
