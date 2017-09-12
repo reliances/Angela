@@ -46,6 +46,7 @@
 	    <result column="shipping_estimate" property="shippingEstimate" jdbcType="VARCHAR" />
 	    <result column="imprint_method" property="imprintMethod" jdbcType="VARCHAR" />
 	    <result column="imprint_color" property="imprintColor" jdbcType="VARCHAR" />
+	    <result column="imprint_size" property="imprintSize" jdbcType="VARCHAR" />
 	    <result column="fullColor_process" property="fullColorProcess" jdbcType="VARCHAR" />
 	    <result column="personalization" property="personalization" jdbcType="VARCHAR" />
 	    <result column="sold_unimprinted" property="soldUnimprinted" jdbcType="VARCHAR" />
@@ -64,7 +65,7 @@
 	  product_color, product_details, product_name, product_price, product_sn, 
 	  product_status, product_unit, sell_count, size_l,size_w,size_h, sort_order, stock,
 	  count_A,count_B,count_C,count_D,count_E,price_A,price_B,price_C,price_D,price_E,price_includes,
-	  shipping_estimate,imprint_method,imprint_color,fullColor_process,personalization,sold_unimprinted,
+	  shipping_estimate,imprint_method,imprint_color,imprint_size,fullColor_process,personalization,sold_unimprinted,
 	  product_proofs,production_time,rush_service,fob_point,product_weight,packaging
 	</sql>
 	
@@ -112,6 +113,7 @@
 		   shipping_estimate,
 		   imprint_method,
 		   imprint_color,
+		   imprint_size,
 		   fullColor_process,
 		   personalization,
 		   sold_unimprinted,
@@ -163,6 +165,7 @@
 		   #{shippingEstimate},
 		   #{imprintMethod},
 		   #{imprintColor},
+		   #{imprintSize},
 		   #{fullColorProcess},
 		   #{personalization},
 		   #{soldUnimprinted},
@@ -339,6 +342,9 @@
 	      </if>
 	      <if test="imprintColor != null">
 	        imprint_color = #{imprintColor, jdbcType=VARCHAR},
+	      </if>
+	      <if test="imprintSize != null">
+	        imprint_size = #{imprintSize, jdbcType=VARCHAR},
 	      </if>
 	      <if test="fullColorProcess != null">
 	        fullColor_process = #{fullColorProcess, jdbcType=VARCHAR},

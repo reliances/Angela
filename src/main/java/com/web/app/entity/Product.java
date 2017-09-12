@@ -63,6 +63,7 @@ public class Product implements Serializable{
 	private String shippingEstimate;
 	private String imprintMethod;
 	private String imprintColor;
+	private String imprintSize;
 	private String fullColorProcess;
 	private String personalization;
 	private String soldUnimprinted;
@@ -511,6 +512,14 @@ public class Product implements Serializable{
 
 	public void setPackaging(String packaging) {
 		this.packaging = packaging;
+	}
+
+	public String getImprintSize() {
+		return imprintSize;
+	}
+
+	public void setImprintSize(String imprintSize) {
+		this.imprintSize = imprintSize;
 	}
     
 }

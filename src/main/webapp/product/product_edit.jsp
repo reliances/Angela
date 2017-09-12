@@ -151,16 +151,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <input type="text" placeholder="点击数" name="clickCount" value="${product.clickCount}">
                             </div>
                         </div> -->
-                       <div class="control-group">
-                            <label class="control-label"> 市场价：</label>
+                        <div class="control-group">
+                            <label class="control-label"> 商品售价：</label>
                             <div class="controls">
-                                <input type="text" name="marketPrice" placeholder="市场价格" value="${product.marketPrice}">
+                                <input type="text" name="productPrice" placeholder="实际售价" value="${product.productPrice}">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"> 本店售价：</label>
+                            <label class="control-label"> 样品价格：</label>
                             <div class="controls">
-                                <input type="text" name="productPrice" placeholder="实际售价" value="${product.productPrice}">
+                                <input type="text" name="marketPrice" placeholder="市场价格" value="${product.marketPrice}">
                             </div>
                         </div>
                         <div class="control-group">
@@ -299,6 +299,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label">Imprint Color：</label>
                             <div class="controls">
                                 <input type="text" name="imprintColor" value="${product.imprintColor}">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Imprint Size：</label>
+                            <div class="controls">
+                                <input type="text" name="imprintSize" value="${product.imprintSize}">
                             </div>
                         </div>
                         <div class="control-group">
