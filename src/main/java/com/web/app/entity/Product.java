@@ -38,6 +38,7 @@ public class Product implements Serializable{
     private Integer sellCount;
     private String createUser;
     private String createDate;
+ 
     private String lastUpdate;
     private Integer productStatus=0;
     private Integer isDelete=0;
@@ -47,6 +48,30 @@ public class Product implements Serializable{
     
 	private Double avgScore;
 	private int totalReview;
+	//add new
+	private String countA;
+	private String priceA;
+	private String countB;
+	private String priceB;
+	private String countC;
+	private String priceC;
+	private String countD;
+	private String priceD;
+	private String countE;
+	private String priceE;
+	private String priceIncludes;
+	private String shippingEstimate;
+	private String imprintMethod;
+	private String imprintColor;
+	private String fullColorProcess;
+	private String personalization;
+	private String soldUnimprinted;
+	private String productProofs;
+	private String productionTime;
+	private String rushService;
+	private String fobPoint;
+	private String productWeight;
+	private String packaging;
 	
 	public String getId() {
 		return id;
@@ -302,6 +327,190 @@ public class Product implements Serializable{
 
 	public void setTotalReview(int totalReview) {
 		this.totalReview = totalReview;
+	}
+
+	public String getCountA() {
+		return countA;
+	}
+
+	public void setCountA(String countA) {
+		this.countA = countA;
+	}
+
+	public String getPriceA() {
+		return priceA;
+	}
+
+	public void setPriceA(String priceA) {
+		this.priceA = priceA;
+	}
+
+	public String getCountB() {
+		return countB;
+	}
+
+	public void setCountB(String countB) {
+		this.countB = countB;
+	}
+
+	public String getPriceB() {
+		return priceB;
+	}
+
+	public void setPriceB(String priceB) {
+		this.priceB = priceB;
+	}
+
+	public String getCountC() {
+		return countC;
+	}
+
+	public void setCountC(String countC) {
+		this.countC = countC;
+	}
+
+	public String getPriceC() {
+		return priceC;
+	}
+
+	public void setPriceC(String priceC) {
+		this.priceC = priceC;
+	}
+
+	public String getCountD() {
+		return countD;
+	}
+
+	public void setCountD(String countD) {
+		this.countD = countD;
+	}
+
+	public String getPriceD() {
+		return priceD;
+	}
+
+	public void setPriceD(String priceD) {
+		this.priceD = priceD;
+	}
+
+	public String getCountE() {
+		return countE;
+	}
+
+	public void setCountE(String countE) {
+		this.countE = countE;
+	}
+
+	public String getPriceE() {
+		return priceE;
+	}
+
+	public void setPriceE(String priceE) {
+		this.priceE = priceE;
+	}
+
+	public String getPriceIncludes() {
+		return priceIncludes;
+	}
+
+	public void setPriceIncludes(String priceIncludes) {
+		this.priceIncludes = priceIncludes;
+	}
+
+	public String getShippingEstimate() {
+		return shippingEstimate;
+	}
+
+	public void setShippingEstimate(String shippingEstimate) {
+		this.shippingEstimate = shippingEstimate;
+	}
+
+	public String getImprintMethod() {
+		return imprintMethod;
+	}
+
+	public void setImprintMethod(String imprintMethod) {
+		this.imprintMethod = imprintMethod;
+	}
+
+	public String getImprintColor() {
+		return imprintColor;
+	}
+
+	public void setImprintColor(String imprintColor) {
+		this.imprintColor = imprintColor;
+	}
+
+	public String getFullColorProcess() {
+		return fullColorProcess;
+	}
+
+	public void setFullColorProcess(String fullColorProcess) {
+		this.fullColorProcess = fullColorProcess;
+	}
+
+	public String getPersonalization() {
+		return personalization;
+	}
+
+	public void setPersonalization(String personalization) {
+		this.personalization = personalization;
+	}
+
+	public String getSoldUnimprinted() {
+		return soldUnimprinted;
+	}
+
+	public void setSoldUnimprinted(String soldUnimprinted) {
+		this.soldUnimprinted = soldUnimprinted;
+	}
+
+	public String getProductProofs() {
+		return productProofs;
+	}
+
+	public void setProductProofs(String productProofs) {
+		this.productProofs = productProofs;
+	}
+
+	public String getProductionTime() {
+		return productionTime;
+	}
+
+	public void setProductionTime(String productionTime) {
+		this.productionTime = productionTime;
+	}
+
+	public String getRushService() {
+		return rushService;
+	}
+
+	public void setRushService(String rushService) {
+		this.rushService = rushService;
+	}
+
+	public String getFobPoint() {
+		return fobPoint;
+	}
+
+	public void setFobPoint(String fobPoint) {
+		this.fobPoint = fobPoint;
+	}
+
+	public String getProductWeight() {
+		return productWeight;
+	}
+
+	public void setProductWeight(String productWeight) {
+		this.productWeight = productWeight;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
 	}
     
 }

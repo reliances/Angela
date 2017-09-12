@@ -31,6 +31,30 @@
 	    <result column="last_update" property="lastUpdate" jdbcType="VARCHAR" />
 	    <result column="product_status" property="productStatus" jdbcType="INTEGER" />
 	    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+	    
+	    <result column="count_A" property="countA" jdbcType="VARCHAR" />
+	    <result column="count_B" property="countB" jdbcType="VARCHAR" />
+	    <result column="count_C" property="countC" jdbcType="VARCHAR" />
+	    <result column="count_D" property="countD" jdbcType="VARCHAR" />
+	    <result column="count_E" property="countE" jdbcType="VARCHAR" />
+	    <result column="price_A" property="priceA" jdbcType="VARCHAR" />
+	    <result column="price_B" property="priceB" jdbcType="VARCHAR" />
+	    <result column="price_C" property="priceC" jdbcType="VARCHAR" />
+	    <result column="price_D" property="priceD" jdbcType="VARCHAR" />
+	    <result column="price_E" property="priceE" jdbcType="VARCHAR" />
+	    <result column="price_includes" property="priceIncludes" jdbcType="VARCHAR" />
+	    <result column="shipping_estimate" property="shippingEstimate" jdbcType="VARCHAR" />
+	    <result column="imprint_method" property="imprintMethod" jdbcType="VARCHAR" />
+	    <result column="imprint_color" property="imprintColor" jdbcType="VARCHAR" />
+	    <result column="fullColor_process" property="fullColorProcess" jdbcType="VARCHAR" />
+	    <result column="personalization" property="personalization" jdbcType="VARCHAR" />
+	    <result column="sold_unimprinted" property="soldUnimprinted" jdbcType="VARCHAR" />
+	    <result column="product_proofs" property="productProofs" jdbcType="VARCHAR" />
+	    <result column="production_time" property="productionTime" jdbcType="VARCHAR" />
+	    <result column="rush_service" property="rushService" jdbcType="VARCHAR" />
+	    <result column="fob_point" property="fobPoint" jdbcType="VARCHAR" />
+	    <result column="product_weight" property="productWeight" jdbcType="VARCHAR" />
+	    <result column="packaging" property="packaging" jdbcType="VARCHAR" />
 	</resultMap>
  
 	<!-- SQL语句段 -->
@@ -38,10 +62,13 @@
 	  id, brief, category_id ,click_count, create_date, create_user, is_delete, 
 	  is_hot, is_on_sale, last_update, market_price, material, pro_tag, product_area, 
 	  product_color, product_details, product_name, product_price, product_sn, 
-	  product_status, product_unit, sell_count, size_l,size_w,size_h, sort_order, stock
+	  product_status, product_unit, sell_count, size_l,size_w,size_h, sort_order, stock,
+	  count_A,count_B,count_C,count_D,count_E,price_A,price_B,price_C,price_D,price_E,price_includes,
+	  shipping_estimate,imprint_method,imprint_color,fullColor_process,personalization,sold_unimprinted,
+	  product_proofs,production_time,rush_service,fob_point,product_weight,packaging
 	</sql>
 	
-	<!-- 添加类别 -->
+	<!-- 添加商品 -->
 	<insert id="insertProduct" parameterType="com.web.app.entity.Product">
 		insert into t_product(
 		   id,
@@ -70,7 +97,30 @@
 		   size_l,
 		   size_w,
 		   size_h,
-		   stock)
+		   stock,
+		   count_A,
+		   count_B,
+		   count_C,
+		   count_D,
+		   count_E,
+		   price_A,
+		   price_B,
+		   price_C,
+		   price_D,
+		   price_E,
+		   price_includes,
+		   shipping_estimate,
+		   imprint_method,
+		   imprint_color,
+		   fullColor_process,
+		   personalization,
+		   sold_unimprinted,
+		   product_proofs,
+		   production_time,
+		   rush_service,
+		   fob_point,
+		   product_weight,
+		   packaging)
 		values(
 		   #{id},
 		   #{brief},
@@ -98,7 +148,30 @@
 		   #{sizeL},
 		   #{sizeW},
 		   #{sizeH},
-		   #{stock})
+		   #{stock},
+		   #{countA},
+		   #{countB},
+		   #{countC},
+		   #{countD},
+		   #{countE},
+		   #{priceA},
+		   #{priceB},
+		   #{priceC},
+		   #{priceD},
+		   #{priceE},
+		   #{priceIncludes},
+		   #{shippingEstimate},
+		   #{imprintMethod},
+		   #{imprintColor},
+		   #{fullColorProcess},
+		   #{personalization},
+		   #{soldUnimprinted},
+		   #{productProofs},
+		   #{productionTime},
+		   #{rushService},
+		   #{fobPoint},
+		   #{productWeight},
+		   #{packaging})
 	</insert>
 	
 	<!-- 查询所产品 -->
@@ -222,8 +295,79 @@
 	        size_h = #{sizeH, jdbcType=INTEGER},
 	      </if>
 		  <if test="stock != null">
-	        stock = #{stock, jdbcType=INTEGER}
+	        stock = #{stock, jdbcType=INTEGER},
 	      </if>
+	   
+	      <if test="countA != null">
+	        count_A = #{countA, jdbcType=VARCHAR},
+	      </if>
+	      <if test="countB != null">
+	        count_B = #{countB, jdbcType=VARCHAR},
+	      </if>
+	      <if test="countC != null">
+	        count_C = #{countC, jdbcType=VARCHAR},
+	      </if>
+	      <if test="countD != null">
+	        count_D = #{countD, jdbcType=VARCHAR},
+	      </if>
+	      <if test="countE != null">
+	        count_E = #{countE, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priceA != null">
+	        price_A = #{priceA, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priceB != null">
+	        price_B = #{priceB, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priceC != null">
+	        price_C = #{priceC, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priceD != null">
+	        price_D = #{priceD, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priceE != null">
+	        price_E = #{priceE, jdbcType=VARCHAR},
+	      </if>
+	      <if test="priceIncludes != null">
+	        price_includes = #{priceIncludes, jdbcType=VARCHAR},
+	      </if>
+	      <if test="shippingEstimate != null">
+	        shipping_estimate = #{shippingEstimate, jdbcType=VARCHAR},
+	      </if>
+	      <if test="imprintMethod != null">
+	        imprint_method = #{imprintMethod, jdbcType=VARCHAR},
+	      </if>
+	      <if test="imprintColor != null">
+	        imprint_color = #{imprintColor, jdbcType=VARCHAR},
+	      </if>
+	      <if test="fullColorProcess != null">
+	        fullColor_process = #{fullColorProcess, jdbcType=VARCHAR},
+	      </if>
+	      <if test="personalization != null">
+	        personalization = #{personalization, jdbcType=VARCHAR},
+	      </if>
+	      <if test="soldUnimprinted != null">
+	        sold_unimprinted = #{soldUnimprinted, jdbcType=VARCHAR},
+	      </if>
+	      <if test="productProofs != null">
+	        product_proofs = #{productProofs, jdbcType=VARCHAR},
+	      </if>
+	      <if test="productionTime != null">
+	        production_time = #{productionTime, jdbcType=VARCHAR},
+	      </if>
+	      <if test="rushService != null">
+	        rush_service = #{rushService, jdbcType=VARCHAR},
+	      </if>
+	      <if test="fobPoint != null">
+	        fob_point = #{fobPoint, jdbcType=VARCHAR},
+	      </if>
+	      <if test="productWeight != null">
+	        product_weight = #{productWeight, jdbcType=VARCHAR},
+	      </if>
+	      <if test="packaging != null">
+	        packaging = #{packaging, jdbcType=VARCHAR}
+	      </if>
+		   
 	    </set>
 	    where id = #{id, jdbcType=VARCHAR} and is_delete = 0
 	</update>

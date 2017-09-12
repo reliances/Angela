@@ -43,6 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    .form-horizontal .conts-3[type=text]{
 	        width: 24%;
 	    }
+	    .form-horizontal .conts-4[type=text]{
+	        width: 6.6%;
+	    }
 	    .w82 {
 		    width: 81.2%;
 		}
@@ -121,8 +124,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <input type="text" placeholder="This is a placeholder...">
                             </div>
                         </div> -->
-                       <div class="control-group">
-                            <label class="control-label"> 市场价：</label>
+                        <div class="control-group">
+                            <label class="control-label"> 市场价格：</label>
                             <div class="controls">
                                 <input type="text" name="marketPrice" placeholder="市场价格">
                             </div>
@@ -131,6 +134,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label"> 本店售价：</label>
                             <div class="controls">
                                 <input type="text" name="productPrice" placeholder="实际售价">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> 批发价格：</label>
+                            <div class="controls controls-flex">
+                                <input type="text" name="countA" class="conts-4" placeholder="批发数量">:<input type="text" name="priceA" class="conts-4" placeholder="价格">
+                                <input type="text" name="countB" class="conts-4" placeholder="批发数量">:<input type="text" name="priceB" class="conts-4" placeholder="价格">
+                                <input type="text" name="countC" class="conts-4" placeholder="批发数量">:<input type="text" name="priceC" class="conts-4" placeholder="价格">
+                                <input type="text" name="countD" class="conts-4" placeholder="批发数量">:<input type="text" name="priceD" class="conts-4" placeholder="价格">
+                                <input type="text" name="countE" class="conts-4" placeholder="批发数量">:<input type="text" name="priceE" class="conts-4" placeholder="价格">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> 价格包含：</label>
+                            <div class="controls">
+                                <input type="text" name="priceIncludes" placeholder="价格包含的具体内容,可以为空">
                             </div>
                         </div>
                         <div class="control-group">
@@ -219,13 +238,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 		<label><input type="checkbox" name="proTag" value="${dic.dicId }"/>${dic.dicVal}</label>
 	                              	</c:if>
                               	</c:forEach>
-                            	<%-- <select class="w82" name="proTag">
-	                                <c:forEach items="${dictionary}" var="dic">
-	                                	<c:if test="${dic.dicKey == 'product_tag' }">
-		                              		<option value="${dic.dicId}">${dic.dicVal}</option>
-		                              	</c:if>
-	                              	</c:forEach>
-                                </select> --%>
                             </div>
                         </div>
                         <div class="control-group">
@@ -236,12 +248,82 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                              高&nbsp;<input type="text" name="sizeH" class="conts-3" placeholder="高度">
                             </div>
                         </div>
-                        <!-- <div class="control-group">
-                            <label class="control-label">卖出数量</label>
+                        <div class="control-group">
+                            <label class="control-label">Shipping Estimate：</label>
                             <div class="controls">
-                                <input type="text" name="sellCount" placeholder="卖出数量">
+                                <input type="text" name="shippingEstimate">
                             </div>
-                        </div> -->
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Imprint Method：</label>
+                            <div class="controls">
+                                <input type="text" name="imprintMethod">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Imprint Color：</label>
+                            <div class="controls">
+                                <input type="text" name="imprintColor">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Full Color Process：</label>
+                            <div class="controls">
+                                <input type="text" name="fullColorProcess">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Personalization：</label>
+                            <div class="controls">
+                                <input type="text" name="personalization">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Sold Unimprinted：</label>
+                            <div class="controls">
+                                <input type="text" name="soldUnimprinted">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Artwork & Proofs：</label>
+                            <div class="controls controls-label">
+                            	<c:forEach items="${dictionary}" var="dic">
+                                	<c:if test="${dic.dicKey eq 'product_proofs' }">
+                                		<label><input type="checkbox" name="productProofs" value="${dic.dicId }"/>${dic.dicVal}</label>
+	                              	</c:if>
+                              	</c:forEach>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Production Time：</label>
+                            <div class="controls">
+                                <input type="text" name="productionTime">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Rush Service：</label>
+                            <div class="controls">
+                                <input type="text" name="rushService">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">FOB Point：</label>
+                            <div class="controls">
+                                <input type="text" name="fobPoint">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Shipping Weight：</label>
+                            <div class="controls">
+                                <input type="text" name="productWeight">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Packaging：</label>
+                            <div class="controls">
+                                <input type="text" name="packaging">
+                            </div>
+                        </div>
                         <!-- <div class="control-group">
                             <label class="control-label">创建者</label>
                             <div class="controls">
