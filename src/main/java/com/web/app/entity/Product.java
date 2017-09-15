@@ -60,6 +60,7 @@ public class Product implements Serializable{
 	private String countE;
 	private String priceE;
 	private String priceIncludes;
+	private String detailColor;
 	private String shippingEstimate;
 	private String imprintMethod;
 	private String imprintColor;
@@ -140,6 +141,14 @@ public class Product implements Serializable{
 
 	public String getProductDetails() {
 		return productDetails;
+	}
+
+	public String getDetailColor() {
+		return detailColor;
+	}
+
+	public void setDetailColor(String detailColor) {
+		this.detailColor = detailColor;
 	}
 
 	public void setProductDetails(String productDetails) {

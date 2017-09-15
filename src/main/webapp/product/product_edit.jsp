@@ -245,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </select>
                             </div>
                         </div>
-                        <div class="control-group">
+                        <%-- <div class="control-group">
                         	<label class="control-label"> 材质：</label>
                             <div class="controls" class="w82">
                                 <select class="w82" name="material">
@@ -255,6 +255,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                              	</c:if>
 	                              	</c:forEach>
                                 </select>
+                            </div>
+                        </div> --%>
+                        <div class="control-group">
+                            <label class="control-label"> 材质：</label>
+                            <div class="controls controls-label">
+                                <c:forEach items="${dictionary}" var="dic">
+                                	<c:if test="${dic.dicKey eq 'product_material' }">
+                                		<label><input type="checkbox" name="material" value="${dic.dicId }" <c:if test="${fn:contains(product.material , dic.dicId)}">checked</c:if>/>${dic.dicVal}</label>
+	                              	</c:if>
+                              	</c:forEach>
                             </div>
                         </div>
                         <div class="control-group">
@@ -287,6 +297,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label">Shipping Estimate：</label>
                             <div class="controls">
                                 <input type="text" name="shippingEstimate" value="${product.shippingEstimate}">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> Detail Color：</label>
+                            <div class="controls">
+                                <input type="text" name="detailColor" value="${product.detailColor}">
                             </div>
                         </div>
                         <div class="control-group">

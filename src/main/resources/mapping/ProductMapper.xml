@@ -44,6 +44,7 @@
 	    <result column="price_E" property="priceE" jdbcType="VARCHAR" />
 	    <result column="price_includes" property="priceIncludes" jdbcType="VARCHAR" />
 	    <result column="shipping_estimate" property="shippingEstimate" jdbcType="VARCHAR" />
+	    <result column="detail_color" property="detailColor" jdbcType="VARCHAR" />
 	    <result column="imprint_method" property="imprintMethod" jdbcType="VARCHAR" />
 	    <result column="imprint_color" property="imprintColor" jdbcType="VARCHAR" />
 	    <result column="imprint_size" property="imprintSize" jdbcType="VARCHAR" />
@@ -65,7 +66,7 @@
 	  product_color, product_details, product_name, product_price, product_sn, 
 	  product_status, product_unit, sell_count, size_l,size_w,size_h, sort_order, stock,
 	  count_A,count_B,count_C,count_D,count_E,price_A,price_B,price_C,price_D,price_E,price_includes,
-	  shipping_estimate,imprint_method,imprint_color,imprint_size,fullColor_process,personalization,sold_unimprinted,
+	  shipping_estimate,detail_color,imprint_method,imprint_color,imprint_size,fullColor_process,personalization,sold_unimprinted,
 	  product_proofs,production_time,rush_service,fob_point,product_weight,packaging
 	</sql>
 	
@@ -111,6 +112,7 @@
 		   price_E,
 		   price_includes,
 		   shipping_estimate,
+		   detail_color,
 		   imprint_method,
 		   imprint_color,
 		   imprint_size,
@@ -163,6 +165,7 @@
 		   #{priceE},
 		   #{priceIncludes},
 		   #{shippingEstimate},
+		   #{detailColor},
 		   #{imprintMethod},
 		   #{imprintColor},
 		   #{imprintSize},
@@ -336,6 +339,9 @@
 	      </if>
 	      <if test="shippingEstimate != null">
 	        shipping_estimate = #{shippingEstimate, jdbcType=VARCHAR},
+	      </if>
+	      <if test="detailColor != null">
+	        detail_color = #{detailColor, jdbcType=VARCHAR},
 	      </if>
 	      <if test="imprintMethod != null">
 	        imprint_method = #{imprintMethod, jdbcType=VARCHAR},
