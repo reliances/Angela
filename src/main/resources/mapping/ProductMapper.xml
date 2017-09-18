@@ -14,7 +14,8 @@
 		<result column="brief" property="brief" jdbcType="VARCHAR" />
 		<result column="product_details" property="productDetails" jdbcType="VARCHAR" />
 		<result column="is_on_sale" property="isOnSale" jdbcType="INTEGER" />
-		<result column="is_not" property="isHot" jdbcType="INTEGER" />
+		<result column="is_hot" property="isHot" jdbcType="INTEGER" />
+		<result column="weekly_discount" property="weeklyDiscount" jdbcType="INTEGER" />
 		<result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
 		<result column="product_unit" property="productUnit" jdbcType="VARCHAR" />
 		<result column="stock" property="stock" jdbcType="INTEGER" />
@@ -62,7 +63,7 @@
 	<!-- SQL语句段 -->
 	<sql id="base_column_list" >
 	  id, brief, category_id ,click_count, create_date, create_user, is_delete, 
-	  is_hot, is_on_sale, last_update, market_price, material, pro_tag, product_area, 
+	  is_hot, is_on_sale,weekly_discount, last_update, market_price, material, pro_tag, product_area, 
 	  product_color, product_details, product_name, product_price, product_sn, 
 	  product_status, product_unit, sell_count, size_l,size_w,size_h, sort_order, stock,
 	  count_A,count_B,count_C,count_D,count_E,price_A,price_B,price_C,price_D,price_E,price_includes,
@@ -82,6 +83,7 @@
 		   is_delete,
 		   is_hot,
 		   is_on_sale,
+		   weekly_discount,
 		   last_update,
 		   market_price,
 		   material,
@@ -135,6 +137,7 @@
 		   #{isDelete},
 		   #{isHot},
 		   #{isOnSale},
+		   #{weeklyDiscount},
 		   #{lastUpdate},
 		   #{marketPrice},
 		   #{material},
@@ -191,8 +194,8 @@
         <if test="isHot != null">
         	and is_hot = 0
         </if>
-        <if test="sellCount != null">
-        	ORDER BY sell_count DESC
+        <if test="weeklyDiscount != null">
+        	and weekly_discount = 0
         </if>
         <if test="priceUp != null">
         	ORDER BY product_price ASC
@@ -248,6 +251,9 @@
 	      </if>
 	      <if test="isOnSale != null">
 	        is_on_sale = #{isOnSale, jdbcType=INTEGER},
+	      </if>
+	      <if test="weeklyDiscount != null">
+	        weekly_discount = #{weeklyDiscount, jdbcType=INTEGER},
 	      </if>
 	      <if test="lastUpdate != null">
 	        last_update = #{lastUpdate, jdbcType=VARCHAR},

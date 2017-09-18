@@ -67,8 +67,8 @@ public class ProductRestController extends BaseController {
 				map.put("createDate", "createDate");
 			}else if(orderBy.endsWith("isHot")){
 				map.put("isHot", "isHot");
-			}else if(orderBy.endsWith("sellCount")){
-				map.put("sellCount", "sellCount");
+			}else if(orderBy.endsWith("weeklyDiscount")){
+				map.put("weeklyDiscount", "weeklyDiscount");
 			}else if(orderBy.endsWith("priceUp")){
 				map.put("priceUp", "priceUp");
 			}else if(orderBy.endsWith("priceDown")){

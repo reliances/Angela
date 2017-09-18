@@ -198,6 +198,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label"> Weekly Discount：</label>
+                            <div class="controls" class="w82">
+                                <select class="w82" name="weeklyDiscount">
+                                    <option value="0" <c:if test="${product.weeklyDiscount eq 0}">selected</c:if>>是</option>
+                                    <option value="1" <c:if test="${product.weeklyDiscount eq 1}">selected</c:if>>否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">排序号：</label>
                             <div class="controls">
                                 <input type="text" name="sortOrder" placeholder="排序号" value="${product.sortOrder}">

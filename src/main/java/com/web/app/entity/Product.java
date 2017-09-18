@@ -25,6 +25,7 @@ public class Product implements Serializable{
     private Integer isOnSale;
     private Integer isHot;
     private Integer sortOrder;
+    private Integer weeklyDiscount;
     private String productUnit;
     private Integer stock;
     private String productColor;
@@ -113,6 +114,14 @@ public class Product implements Serializable{
 
 	public void setClickCount(Integer clickCount) {
 		this.clickCount = clickCount;
+	}
+
+	public Integer getWeeklyDiscount() {
+		return weeklyDiscount;
+	}
+
+	public void setWeeklyDiscount(Integer weeklyDiscount) {
+		this.weeklyDiscount = weeklyDiscount;
 	}
 
 	public Double getMarketPrice() {
