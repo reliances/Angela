@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           <th>用户名称</th>
                           <th>E-Mail</th>
                           <th>PhoneNo</th>
-                          <th>ASI</th>
+                          <th>Address</th>
                           <th>FAX</th>
                           <th>订单时间</th>
                           <th>订单状态</th>
@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </tbody>
                 </table>
                 <div>
-                	<form method="post" id="requestForm" action="<%=path%>/order/getAllCase">
+                	<form method="post" id="requestForm" action="<%=path%>/order/getAllOrder">
                 		<input type="hidden" value="2" name="sub"/>
                 	</form>
 		            <page:createPager pageSize="${pageSize}" totalPage="${totalPage}" totalCount="${totalCount}" curPage="${pageNum}" formId="requestForm"/>

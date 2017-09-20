@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        </div>
                        <div class="span6">
                            <div class="control-group">
-                               <label class="control-label"> ASI：</label>
+                               <label class="control-label"> Address：</label>
                                <div class="controls">
                                    <input type="text" name="asi" value="${orderInfo.asi }" readonly="readonly">
                                </div>
