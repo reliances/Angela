@@ -66,7 +66,7 @@ public class CaseRestController extends BaseController {
 				List<Pictures> pic = picturesService.selectPicturesByProductId(caseDetail.getId());
 				caseDetail.setPictures(pic);
 			}
-			jsonObj.put("products",JSONObject.toJSON(caseDetail));
+			jsonObj.put("cases",JSONObject.toJSON(caseDetail));
 		}else{
 			jsonObj.put("message", "case id  not be null");
 		}
