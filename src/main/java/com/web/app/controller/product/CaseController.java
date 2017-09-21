@@ -169,7 +169,7 @@ public class CaseController extends BaseController {
 	
 	//修改案例
 	@RequestMapping("/updateCase")
-	public String updateCase(Model model, CaseInfo caseInfo, @RequestParam(value="myFiles",required=false) MultipartFile[] myFiles, HttpServletRequest request) throws IOException{
+	public String updateCase(CaseInfo caseInfo, @RequestParam(value="myFiles",required=false) MultipartFile[] myFiles, HttpServletRequest request) throws IOException{
 		String imgIds = request.getParameter("imgIds");
 		if (imgIds != "") {
 			String[] imageid = imgIds.split(",");

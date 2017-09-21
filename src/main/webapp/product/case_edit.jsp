@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="control-group">
                             <label class="control-label"><span class="c-red">*</span>详细描述</label>
                             <div class="controls">
-                            	<script id="editor" name="productDetails" type="text/plain" style="width:90%; height:300px;">${caseInfo.description}</script>
+                            	<script id="editor" name="description" type="text/plain" style="width:90%; height:300px;">${caseInfo.description}</script>
                             </div>
                         </div>
                         <div class="control-group">
