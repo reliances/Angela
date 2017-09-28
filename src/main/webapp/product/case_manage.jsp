@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ taglib prefix="page" uri="../WEB-INF/tld/pager.tld"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           <th>案例标题</th>
                           <th>案例图片</th>
                           <th>简短描述</th>
-                          <th>详细描述</th>
+                          <!-- <th>详细描述</th> -->
                           <th>备注</th>
                           <th>创建时间</th>
                           <th class="center">操作</th>
@@ -144,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 	</ul>
 							  </td>
 	                          <td>${ls.brief}</td>
-	                          <td>${ls.description}</td>
+	                          <%-- <td>${ls.description}</td> --%>
 	                          <td>${ls.remarks}</td>
 	                          <td>${ls.createDate}</td>
 	                          <td>
