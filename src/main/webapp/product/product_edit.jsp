@@ -132,17 +132,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="control-label">商品SN码：</label>
                             <div class="controls">
                                 <input type="text" name="productSn" placeholder="商品的条形码" value="${product.productSn}">
+                                <input type="hidden" id="cateIds" value="${product.categoryId}">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"> 商品分类：</label>
-                            <div class="controls">
-                                <select class="w82" name="categoryId">
-	                                <c:forEach items="${category}" var="cate">
-		                              	<option value="${cate.id}">${cate.cateName}</option>
-		                              	<option value="${cate.id}" <c:if test="${cate.id eq product.categoryId}">selected</c:if>>${cate.cateName}</option>
+                            <div class="controls controls-label">
+                                <%-- <select class="w82" name="categoryId" class="selectpicker show-tick form-control" multiple data-live-search="true">
+			                        <c:forEach items="${category}" var="cate">
+		                              	<option value="${cate.id}" <c:if test="${fn:contains(product.categoryId, cate.id)}">selected</c:if>>${cate.cateName}</option>
 	                              	</c:forEach>
-                                </select>
+                                </select> --%>
+                                <c:forEach items="${category}" var="cate">
+                                	<label><input type="checkbox" name="categoryId" value="${cate.id }" <c:if test="${fn:contains(product.categoryId, cate.id)}">checked</c:if>/>${cate.cateName}</label>
+                              	</c:forEach>
                             </div>
                         </div>
                         <!-- <div class="control-group">

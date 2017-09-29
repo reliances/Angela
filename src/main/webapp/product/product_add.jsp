@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <jsp:include page="../header.jsp" flush="true"/>
     <script type="text/javascript" src="<%=path%>/js/ymPrompt.js" ></script>
-    
     <link type="text/css" href="<%=path%>/css/webuploader/0.1.5/webuploader.css" rel="stylesheet" />
 	<link type="text/css" href="<%=path%>/css/ymPrompt.css" title="www"  rel="stylesheet" >
 	<script type="text/javascript" src="<%=path%>/css/ueditor/ueditor.config.js"></script>
@@ -110,12 +109,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="control-group">
                             <label class="control-label"> 商品分类：</label>
-                            <div class="controls">
-                                <select class="w82" name="categoryId">
+                            <div class="controls controls-label">
+                                <%-- <select class="w82" id="categoryId" name="categoryId" class="selectpicker show-tick form-control" multiple data-live-search="true">
 	                                <c:forEach items="${category}" var="cate">
 		                              	<option value="${cate.id}">${cate.cateName}</option>
 	                              	</c:forEach>
-                                </select>
+                                </select> --%>
+                                <c:forEach items="${category}" var="cate">
+	                              	<label><input type="checkbox" name="proTag" value="${cate.id }"/>${cate.cateName}</label>
+                              	</c:forEach>
                             </div>
                         </div>
                         <!-- <div class="control-group">
