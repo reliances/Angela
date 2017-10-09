@@ -23,7 +23,7 @@ body {
 }
 
 #header h1 {
-    background: url("../img/logot.png") no-repeat;
+    /* background: url("../img/logot.png") no-repeat; */
     left: 30px;
     overflow: hidden;
     padding-left: 110px;

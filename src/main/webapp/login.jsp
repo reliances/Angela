@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
 <style type="text/css">
-#header h1{padding-left:10px; background: url("img/logo.png") no-repeat; }
+#header h1{padding-left:10px;}
 </style>
 
 </head>
