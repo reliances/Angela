@@ -70,7 +70,7 @@
 	<select id="selectPicturesByProductId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select 
         <include refid="base_column_list" />
-         from t_pictures where product_id = #{productId} and is_delete = 0
+         from t_pictures where product_id = #{productId} and is_delete = 0 ORDER BY create_date DESC
     </select>
 	
 	<!-- 根据ID删除 -->

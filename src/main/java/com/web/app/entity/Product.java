@@ -33,9 +33,9 @@ public class Product implements Serializable{
     private String material;
     private String proTag;
     private String proTagName;
-    private Integer sizeL;
-    private Integer sizeW;
-    private Integer sizeH;
+    private String sizeL;
+    private String sizeW;
+    private String sizeH;
     private Integer sellCount;
     private String createUser;
     private String createDate;
@@ -236,27 +236,27 @@ public class Product implements Serializable{
 		this.proTag = proTag;
 	}
 
-	public Integer getSizeL() {
+	public String getSizeL() {
 		return sizeL;
 	}
 
-	public void setSizeL(Integer sizeL) {
+	public void setSizeL(String sizeL) {
 		this.sizeL = sizeL;
 	}
 
-	public Integer getSizeW() {
+	public String getSizeW() {
 		return sizeW;
 	}
 
-	public void setSizeW(Integer sizeW) {
+	public void setSizeW(String sizeW) {
 		this.sizeW = sizeW;
 	}
 
-	public Integer getSizeH() {
+	public String getSizeH() {
 		return sizeH;
 	}
 
-	public void setSizeH(Integer sizeH) {
+	public void setSizeH(String sizeH) {
 		this.sizeH = sizeH;
 	}
 

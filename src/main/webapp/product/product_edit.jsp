@@ -537,15 +537,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				sizeL:{
 					required:false,
-					digits:true
+					digits:false
 				},
 				sizeW:{
 					required:false,
-					digits:true
+					digits:false
 				},
 				sizeH:{
 					required:false,
-					digits:true
+					digits:false
 				},
 				brief:{
 					required:false,
