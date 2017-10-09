@@ -12,12 +12,12 @@
 <link type="text/css" title="www"  rel="stylesheet" href="${root}/css/unicorn.grey.css" class="skin-color" />
 <link type="text/css" title="www"  rel="stylesheet" href="${root}/css/jquery.gritter.css" />	
 <link type="text/css" title="www"  rel="stylesheet" href="${root}/css/bootstrap-datepicker.css" />
-<link type="text/css" title="www"  rel="stylesheet" href="${root}/css/bootstrap-select.css" />
+<%-- <link type="text/css" title="www"  rel="stylesheet" href="${root}/css/bootstrap-select.css" /> --%>
 
 <script type="text/javascript" src="${root}/js/jquery.min.js"></script>
 <script type="text/javascript" src="${root}/js/jquery.ui.custom.js"></script>
 <script type="text/javascript" src="${root}/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${root}/js/bootstrap-select.js"></script>
+<%-- <script type="text/javascript" src="${root}/js/bootstrap-select.js"></script> --%>
 <script type="text/javascript" src="${root}/js/jquery.uniform.js"></script>
 <script type="text/javascript" src="${root}/js/jquery.validate.js"></script>
 <script type="text/javascript" src="${root}/js/messages_zh.js"></script>
