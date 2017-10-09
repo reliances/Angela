@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                              	</c:forEach>
                                 </select> --%>
                                 <c:forEach items="${category}" var="cate">
-	                              	<label><input type="checkbox" name="proTag" value="${cate.id }"/>${cate.cateName}</label>
+	                              	<label><input type="checkbox" name="categoryId" value="${cate.id }"/>${cate.cateName}</label>
                               	</c:forEach>
                             </div>
                         </div>
