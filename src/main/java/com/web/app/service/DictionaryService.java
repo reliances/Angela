@@ -33,7 +33,7 @@ public class DictionaryService {
 
 	public String getDictionaryByIds(String[] dicIds) {
 		List<Dictionary>  dicList = dictionaryMapper.getDictionaryByIds(dicIds);
-		if(null != dicList){
+		if(null != dicList && dicList.size() !=0){
 			String dicName = "";
 			for (int i = 0; i < dicList.size(); i++) {
 				dicName = dicName + dicList.get(i).getDicVal()+",";

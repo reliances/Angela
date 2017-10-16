@@ -204,7 +204,7 @@
         	ORDER BY product_price DESC
         </if>
         <if test="categoryId != null">
-        	and category_id = #{categoryId}
+        	and category_id like '%'||#{categoryId}||'%'
         </if>
         <if test="productColor != null">
         	and product_color = #{productColor}
